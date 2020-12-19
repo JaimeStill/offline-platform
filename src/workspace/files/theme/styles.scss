@@ -1,0 +1,170 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+@mixin style-theme($theme) {
+  $p: map-get($theme, primary);
+  $a: map-get($theme, accent);
+  $w: map-get($theme, warn);
+  $b: map-get($theme, background);
+  $f: map-get($theme, foreground);
+
+  $primary: mat-color($p);
+  $accent: mat-color($a);
+  $warn: mat-color($w);
+  $background: mat-color($b, background);
+  $background-card: mat-color($b, card);
+  $foreground: mat-color($f, text);
+  $divider: mat-color($f, divider);
+  $app-bar: mat-color($b, app-bar);
+
+  $primary-contrast: mat-color($p, default-contrast);
+  $accent-contrast: mat-color($a, default-contrast);
+  $warn-contrast: mat-color($w, default-contrast);
+
+  .background.primary {
+    background-color: $primary!important;
+    color: $primary-contrast!important;
+  }
+
+  .background.accent {
+    background-color: $accent!important;
+    color: $accent-contrast!important;
+  }
+
+  .background.warn {
+    background-color: $warn!important;
+    color: $warn-contrast!important;
+  }
+
+  .background.default,
+  .background.card {
+    background-color: $background-card!important;
+  }
+
+  .background.app-bar {
+    background-color: $app-bar!important;
+  }
+
+  .background.stacked {
+    background-color: $background!important;
+  }
+
+  .background.inverted {
+    background-color: $foreground!important;
+    color: $background!important;
+  }
+
+  .card-outline {
+    border: 1px solid $foreground!important;
+  }
+
+  .card-outline-divider {
+    border: 1px solid $divider!important;
+  }
+
+  .card-outline-primary {
+    border: 1px solid $primary!important;
+  }
+
+  .card-outline-accent {
+    border: 1px solid $accent!important;
+  }
+
+  .card-outline-warn {
+    border: 1px solid $warn!important;
+  }
+
+  .color.text {
+    color: $foreground!important;
+  }
+
+  .color.primary {
+    color: $primary!important;
+  }
+
+  .color.accent {
+    color: $accent!important;
+  }
+
+  .color.warn {
+    color: $warn!important;
+  }
+
+  code.primary,
+  a {
+    color: $primary;
+  }
+
+  code.accent {
+    color: $accent;
+  }
+
+  code.warn,
+  a:visited {
+    color: $warn;
+  }
+
+  a.mat-list-item,
+  a.mat-tab-link,
+  a.mat-list-item:visited,
+  a.mat-tab-link:visited {
+    color: $foreground;
+  }
+
+  a.mat-list-item.active,
+  a.mat-tab-link.active {
+    color: $primary;
+  }
+
+  mat-paginator.mat-paginator {
+    background-color: $background;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
+.overflow {
+  overflow: auto;
+}
+
+.overflow-x {
+  overflow-x: auto;
+}
+
+.overflow-y {
+  overflow-y: auto;
+}
+
+.no-resize {
+  resize: none!important;
+}
+
+.resize {
+  resize: both!important;
+}
+
+.resize-horizontal {
+  resize: horizontal!important;
+}
+
+.resize-vertical {
+  resize: vertical!important;
+}
+
+.cursor-pointer {
+  cursor: pointer!important;
+}
+
+.cursor-default {
+  cursor: default!important;
+}
+
+.backdropped {
+  transition: backdrop-filter 100ms ease-in;
+}

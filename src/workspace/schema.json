@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "PlatformAngularWorkspace",
+  "title": "Platform Workspace Options Schema",
+  "type": "object",
+  "properties": {
+    "api": {
+      "description": "The api endpoint on the platform server.",
+      "type": "string",
+      "default": "api"
+    },
+    "clientRoot": {
+      "description": "The path where new projects will be created.",
+      "type": "string",
+      "default": "client"
+    },
+    "directory": {
+      "description": "The root directory of the workspace.",
+      "type": "string"
+    },
+    "library": {
+      "description": "The name of the workspace library",
+      "type": "string",
+      "default": "core"
+    },
+    "name": {
+      "description": "The name of the workspace.",
+      "type": "string",
+      "format": "html-selector",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What is the name of this workspace?"
+    },
+    "packageManager": {
+      "description": "The package manager used to install dependencies.",
+      "type": "string",
+      "enum": ["npm", "yarn", "pnpm", "cnpm"],
+      "default": "yarn"
+    },
+    "server": {
+      "description": "The name of the platform server solution.",
+      "type": "string",
+      "x-prompt": "What is the name of the platform server solution?"
+    },
+    "serverPort": {
+      "description": "The debugging port for the platform server.",
+      "type": "number",
+      "default": 5000
+    },
+    "serverRoot": {
+      "description": "The path where the platform server is hosted.",
+      "type": "string",
+      "default": "server"
+    },
+    "skipDirectory": {
+      "description": "Whether to move the workspace into a directory. Uses name if the directory schema property is not specified.",
+      "type": "boolean",
+      "default": false
+    },
+    "skipInstall": {
+      "description": "Whether to skip node dependency installation.",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "name",
+    "server"
+  ]
+}

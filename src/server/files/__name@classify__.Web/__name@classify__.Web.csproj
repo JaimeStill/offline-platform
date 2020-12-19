@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\<%= classify(name) %>.Core\<%= classify(name) %>.Core.csproj" />
+    <ProjectReference Include="..\<%= classify(name) %>.Data\<%= classify(name) %>.Data.csproj" />
+    <ProjectReference Include="..\<%= classify(name) %>.Identity\<%= classify(name) %>.Identity.csproj" />
+    <ProjectReference Include="..\<%= classify(name) %>.Identity.Mock\<%= classify(name) %>.Identity.Mock.csproj" />
+    <ProjectReference Include="..\<%= classify(name) %>.Office\<%= classify(name) %>.Office.csproj" />
+    <ProjectReference Include="..\<%= classify(name) %>.Sql\<%= classify(name) %>.Sql.csproj" />
+  </ItemGroup>
+
+
+</Project>

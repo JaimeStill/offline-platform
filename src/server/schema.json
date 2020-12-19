@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "PlatformAngularServer",
+  "title": "Platform Server Options Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name of the server",
+      "type": "string",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What is the name of the server project?"
+    },
+    "directory": {
+      "description": "The root directory of the server project",
+      "type": "string",
+      "default": "server"
+    },
+    "port": {
+      "description": "The port to run the server on",
+      "type": "number",
+      "default": 5000
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

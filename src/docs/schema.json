@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "PlatformAngularDocs",
+  "title": "Platform Angular Documentation Schema",
+  "type": "object",
+  "description": "Generates a new Angular documentation app in the \"client \" subfolder of the workspace.",
+  "properties": {
+    "projectRoot": {
+      "description": "The root directory of the new app.",
+      "type": "string",
+      "visible": false
+    },
+    "api": {
+      "description": "The api endpoint on the platform server",
+      "type": "string",
+      "default": "api"
+    },
+    "library": {
+      "description": "The name of the workspace library.",
+      "type": "string",
+      "default": "core"
+    },
+    "name": {
+      "description": "The name of the documentation app.",
+      "type": "string",
+      "default": "docs"
+    },
+    "port": {
+      "description": "The port to serve the app under.",
+      "type": "number",
+      "default": 4000
+    },
+    "serverPort": {
+      "description": "The debugging port for the platform server",
+      "type": "number",
+      "default": 5000
+    },
+    "skipInstall": {
+      "description": "Skip installing dependency packages.",
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
