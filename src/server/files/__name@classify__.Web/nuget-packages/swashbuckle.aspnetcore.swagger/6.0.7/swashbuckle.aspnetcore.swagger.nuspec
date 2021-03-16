@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Swashbuckle.AspNetCore.Swagger</id>
+    <version>6.0.7</version>
+    <authors>Swashbuckle.AspNetCore.Swagger</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://github.com/domaindrivendev/Swashbuckle.AspNetCore</projectUrl>
+    <description>Middleware to expose Swagger JSON endpoints from APIs built on ASP.NET Core</description>
+    <tags>swagger documentation discovery help webapi aspnet aspnetcore</tags>
+    <repository type="git" url="https://github.com/domaindrivendev/Swashbuckle.AspNetCore.git" commit="d88a5df146f3c2460feadb3c3abed979b353f5ff" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.0">
+        <dependency id="Microsoft.OpenApi" version="1.2.3" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net5.0">
+        <dependency id="Microsoft.OpenApi" version="1.2.3" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.AspNetCore.Routing" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.OpenApi" version="1.2.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+      <group targetFramework="net5.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+</package>
