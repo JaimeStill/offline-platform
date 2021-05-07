@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 using <%= classify(name) %>.Core.Logging;
 
 namespace <%= classify(name) %>.Core.Extensions
@@ -15,6 +18,26 @@ namespace <%= classify(name) %>.Core.Extensions
     public static class CoreExtensions
     {
         private static readonly string urlPattern = "[^a-zA-Z0-9-.]";
+
+        public static string SerializeToJson<T>(
+            this T data,
+            ReferenceLoopHandling referenceLoopHandling = ReferenceLoopHandling.Ignore,
+            MetadataPropertyHandling metadataPropertyHandling = MetadataPropertyHandling.Ignore,
+            Formatting formatting = Formatting.Indented,
+            NullValueHandling nullValueHandling = NullValueHandling.Ignore
+        )
+        {
+            var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = referenceLoopHandling,
+                MetadataPropertyHandling = metadataPropertyHandling,
+                Formatting = formatting,
+                NullValueHandling = nullValueHandling,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            return JsonConvert.SerializeObject(data, settings);
+        }
 
         public static void EnsureDirectoryExists(this string path)
         {
