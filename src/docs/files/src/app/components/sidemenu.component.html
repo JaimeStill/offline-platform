@@ -16,8 +16,10 @@
           [disabled]="homeDisabled">
     <mat-icon>{{homeIcon}}</mat-icon>
   </button>
-  <button mat-icon-button (click)="theme.emit()">
-    <mat-icon [color]="isLight ? lightColor : darkColor">
+  <button mat-icon-button
+          (click)="theme.emit()">
+    <mat-icon class="color"
+              [ngClass]="isLight ? lightColor : darkColor">
       {{isLight ? lightIcon : darkIcon}}
     </mat-icon>
   </button>

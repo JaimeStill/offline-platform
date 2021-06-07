@@ -1,25 +1,38 @@
-@import '~@angular/material/theming';
-@include mat-core();
+@use 'sass:map';
+@use '~@angular/material' as mat;
 
-@mixin style-theme($theme) {
-  $p: map-get($theme, primary);
-  $a: map-get($theme, accent);
-  $w: map-get($theme, warn);
-  $b: map-get($theme, background);
-  $f: map-get($theme, foreground);
+@import "./glow.scss";
 
-  $primary: mat-color($p);
-  $accent: mat-color($a);
-  $warn: mat-color($w);
-  $background: mat-color($b, background);
-  $background-card: mat-color($b, card);
-  $foreground: mat-color($f, text);
-  $divider: mat-color($f, divider);
-  $app-bar: mat-color($b, app-bar);
+@mixin style-theme($theme, $success, $info, $warning) {
+  $config: mat.get-color-config($theme);
 
-  $primary-contrast: mat-color($p, default-contrast);
-  $accent-contrast: mat-color($a, default-contrast);
-  $warn-contrast: mat-color($w, default-contrast);
+  $p: map.get($config, primary);
+  $a: map.get($config, accent);
+  $w: map.get($config, warn);
+  $b: map.get($config, background);
+  $f: map.get($config, foreground);
+
+  $primary: mat.get-color-from-palette($p);
+  $primary-contrast: mat.get-color-from-palette($p, default-contrast);
+
+  $accent: mat.get-color-from-palette($a);
+  $accent-contrast: mat.get-color-from-palette($a, default-contrast);
+
+  $warn: mat.get-color-from-palette($w);
+  $warn-contrast: mat.get-color-from-palette($w, default-contrast);
+
+  $background: mat.get-color-from-palette($b, background);
+  $card: mat.get-color-from-palette($b, card);
+  $app-bar: mat.get-color-from-palette($b, app-bar);
+  $status-bar: mat.get-color-from-palette($b, status-bar);
+  $hover: mat.get-color-from-palette($b, hover);
+  $tooltip: mat.get-color-from-palette($b, tooltip);
+
+  $base: mat.get-color-from-palette($f, base);
+  $text: mat.get-color-from-palette($f, text);
+  $icon: mat.get-color-from-palette($f, icon);
+  $hint: mat.get-color-from-palette($f, hint);
+  $divider: mat.get-color-from-palette($f, divider);
 
   .background.primary {
     background-color: $primary!important;
@@ -36,9 +49,21 @@
     color: $warn-contrast!important;
   }
 
+  .background.success {
+    color: $success!important;
+  }
+
+  .background.info {
+    color: $info!important;
+  }
+
+  .background.warning {
+    color: $warning!important;
+  }
+
   .background.default,
   .background.card {
-    background-color: $background-card!important;
+    background-color: $card!important;
   }
 
   .background.app-bar {
@@ -50,12 +75,12 @@
   }
 
   .background.inverted {
-    background-color: $foreground!important;
+    background-color: $text!important;
     color: $background!important;
   }
 
   .card-outline {
-    border: 1px solid $foreground!important;
+    border: 1px solid $text!important;
   }
 
   .card-outline-divider {
@@ -74,8 +99,20 @@
     border: 1px solid $warn!important;
   }
 
+  .card-outline-success {
+    border: 1px solid $success!important;
+  }
+
+  .card-outline-info {
+    border: 1px solid $info!important;
+  }
+
+  .card-outline-warning {
+    border: 1px solid $warning!important;
+  }
+
   .color.text {
-    color: $foreground!important;
+    color: $text!important;
   }
 
   .color.primary {
@@ -88,6 +125,18 @@
 
   .color.warn {
     color: $warn!important;
+  }
+
+  .color.success {
+    color: $success!important;
+  }
+
+  .color.info {
+    color: $info!important;
+  }
+
+  .color.warning {
+    color: $warning!important;
   }
 
   code.primary,
@@ -108,7 +157,7 @@
   a.mat-tab-link,
   a.mat-list-item:visited,
   a.mat-tab-link:visited {
-    color: $foreground;
+    color: $text;
   }
 
   a.mat-list-item.active,
@@ -119,52 +168,6 @@
   mat-paginator.mat-paginator {
     background-color: $background;
   }
-}
 
-* {
-  box-sizing: border-box;
-}
-
-.pre-wrap {
-  white-space: pre-wrap;
-}
-
-.overflow {
-  overflow: auto;
-}
-
-.overflow-x {
-  overflow-x: auto;
-}
-
-.overflow-y {
-  overflow-y: auto;
-}
-
-.no-resize {
-  resize: none!important;
-}
-
-.resize {
-  resize: both!important;
-}
-
-.resize-horizontal {
-  resize: horizontal!important;
-}
-
-.resize-vertical {
-  resize: vertical!important;
-}
-
-.cursor-pointer {
-  cursor: pointer!important;
-}
-
-.cursor-default {
-  cursor: default!important;
-}
-
-.backdropped {
-  transition: backdrop-filter 100ms ease-in;
+  @include style-glow($primary, $accent, $warn, $success, $info, $warning);
 }

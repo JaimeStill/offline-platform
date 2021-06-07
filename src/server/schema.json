@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "PlatformAngularServer",
+  "$id": "PlatformAngularServer",
   "title": "Platform Server Options Schema",
   "type": "object",
   "properties": {

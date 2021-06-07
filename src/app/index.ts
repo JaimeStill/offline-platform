@@ -37,7 +37,7 @@ import { Schema } from './schema';
 
 function updatePackageJson(options: Schema) {
   return (host: Tree, context: SchematicContext) => {
-    addPackageJsonScript(host, `start:${options.name}`, `ng serve ${options.name}`);
+    addPackageJsonScript(host, `start:${options.name}`, `ng serve ${options.name} --configuration development`);
 
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask({ packageManager: 'yarn' }));
@@ -63,7 +63,7 @@ function addAppToWorkspaceFile(options: Schema, appDir: string): Rule {
 
   schematics['@schematics/angular:component'] = componentSchematicsOptions;
 
-  ['class', 'directive', 'guard', 'interceptor', 'module', 'pipe', 'service'].forEach((type) => {
+  ['class', 'directive', 'guard', 'interceptor', 'module', 'pipe', 'service', 'application'].forEach((type) => {
     if (!(`@schematics/angular:${type}` in schematics)) {
       schematics[`@schematics/angular:${type}`] = {};
     }
@@ -100,7 +100,6 @@ function addAppToWorkspaceFile(options: Schema, appDir: string): Rule {
           main: `${sourceRoot}/main.ts`,
           polyfills: `${sourceRoot}/polyfills.ts`,
           tsConfig: `${projectRoot}tsconfig.app.json`,
-          aot: true,
           assets: [
             `${sourceRoot}/favicon.ico`,
             `${sourceRoot}/assets`,
@@ -119,21 +118,23 @@ function addAppToWorkspaceFile(options: Schema, appDir: string): Rule {
         },
         configurations: {
           production: {
+            budgets,
             fileReplacements: [{
               replace: `${sourceRoot}/environments/environment.ts`,
               with: `${sourceRoot}/environments/environment.prod.ts`
             }],
-            optimization: true,
-            outputHashing: 'all',
-            sourceMap: false,
-            extractCss: true,
-            namedChunks: false,
-            extractLicenses: true,
-            vendorChunk: false,
-            buildOptimizer: true,
-            budgets,
+            outputHashing: 'all'
+          },
+          development: {
+            buildOptimizer: false,
+            optimization: false,
+            vendorChunk: true,
+            extractLicenses: false,
+            sourceMap: true,
+            namedChunks: true
           }
-        }
+        },
+        defaultConfiguration: "production"
       },
       serve: {
         builder: Builders.DevServer,
@@ -144,24 +145,17 @@ function addAppToWorkspaceFile(options: Schema, appDir: string): Rule {
         configurations: {
           production: {
             browserTarget: `${options.name}:build:production`
+          },
+          development: {
+            browserTarget: `${options.name}:build:development`
           }
-        }
+        },
+        defaultConfiguration: "development"
       },
       'extract-i18n': {
         builder: Builders.ExtractI18n,
         options: {
           browserTarget: `${options.name}:build`
-        }
-      },
-      lint: {
-        builder: Builders.TsLint,
-        options: {
-          tsConfig: [
-            `${projectRoot}tsconfig.app.json`
-          ],
-          exclude: [
-            '**/node_modules/**'
-          ]
         }
       }
     }

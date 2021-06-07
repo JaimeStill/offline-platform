@@ -1,3 +1,71 @@
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
+.sticky-top {
+  position: sticky;
+  top: 0;
+}
+
+.sticky-right {
+  position: sticky;
+  right: 0;
+}
+
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+}
+
+.sticky-left {
+  position: sticky;
+  left: 0;
+}
+
+.overflow {
+  overflow: auto;
+}
+
+.overflow-x {
+  overflow-x: auto;
+}
+
+.overflow-y {
+  overflow-y: auto;
+}
+
+.no-resize {
+  resize: none!important;
+}
+
+.resize {
+  resize: both!important;
+}
+
+.resize-horizontal {
+  resize: horizontal!important;
+}
+
+.resize-vertical {
+  resize: vertical!important;
+}
+
+.cursor-pointer {
+  cursor: pointer!important;
+}
+
+.cursor-default {
+  cursor: default!important;
+}
+
+.backdropped {
+  transition: backdrop-filter 100ms ease-in;
+}
+
+.rounded {
+  border-radius: 4px;
+}
+
 .p0 {
   padding: 0!important;
 }

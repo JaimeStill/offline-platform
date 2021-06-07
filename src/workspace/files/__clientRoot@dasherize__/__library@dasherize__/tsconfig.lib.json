@@ -4,6 +4,7 @@
     "outDir": "../../out-tsc/app",
     "target": "es2015",
     "declaration": true,
+    "declarationMap": true,
     "inlineSources": true,
     "types": [],
     "lib": [
@@ -11,9 +12,8 @@
       "es2018"
     ]
   },
-  "angularCompilerOptions": {
-    "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
-    "enableResourceInlining": true
-  }
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts"
+  ]
 }

@@ -15,14 +15,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "<%= dasherize(clientRoot) %>/<%= dasherize(library) %>/tsconfig.lib.json",
             "project": "<%= dasherize(clientRoot) %>/<%= dasherize(library) %>/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "<%= dasherize(clientRoot) %>/<%= dasherize(library) %>/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "<%= dasherize(clientRoot) %>/<%= dasherize(library) %>/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

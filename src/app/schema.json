@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "PlatformAngularApp",
+  "$id": "PlatformAngularApp",
   "title": "Platform Angular Application Schema",
   "type": "object",
   "description": "Generates a new Angular app in the \"client\" subfolder of the workspace.",

@@ -9,12 +9,14 @@ call dotnet restore --packages nuget-packages
 echo Updating <%= classify(name) %>.Core dependencies...
 cd ..\<%= classify(name) %>.Core
 call dotnet add package Microsoft.EntityFrameworkCore
+call dotnet add package Newtonsoft.Json
 call dotnet restore --packages nuget-packages
 
 echo Updating <%= classify(name) %>.Data dependencies...
 cd ..\<%= classify(name) %>.Data
 call dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 call dotnet add package Microsoft.EntityFrameworkCore.Tools
+call dotnet add package Newtonsoft.Json
 call dotnet restore --packages nuget-packages
 
 echo Updating <%= classify(name) %>.Identity dependencies...

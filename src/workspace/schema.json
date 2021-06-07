@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "PlatformAngularWorkspace",
+  "$id": "PlatformAngularWorkspace",
   "title": "Platform Workspace Options Schema",
   "type": "object",
   "properties": {

@@ -99,13 +99,13 @@ namespace <%= classify(name) %>.Sql
                     else
                     {
                         succeeded = false;
-                        throw sqlEx;
+                        throw new Exception("An error occurred connecting to the database", sqlEx);
                     }
                 }
                 catch (Exception ex)
                 {
                     succeeded = false;
-                    throw ex;
+                    throw new Exception("An error occurred connecting to the database", ex);
                 }
             }
 

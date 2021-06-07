@@ -26,9 +26,9 @@ export class SidemenuComponent {
   @Input() homeIcon = 'home';
 
   @Input() isLight = true;
-  @Input() lightColor = 'accent';
+  @Input() lightColor = 'warning';
   @Input() lightIcon = 'brightness_5';
-  @Input() darkColor = 'default';
+  @Input() darkColor = 'text';
   @Input() darkIcon = 'brightness_3';
   @Output() theme = new EventEmitter();
 }

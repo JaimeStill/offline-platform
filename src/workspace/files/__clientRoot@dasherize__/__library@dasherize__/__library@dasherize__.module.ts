@@ -25,9 +25,6 @@ import { Pipes } from './pipes';
     ...Directives,
     ...Pipes
   ],
-  entryComponents: [
-    ...Dialogs
-  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -39,7 +36,8 @@ import { Pipes } from './pipes';
     ...Components,
     ...Dialogs,
     ...Directives,
-    ...Pipes
+    ...Pipes,
+    MaterialModule
   ]
 })
 export class <%= classify(library) %>Module {

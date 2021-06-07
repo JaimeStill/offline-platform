@@ -25,7 +25,6 @@ import {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule,
     <%= classify(library) %>Module.forRoot({ server: environment.server, api: environment.api }),
     RouterModule.forRoot(Routes)
   ],
