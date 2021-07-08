@@ -5,9 +5,20 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   providedIn: 'root'
 })
 export class ThemeService {
-  isLight = true;
+  isDark = false;
+
+  setOverlayContainerTheme = () => {
+    if (this.isDark) {
+      this.overlay.getContainerElement().classList.remove('app-light');
+      this.overlay.getContainerElement().classList.add('app-dark');
+    } else {
+      this.overlay.getContainerElement().classList.remove('app-dark');
+      this.overlay.getContainerElement().classList.add('app-light');
+    }
+  }
+
   toggleTheme = () => {
-    this.isLight = !this.isLight;
+    this.isDark = !this.isDark;
     this.setOverlayContainerTheme();
   }
 
@@ -15,15 +26,5 @@ export class ThemeService {
     private overlay: OverlayContainer
   ) {
     this.setOverlayContainerTheme();
-  }
-
-  setOverlayContainerTheme = () => {
-    if (this.isLight) {
-      this.overlay.getContainerElement().classList.remove('app-dark');
-      this.overlay.getContainerElement().classList.add('app-light');
-    } else {
-      this.overlay.getContainerElement().classList.remove('app-light');
-      this.overlay.getContainerElement().classList.add('app-dark');
-    }
   }
 }

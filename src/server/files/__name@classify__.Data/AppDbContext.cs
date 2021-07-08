@@ -13,6 +13,7 @@ namespace <%= classify(name) %>.Data
             modelBuilder
                 .Model
                 .GetEntityTypes()
+                .Where(x => x.BaseType == null)
                 .ToList()
                 .ForEach(x =>
                 {

@@ -1,25 +1,15 @@
 @use 'sass:map';
 @use '~@angular/material' as mat;
+@use './palette.scss';
 
-@import "./glow.scss";
+@import './glow.scss';
+@import './snacker.scss';
 
-@mixin style-theme($theme, $success, $info, $warning) {
+@mixin style-theme($theme, $palette) {
   $config: mat.get-color-config($theme);
 
-  $p: map.get($config, primary);
-  $a: map.get($config, accent);
-  $w: map.get($config, warn);
   $b: map.get($config, background);
   $f: map.get($config, foreground);
-
-  $primary: mat.get-color-from-palette($p);
-  $primary-contrast: mat.get-color-from-palette($p, default-contrast);
-
-  $accent: mat.get-color-from-palette($a);
-  $accent-contrast: mat.get-color-from-palette($a, default-contrast);
-
-  $warn: mat.get-color-from-palette($w);
-  $warn-contrast: mat.get-color-from-palette($w, default-contrast);
 
   $background: mat.get-color-from-palette($b, background);
   $card: mat.get-color-from-palette($b, card);
@@ -34,47 +24,20 @@
   $hint: mat.get-color-from-palette($f, hint);
   $divider: mat.get-color-from-palette($f, divider);
 
-  .background.primary {
-    background-color: $primary!important;
-    color: $primary-contrast!important;
-  }
-
-  .background.accent {
-    background-color: $accent!important;
-    color: $accent-contrast!important;
-  }
-
-  .background.warn {
-    background-color: $warn!important;
-    color: $warn-contrast!important;
-  }
-
-  .background.success {
-    color: $success!important;
-  }
-
-  .background.info {
-    color: $info!important;
-  }
-
-  .background.warning {
-    color: $warning!important;
-  }
-
-  .background.default,
-  .background.card {
+  .background-default,
+  .background-card {
     background-color: $card!important;
   }
 
-  .background.app-bar {
+  .background-app-bar {
     background-color: $app-bar!important;
   }
 
-  .background.stacked {
+  .background-stacked {
     background-color: $background!important;
   }
 
-  .background.inverted {
+  .background-inverted {
     background-color: $text!important;
     color: $background!important;
   }
@@ -87,87 +50,52 @@
     border: 1px solid $divider!important;
   }
 
-  .card-outline-primary {
-    border: 1px solid $primary!important;
-  }
-
-  .card-outline-accent {
-    border: 1px solid $accent!important;
-  }
-
-  .card-outline-warn {
-    border: 1px solid $warn!important;
-  }
-
-  .card-outline-success {
-    border: 1px solid $success!important;
-  }
-
-  .card-outline-info {
-    border: 1px solid $info!important;
-  }
-
-  .card-outline-warning {
-    border: 1px solid $warning!important;
-  }
-
-  .color.text {
+  .color-text {
     color: $text!important;
   }
 
-  .color.primary {
-    color: $primary!important;
-  }
-
-  .color.accent {
-    color: $accent!important;
-  }
-
-  .color.warn {
-    color: $warn!important;
-  }
-
-  .color.success {
-    color: $success!important;
-  }
-
-  .color.info {
-    color: $info!important;
-  }
-
-  .color.warning {
-    color: $warning!important;
-  }
-
-  code.primary,
-  a {
-    color: $primary;
-  }
-
-  code.accent {
-    color: $accent;
-  }
-
-  code.warn,
-  a:visited {
-    color: $warn;
-  }
-
-  a.mat-list-item,
+  a.mat-tab-item,
   a.mat-tab-link,
   a.mat-list-item:visited,
   a.mat-tab-link:visited {
     color: $text;
   }
 
-  a.mat-list-item.active,
-  a.mat-tab-link.active {
-    color: $primary;
-  }
-
   mat-paginator.mat-paginator {
     background-color: $background;
   }
 
-  @include style-glow($primary, $accent, $warn, $success, $info, $warning);
+  a,
+  a.mat-list-item.active,
+  a.mat-tab-link.active {
+    color: palette.get-theme-color($palette, "primary");
+  }
+
+  a:visited {
+    color: palette.get-theme-color($palette, "warn");
+  }
+
+  @each $key, $value in $palette {
+    .background-#{$key} {
+      background-color: map.get($value, "color")!important;
+      color: map.get($value, "contrast")!important;
+    }
+
+    .card-outline-#{$key} {
+      border: 1px solid;
+      border-color: map.get($value, "color")!important;
+    }
+
+    .color-#{$key},
+    code.#{$key} {
+      color: map.get($value, "color")!important;
+    }
+
+    mat-divider.mat-divider.#{$key} {
+      border-color: map.get($value, "color");
+    }
+  }
+
+  @include style-glow($palette);
+  @include style-snacker($palette);
 }

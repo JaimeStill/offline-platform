@@ -17,10 +17,9 @@
     <mat-icon>{{homeIcon}}</mat-icon>
   </button>
   <button mat-icon-button
+          [ngClass]="isDark ? 'color-text' : 'color-amber'"
           (click)="theme.emit()">
-    <mat-icon class="color"
-              [ngClass]="isLight ? lightColor : darkColor">
-      {{isLight ? lightIcon : darkIcon}}
-    </mat-icon>
+    <mat-icon *ngIf="isDark">{{darkIcon}}</mat-icon>
+    <mat-icon *ngIf="!(isDark)">{{lightIcon}}</mat-icon>
   </button>
 </section>

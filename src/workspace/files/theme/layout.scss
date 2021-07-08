@@ -14,7 +14,21 @@ body {
 }
 
 .app-container {
+  overflow: auto;
   height: calc(100% - 64px);
+}
+
+.docs-container {
+  overflow: auto;
+  height: 100%;
+}
+
+section.toolbar-container {
+  height: calc(100% - 64px);
+}
+
+section.scroll-container {
+  height: 100%;
   overflow: auto;
 }
 
@@ -22,7 +36,34 @@ mat-toolbar.mat-toolbar mat-form-field.mat-form-field {
   font-size: 12px;
 
   label.mat-form-field-label {
-      font-weight: bold;
+    font-weight: bold;
+  }
+}
+
+mat-toolbar.mat-toolbar.app-toolbar {
+  padding: 0 8px;
+
+  span.header-font {
+    font-family: 'mandalore-halftone-italic';
+    font-size: 48px;
+    margin: 12px 12px 12px 0;
+  }
+
+  button.mat-icon-button,
+  mat-form-field.mat-form-field {
+    margin: 0 8px 0 0;
+  }
+
+  button.mat-stroked-button {
+    margin: 0 4px;
+  }
+
+  button.mat-stroked-button:first-child {
+    margin-left: 8px;
+  }
+
+  span.header {
+    margin-right: 24px;
   }
 }
 
@@ -72,6 +113,10 @@ nav.mat-tab-nav-bar.flexible div.mat-tab-links {
 
 @media (min-width: 0) and (max-width: 599px) {
   .app-container {
+    height: calc(100% - 56px);
+  }
+
+  .section.toolbar-container {
     height: calc(100% - 56px);
   }
 }

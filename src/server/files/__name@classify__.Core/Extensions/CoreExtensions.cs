@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,6 +19,28 @@ namespace <%= classify(name) %>.Core.Extensions
     public static class CoreExtensions
     {
         private static readonly string urlPattern = "[^a-zA-Z0-9-.]";
+
+        public static IQueryable<T> SetupSearch<T>(
+            this IQueryable<T> values,
+            string search,
+            Func<IQueryable<T>, string, IQueryable<T>> action,
+            char split = '|'
+        )
+        {
+            if (search.Contains(split))
+            {
+                var searches = search.Split(split);
+
+                foreach (var s in searches)
+                {
+                    values = action(values, s.Trim());
+                }
+
+                return values;
+            }
+            else
+                return action(values, search);
+        }
 
         public static string SerializeToJson<T>(
             this T data,

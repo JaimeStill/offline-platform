@@ -11,7 +11,7 @@ import {
 })
 export class ToggleComponent {
   @Input() color = 'primary';
-  @Input() elevation = 'el2';
+  @Input() elevation = 'el-2';
   @Input() activeTip = 'Collapse';
   @Input() activeIcon = 'keyboard_arrow_right';
   @Input() inactiveTip = 'Expand';
