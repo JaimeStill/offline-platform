@@ -10,6 +10,10 @@ cd ..\<%= classify(name) %>.Core
 call dotnet add package Microsoft.EntityFrameworkCore
 call dotnet add package Newtonsoft.Json
 
+echo Updating <%= classify(name) %>.Auth dependencies...
+cd ..\<%= classify(name) %>.Auth
+call dotnet add package Microsoft.EntityFrameworkCore
+
 echo Updating <%= classify(name) %>.Data dependencies...
 cd ..\<%= classify(name) %>.Data
 call dotnet add package Microsoft.EntityFrameworkCore.SqlServer

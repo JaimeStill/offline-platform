@@ -39,3 +39,16 @@ cd {schematic-project-root}
 
 schematics blank --name={new-schematic-name}
 ```
+
+## Clear NuGet Caches
+
+```bash
+dotnet nuget locals global-packages --clear
+dotnet nuget locals http-cache --clear
+```
+
+## Update `dotnet-ef`
+
+```bash
+dotnet tool update --global dotnet-ef
+```

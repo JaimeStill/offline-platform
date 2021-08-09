@@ -11,10 +11,10 @@
 
     .glow-#{$key} {
       @include mat.elevation-transition;
-      @include mat.elevation(2, map.get($value, "color"));
+      @include mat.elevation(4, map.get($value, "color"));
 
       &:hover {
-        @include mat.elevation(6, map.get($value, "color"));
+        @include mat.elevation(8, map.get($value, "color"));
       }
     }
   }

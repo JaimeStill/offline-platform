@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%= classify(name) %>.Auth", "<%= classify(name) %>.Auth\<%= classify(name) %>.Auth.csproj", "{92F03C97-7096-482A-A1D5-8F492DB26195}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%= classify(name) %>.Core", "<%= classify(name) %>.Core\<%= classify(name) %>.Core.csproj", "{B24213C5-E6DA-4E3B-8C18-C6E3DB5BB268}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%= classify(name) %>.Data", "<%= classify(name) %>.Data\<%= classify(name) %>.Data.csproj", "{A792660F-7280-48E2-AC07-385F9D485C11}"

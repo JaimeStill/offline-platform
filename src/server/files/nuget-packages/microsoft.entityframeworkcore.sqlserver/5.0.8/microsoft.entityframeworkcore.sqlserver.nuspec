@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata minClientVersion="3.6">
+    <id>Microsoft.EntityFrameworkCore.SqlServer</id>
+    <version>5.0.8</version>
+    <authors>Microsoft</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
+    <icon>Icon.png</icon>
+    <projectUrl>https://docs.microsoft.com/ef/core/</projectUrl>
+    <description>Microsoft SQL Server database provider for Entity Framework Core.</description>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>Entity Framework Core entity-framework-core EF Data O/RM EntityFramework EntityFrameworkCore EFCore SQL Server</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/dotnet/efcore" commit="1af30fd9b4752ab36eff63d9bc75888d41c85657" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="Microsoft.EntityFrameworkCore.Relational" version="5.0.8" exclude="Build" />
+        <dependency id="Microsoft.Data.SqlClient" version="2.0.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

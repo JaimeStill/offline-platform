@@ -17,12 +17,15 @@
   $status-bar: mat.get-color-from-palette($b, status-bar);
   $hover: mat.get-color-from-palette($b, hover);
   $tooltip: mat.get-color-from-palette($b, tooltip);
+  $dialog: mat.get-color-from-palette($b, dialog);
 
   $base: mat.get-color-from-palette($f, base);
   $text: mat.get-color-from-palette($f, text);
   $icon: mat.get-color-from-palette($f, icon);
   $hint: mat.get-color-from-palette($f, hint);
   $divider: mat.get-color-from-palette($f, divider);
+  $disabled-button: mat.get-color-from-palette($f, disabled-button);
+  $disabled-text: mat.get-color-from-palette($f, disabled-text);
 
   .background-default,
   .background-card {
@@ -54,10 +57,14 @@
     color: $text!important;
   }
 
-  a.mat-tab-item,
-  a.mat-tab-link,
+  a.mat-list-item,
   a.mat-list-item:visited,
-  a.mat-tab-link:visited {
+  a.mat-tab-link,
+  a.mat-tab-link:visited,
+  a.mat-menu-item,
+  a.mat-menu-item:visited,
+  a.mat-icon-button,
+  a.mat-icon-button:visited {
     color: $text;
   }
 
@@ -65,14 +72,45 @@
     background-color: $background;
   }
 
+  div.cdk-overlay-pane mat-dialog-container.mat-dialog-container mat-paginator.mat-paginator {
+    background-color: $dialog;
+  }
+
   a,
   a.mat-list-item.active,
+  a.mat-menu-item.active,
+  a.mat-icon-button.active,
   a.mat-tab-link.active {
     color: palette.get-theme-color($palette, "primary");
   }
 
   a:visited {
     color: palette.get-theme-color($palette, "warn");
+  }
+
+  blockquote.docs-quote {
+    margin: 4px 4px 12px;
+    padding: 4px;
+    padding-left: 24px;
+    border-left: 3px solid palette.get-theme-color($palette, "primary");
+
+    p {
+      margin: 0;
+    }
+  }
+
+  button.mat-stroked-button:disabled,
+  a.mat-stroked-button:disabled {
+    border-color: $disabled-button;
+    color: $disabled-text!important;
+  }
+
+  mat-toolbar.mat-toolbar.app-toolbar {
+    .header-font,
+    .header-font:visited {
+      text-decoration: none;
+      color: $text;
+    }
   }
 
   @each $key, $value in $palette {
@@ -93,6 +131,15 @@
 
     mat-divider.mat-divider.#{$key} {
       border-color: map.get($value, "color");
+    }
+
+    mat-toolbar.mat-toolbar.app-toolbar.mat-#{key} {
+      .header-font,
+      .header-font:visited,
+      a.mat-icon-button,
+      a.mat-icon-button:visited {
+        color: map.get($value, "contrast");
+      }
     }
   }
 

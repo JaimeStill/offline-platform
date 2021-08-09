@@ -21,7 +21,7 @@ div[class*="app-dark"] .snacker div.mat-simple-snackbar-action {
 
 @mixin style-snacker($palette) {
   @each $key, $value in $palette {
-    div[class*="app-#{map.get($value, 'theme')}"].snacker-#{$key} simple-snack-bar.mat-simple-snackbar {
+    div[class*="app-#{map.get($value, 'theme')}"] .snacker-#{$key} simple-snack-bar.mat-simple-snackbar {
       color: map.get($value, 'color');
     }
   }

@@ -10,10 +10,10 @@
             routerLink="home"><%= classify(name) %></span>
       <span fxFlex></span>
       <button mat-icon-button
-              [ngClass]="themer.isDark ? 'color-text' : 'color-amber'"
+              [ngClass]="themer.isLight ? 'color-amber' : 'color-text'"
               (click)="themer.toggleTheme()">
-        <mat-icon *ngIf="!(themer.isDark)">brightness_5</mat-icon>
-        <mat-icon *ngIf="themer.isDark">brightness_3</mat-icon>
+        <mat-icon *ngIf="themer.isLight">brightness_5</mat-icon>
+        <mat-icon *ngIf="!(themer.isLight)">brightness_3</mat-icon>
       </button>
     </mat-toolbar>
     <section class="app-container">

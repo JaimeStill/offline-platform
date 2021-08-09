@@ -1,10 +1,7 @@
-import { BannerComponent } from './banner';
-import { SearchbarComponent } from './searchbar';
+import { CoreComponents } from './core';
 
 export const Components = [
-  BannerComponent,
-  SearchbarComponent
+  ...CoreComponents
 ];
 
-export * from './banner';
-export * from './searchbar';
+export * from './core';

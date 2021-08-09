@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\<%= classify(name) %>.Core\<%= classify(name) %>.Core.csproj" />
+    <ProjectReference Include="..\<%= classify(name) %>.Data\<%= classify(name) %>.Data.csproj" />
+    <ProjectReference Include="..\<%= classify(name) %>.Identity\<%= classify(name) %>.Identity.csproj" />
+  </ItemGroup>
+
+</Project>
