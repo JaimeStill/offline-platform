@@ -39,6 +39,7 @@
     "@types/marked": "^2.0.4",
     "@types/node": "^16.4.13",
     "@types/prismjs": "^1.16.6",
+    "esbuild-windows-64": "^0.12.19",
     "ng-packagr": "^12.2.0",
     "prism-themes": "^1.8.0",
     "roboto-fontface": "^0.10.0",
