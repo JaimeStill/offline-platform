@@ -52,3 +52,10 @@ dotnet nuget locals http-cache --clear
 ```bash
 dotnet tool update --global dotnet-ef
 ```
+
+## Clear node Caches
+
+```bash
+yarn cache clean
+npm cache clean --force
+```
