@@ -8,7 +8,8 @@
     "seed": "dotnet run --project ./<%= dasherize(serverRoot) %>/dbseeder -- \"Server=.\\DevSql;Database=<%= dasherize(name) %>-dev;Trusted_Connection=True;\"",
     "start:server": "dotnet run --project ./<%= dasherize(serverRoot) %>/<%= classify(server) %>.Web",
     "update-db": "dotnet ef database update -s ./<%= dasherize(serverRoot) %>/<%= classify(server)%>.Web",
-    "watch": "ng build <%= dasherize(library) %> --watch --configuration development"
+    "watch": "ng build <%= dasherize(library) %> --watch --configuration development",
+    "watch:server": "dotnet watch run --project ./<%= dasherize(serverRoot) %>/<%= classify(server) %>.Web"
   },
   "dependencies": {
     "@angular/animations": "^12.2.0",
