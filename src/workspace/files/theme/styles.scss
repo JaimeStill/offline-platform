@@ -27,7 +27,6 @@
   $disabled-button: mat.get-color-from-palette($f, disabled-button);
   $disabled-text: mat.get-color-from-palette($f, disabled-text);
 
-  .background-default,
   .background-card {
     background-color: $card!important;
   }
@@ -36,7 +35,7 @@
     background-color: $app-bar!important;
   }
 
-  .background-stacked {
+  .background-default {
     background-color: $background!important;
   }
 
