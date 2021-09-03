@@ -20,13 +20,22 @@ import { ServerConfig } from '../config';
 })
 export class MarkedService {
   private renderer = new marked.Renderer();
-  private parser = marked;
+
+  private highlight = (code: string, lang: string) => prism.highlight(code, prism.languages[lang || 'js'], lang || 'js');
 
   constructor(
     @Optional() private config: ServerConfig
   ) {
-    this.renderer.code = function (code, lang) {
-      code = this.options.highlight(code, lang);
+    marked.setOptions({
+      baseUrl: config.server,
+      renderer: this.renderer,
+      highlight: this.highlight,
+      gfm: true,
+      smartLists: true
+    });
+
+    this.renderer.code = (code, lang) => {
+      code = this.highlight(code, lang);
 
       if (!lang) {
         return `<pre><code>${code}</code></pre>`;
@@ -36,14 +45,6 @@ export class MarkedService {
 
       return `<pre class="prism-theme ${langClass}"><code>${code}</code></pre>`;
     };
-
-    this.parser.setOptions({
-      baseUrl: config.server,
-      renderer: this.renderer,
-      highlight: (code, lang) => prism.highlight(code, prism.languages[lang || 'js'], lang || 'js'),
-      gfm: true,
-      smartLists: true
-    });
   }
 
   private checkRelative = (href: string): boolean => href.charAt(0) === '.' || href.charAt(0) === '/' || href.charAt(0) === '#';
@@ -114,6 +115,6 @@ export class MarkedService {
 
   convert = (markdown: string, doc: string, breadcrumbs: string[]) => {
     this.updateRenderer(doc, breadcrumbs);
-    return this.parser.parse(markdown);
+    return marked.parse(markdown);
   }
 }
