@@ -1,5 +1,4 @@
 using System.DirectoryServices.AccountManagement;
-using System.Linq;
 
 namespace <%= classify(name) %>.Identity.Extensions
 {

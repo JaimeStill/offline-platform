@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   Input,
   Output,
@@ -15,8 +16,9 @@ import { CoreService } from '../../services';
   selector: 'searchbar',
   templateUrl: 'searchbar.component.html'
 })
-export class SearchbarComponent implements OnDestroy {
-  sub: Subscription;
+export class SearchbarComponent implements AfterViewInit, OnDestroy {
+  sub!: Subscription;
+  @ViewChild('searchbar') searchbar!: ElementRef;
 
   @Input() label = 'Search';
   @Input() minimum = 2;
@@ -27,16 +29,13 @@ export class SearchbarComponent implements OnDestroy {
     private core: CoreService
   ) { }
 
-  @ViewChild('searchbar', { static: false })
-  set searchbar(input: ElementRef) {
-    if (input) {
-      this.sub = this.core.generateInputObservable(input)
-        .subscribe((val: string) => {
-          val && val.length >= this.minimum
-            ? this.search.emit(val)
-            : this.clear.emit();
-        });
-    }
+  ngAfterViewInit() {
+    this.sub = this.core.generateInputObservable(this.searchbar)
+      .subscribe((val: string) => {
+        val && val.length >= this.minimum
+          ? this.search.emit(val)
+          : this.clear.emit();
+      });
   }
 
   ngOnDestroy() {

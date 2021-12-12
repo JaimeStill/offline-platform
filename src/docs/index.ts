@@ -31,7 +31,6 @@ import {
 
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { relativePathToWorkspaceRoot } from '@schematics/angular/utility/paths';
-import { validateProjectName } from '@schematics/angular/utility/validation';
 import { addPackageJsonScript } from '../dependencies';
 
 import { Schema } from './schema';
@@ -180,8 +179,6 @@ export default function (options: Schema): Rule {
     if (!options.name) {
       throw new SchematicsException(`Invalid options, "name" is required.`);
     }
-
-    validateProjectName(options.name);
 
     const workspace = await getWorkspace(host);
     const newProjectRoot = workspace.extensions.newProjectRoot as (string | undefined) || '';

@@ -2,8 +2,15 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "<%= dasherize(library) %>": [
+        "dist/<%= dasherize(library) %>",
+        "dist/<%= dasherize(library) %>/<%= dasherize(library) %>"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -18,14 +25,14 @@
       "es2018",
       "dom"
     ],
-    "paths": {
-      "<%= dasherize(library) %>": [
-        "dist/<%= dasherize(library) %>",
-        "dist/<%= dasherize(library) %>/<%= dasherize(library) %>"
-      ]
-    },
     "plugins": [
       { "name": "@angular/language-service" }
     ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

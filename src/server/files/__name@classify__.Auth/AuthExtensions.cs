@@ -1,10 +1,4 @@
-using System;
-using System.Linq;
 using System.Runtime.Versioning;
-using System.Threading.Tasks;
-
-using Microsoft.EntityFrameworkCore;
-
 using <%= classify(name) %>.Core;
 using <%= classify(name) %>.Data;
 using <%= classify(name) %>.Identity;

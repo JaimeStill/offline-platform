@@ -42,6 +42,7 @@ call dotnet add package Newtonsoft.Json
 echo Updating <%= classify(name) %>.Web dependencies...
 cd ..\<%= classify(name) %>.Web
 call dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
+call dotnet add package Microsoft.AspNetCore.OData
 call dotnet add package Microsoft.EntityFrameworkCore.Design
 
 echo Caching NuGet dependencies...

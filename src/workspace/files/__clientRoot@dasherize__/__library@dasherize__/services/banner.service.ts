@@ -4,13 +4,12 @@ import { BehaviorSubject } from 'rxjs';
 import { SnackerService } from './snacker.service';
 import { ServerConfig } from '../config';
 import { BannerConfig } from '../models';
-import { Server } from 'http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BannerService {
-  private config = new BehaviorSubject<BannerConfig>(null);
+  private config = new BehaviorSubject<BannerConfig | null>(null);
   config$ = this.config.asObservable();
 
   constructor(
@@ -21,8 +20,8 @@ export class BannerService {
 
   getConfig = () =>
     this.http.get<BannerConfig>(`${this.server.api}banner/getConfig`)
-      .subscribe(
-        data => this.config.next(data),
-        err => this.snacker.sendErrorMessage(err.error)
-      );
+      .subscribe({
+        next: (data: BannerConfig) => this.config.next(data),
+        error: (err: any) => this.snacker.sendErrorMessage(err.error)
+      });
 }

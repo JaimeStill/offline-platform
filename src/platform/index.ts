@@ -21,7 +21,6 @@ import {
 import { Schema as ApplicationOptions } from '../app/schema';
 import { Schema as DocsOptions } from '../docs/schema';
 import { Schema as ServerOptions } from '../server/schema';
-import { validateProjectName } from '@schematics/angular/utility/validation';
 import { Schema as WorkspaceOptions } from '../workspace/schema';
 import { Schema as PlatformOptions } from './schema';
 
@@ -29,8 +28,6 @@ export default function(options: PlatformOptions): Rule {
   if (!options.name) {
     throw new SchematicsException(`Invalid options, "name" is required.`);
   }
-
-  validateProjectName(options.name);
 
   if (!options.directory) {
     options.directory = options.name;

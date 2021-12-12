@@ -1,5 +1,3 @@
-using System.Linq;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace <%= classify(name) %>.Data

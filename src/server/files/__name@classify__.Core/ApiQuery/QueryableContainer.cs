@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace <%= classify(name) %>.Core.ApiQuery
@@ -22,10 +17,15 @@ namespace <%= classify(name) %>.Core.ApiQuery
                 ? _page
                 : d;
 
-        bool GenerateSortDirection(string sort) =>
-            sort.Trim()
-                .ToLower()
-                .EndsWith("desc");
+        bool GenerateSortDirection(string sort)
+        {
+            var split = sort.Split('_');
+
+            if (split.Length > 1)
+                return split[1].ToLower() == "desc";
+
+            return false;
+        }
 
         public QueryContainer(IQueryable<T> queryable, string page, string pageSize, string search, string sort)
         {
@@ -42,8 +42,8 @@ namespace <%= classify(name) %>.Core.ApiQuery
                     ? false
                     : GenerateSortDirection(sort),
                 SortProperty = string.IsNullOrWhiteSpace(sort)
-                    ? null
-                    : sort.Split(' ')[0]
+                    ? "Id"
+                    : sort.Split('_')[0]
             };
 
             this.queryable = string.IsNullOrWhiteSpace(options.SortProperty)
@@ -72,7 +72,6 @@ namespace <%= classify(name) %>.Core.ApiQuery
             {
                 Page = Options.Page,
                 PageSize = Options.PageSize,
-                Search = Options.Search,
                 TotalCount = totalCount,
                 Data = await Queryable
                     .Skip((Options.Page - 1) * Options.PageSize)
@@ -89,7 +88,6 @@ namespace <%= classify(name) %>.Core.ApiQuery
             Data = data,
             Page = result.Page,
             PageSize = result.PageSize,
-            Search = result.Search,
             TotalCount = result.TotalCount
         };
     }

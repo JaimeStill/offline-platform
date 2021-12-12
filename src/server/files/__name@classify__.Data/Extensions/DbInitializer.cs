@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace <%= classify(name) %>.Data.Extensions

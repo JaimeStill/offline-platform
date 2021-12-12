@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-
 using <%= classify(name) %>.Core.Banner;
 
 namespace <%= classify(name) %>.Web.Controllers

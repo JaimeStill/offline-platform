@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace <%= classify(name) %>.Core.Sockets
 {
     public class SocketGroupProvider

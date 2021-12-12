@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 div[class*="app-light"] snack-bar-container.mat-snack-bar-container.snacker {
   background-color: #ffffff!important;

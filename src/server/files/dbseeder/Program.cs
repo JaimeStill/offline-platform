@@ -1,8 +1,4 @@
-using System;
-using System.Threading.Tasks;
-
 using Microsoft.EntityFrameworkCore;
-
 using <%= classify(name) %>.Core.Extensions;
 using <%= classify(name) %>.Data;
 using <%= classify(name) %>.Data.Extensions;

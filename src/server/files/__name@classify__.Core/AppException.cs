@@ -1,5 +1,3 @@
-using System;
-
 namespace <%= classify(name) %>.Core
 {
     public enum ExceptionType

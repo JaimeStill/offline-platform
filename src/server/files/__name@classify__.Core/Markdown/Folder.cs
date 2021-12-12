@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace <%= classify(name) %>.Core.Markdown
 {
     public class Folder

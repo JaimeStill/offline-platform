@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -10,19 +8,13 @@ namespace <%= classify(name) %>.Core.ApiQuery
         public static IQueryable<T> ApplySorting<T>(this IQueryable<T> queryable, QueryOptions options)
         {
             if (queryable == null)
-            {
-                throw new ArgumentNullException(nameof(queryable));
-            }
+              throw new ArgumentNullException(nameof(queryable));
 
             if (options == null)
-            {
-                throw new ArgumentNullException(nameof(options));
-            }
+              throw new ArgumentNullException(nameof(options));
 
             if (string.IsNullOrWhiteSpace(options.SortProperty))
-            {
-                return queryable;
-            }
+              return queryable;
 
             var orderMethodName = options.SortDescending
                 ? nameof(Queryable.OrderByDescending)
@@ -66,41 +58,30 @@ namespace <%= classify(name) %>.Core.ApiQuery
 
             if (nameParts.Length == 1)
             {
-                var property = queryable.ElementType
-                    .GetTypeInfo()
-                    .GetProperty(CamelizeString(propName))
-                ?? queryable.ElementType
-                    .GetTypeInfo()
-                    .GetProperty(propName);
+                var property =
+                    queryable.ElementType.GetTypeInfo().GetProperty(CamelizeString(propName))
+                    ?? queryable.ElementType.GetTypeInfo().GetProperty(propName);
 
                 return (property?.DeclaringType, property);
             }
 
-            var propertyInfo = queryable.ElementType
-                .GetTypeInfo()
-                .GetProperty(CamelizeString(nameParts[0]))
-            ?? queryable.ElementType
-                .GetTypeInfo()
-                .GetProperty(nameParts[0]);
+            var propertyInfo =
+                queryable.ElementType.GetTypeInfo().GetProperty(CamelizeString(nameParts[0]))
+                ?? queryable.ElementType.GetTypeInfo().GetProperty(nameParts[0]);
 
             if (propertyInfo == null)
-            {
                 return (null, null);
-            }
 
             var originalDeclaringType = propertyInfo.DeclaringType;
 
             for (var i = 1; i < nameParts.Length; i++)
             {
-                propertyInfo = propertyInfo.PropertyType
-                    .GetProperty(CamelizeString(nameParts[i]))
-                ?? propertyInfo.PropertyType
-                    .GetProperty(nameParts[i]);
+                propertyInfo =
+                    propertyInfo.PropertyType.GetProperty(CamelizeString(nameParts[i]))
+                    ?? propertyInfo.PropertyType.GetProperty(nameParts[i]);
 
                 if (propertyInfo == null)
-                {
                     return (null, null);
-                }
             }
 
             return (originalDeclaringType, propertyInfo);
@@ -112,10 +93,8 @@ namespace <%= classify(name) %>.Core.ApiQuery
             Expression body = param;
 
             foreach (var member in propertyName.Split('.'))
-            {
                 body = Expression.PropertyOrField(body, CamelizeString(member))
                     ?? Expression.PropertyOrField(body, member);
-            }
 
             return Expression.Lambda(body, param);
         }
@@ -125,9 +104,7 @@ namespace <%= classify(name) %>.Core.ApiQuery
             var members = propertyName.Split('.');
 
             if (members.Length == 1)
-            {
                 return queryable;
-            }
 
             for (var i = 0; i < members.Length - 1; i++)
             {

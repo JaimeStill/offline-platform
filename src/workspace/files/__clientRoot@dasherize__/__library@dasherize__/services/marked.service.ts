@@ -3,7 +3,6 @@ import {
   Optional
 } from '@angular/core';
 
-import * as marked from 'marked';
 import * as prism from 'prismjs';
 
 import 'prismjs/components/prism-css';
@@ -13,6 +12,7 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-csharp';
 
+import { marked } from 'marked';
 import { ServerConfig } from '../config';
 
 @Injectable({
@@ -35,7 +35,7 @@ export class MarkedService {
     });
 
     this.renderer.code = (code, lang) => {
-      code = this.highlight(code, lang);
+      code = this.highlight(code, lang as string);
 
       if (!lang) {
         return `<pre><code>${code}</code></pre>`;

@@ -20,7 +20,7 @@ export class SyncSocket {
   private endpoint = 'http://localhost:<%= serverPort %>/sync';
   private connection: HubConnection;
 
-  private connected = new BehaviorSubject<boolean>(null);
+  private connected = new BehaviorSubject<boolean | null>(null);
   private error = new BehaviorSubject<any>(null);
 
   connected$ = this.connected.asObservable();

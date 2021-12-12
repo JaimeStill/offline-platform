@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace <%= classify(name) %>.Core.Sockets
 {
     public class SocketGroup

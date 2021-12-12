@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 @for $i from 0 through 12 {
   .el-#{$i} {

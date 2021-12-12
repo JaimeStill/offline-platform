@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 @mixin style-glow($palette) {
   @each $key, $value in $palette {

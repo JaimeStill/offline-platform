@@ -1,9 +1,4 @@
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-
 using <%= classify(name) %>.Core.Markdown;
 using <%= classify(name) %>.Core.Markdown.Extensions;
 

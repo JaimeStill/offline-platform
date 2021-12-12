@@ -10,8 +10,8 @@ import {
   selector: '[backdrop]'
 })
 export class BackdropDirective implements OnInit {
-  @Input() filters: string;
-  @Input() hover: string;
+  @Input() filters: string = 'blur(30px) brightness(1.8)';
+  @Input() hover: string = 'blur(30px) brightness(1.8)';
 
   constructor(
     public el: ElementRef

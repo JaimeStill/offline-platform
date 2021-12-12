@@ -17,7 +17,7 @@
     * No need to install additional tools via Chocolatey.
 * [Git](https://git-scm.com/download/win)
 * [Yarn](https://classic.yarnpkg.com/latest.msi)
-* [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-5.0.100-windows-x64-installer)
+* [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download)
 * [SQL Server 2019 Express](https://go.microsoft.com/fwlink/?linkid=866658)
     * Run the custom setup and install a new instance.
     * When installing features, you can uncheck the box that installs Machine Learning features.

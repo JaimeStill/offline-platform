@@ -1,10 +1,5 @@
-using System;
-using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Http;
-
 using <%= classify(name) %>.Core.Extensions;
 
 namespace <%= classify(name) %>.Core.Logging

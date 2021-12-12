@@ -1,19 +1,10 @@
-using System.Linq;
 using System.Runtime.Versioning;
-
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-
 using <%= classify(name) %>.Core.Banner;
 using <%= classify(name) %>.Core.Extensions;
 using <%= classify(name) %>.Core.Logging;
@@ -55,7 +46,21 @@ namespace <%= classify(name) %>.Web
         {
             services.AddCors();
 
-            services.AddControllers()
+            services
+                .AddDbContext<AppDbContext>(options =>
+                {
+                    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                    options.UseSqlServer(Configuration.GetConnectionString("Project"));
+                })
+                .AddControllers()
+                .AddOData(options =>
+                    options
+                        .Count()
+                        .Filter()
+                        .OrderBy()
+                        .Select()
+                        .SetMaxTop(100)
+                )
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -63,16 +68,8 @@ namespace <%= classify(name) %>.Web
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                options.UseSqlServer(Configuration.GetConnectionString("Project"));
-            });
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "<%= classify(name) %>", Version="v1"});
-            });
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
 
             services.AddSignalR();
 

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.OData.ModelBuilder</id>
+    <version>1.0.7</version>
+    <title>Microsoft OData Entity Data Model Builder</title>
+    <authors>Microsoft</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>images\odata.png</icon>
+    <projectUrl>http://github.com/OData/ModelBuilder</projectUrl>
+    <description>This package contains APIs to create OData Edm (Entity Data Model) using C# types, attributes and conventions.</description>
+    <releaseNotes>https://docs.microsoft.com/en-us/odata/changelog/modelbuilder</releaseNotes>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>Microsoft OData Edm</tags>
+    <repository type="git" url="https://github.com/OData/ModelBuilder.git" branch="master" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.OData.Edm" version="[7.9.0, 8.0.0)" />
+        <dependency id="Microsoft.Spatial" version="[7.9.0, 8.0.0)" />
+        <dependency id="System.ComponentModel.Annotations" version="4.6.0" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

@@ -1,10 +1,6 @@
-using System;
 using System.DirectoryServices.AccountManagement;
-using System.Linq;
 using System.Runtime.Versioning;
 using System.Security.Principal;
-using System.Threading.Tasks;
-
 using <%= classify(name) %>.Core.Extensions;
 
 [assembly:SupportedOSPlatform("windows")]
