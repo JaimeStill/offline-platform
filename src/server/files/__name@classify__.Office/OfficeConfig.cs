@@ -1,19 +1,18 @@
+namespace <%= classify(name) %>.Office;
+
 using <%= classify(name) %>.Core.Extensions;
 
-namespace <%= classify(name) %>.Office
+public class OfficeConfig
 {
-    public class OfficeConfig
-    {
-        public string directory;
+    public string directory;
 
-        public string Directory
+    public string Directory
+    {
+        get => directory;
+        set
         {
-            get => directory;
-            set
-            {
-                directory = value;
-                Directory.EnsureDirectoryExists();
-            }
+            directory = value;
+            Directory.EnsureDirectoryExists();
         }
     }
 }

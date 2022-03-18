@@ -1,10 +1,9 @@
+namespace Microsoft.AspNetCore.Builder;
+
 using <%= classify(name) %>.Identity;
 
-namespace Microsoft.AspNetCore.Builder
+public static class MiddlewareExtensions
 {
-    public static class MiddlewareExtensions
-    {
-        public static IApplicationBuilder UseAdMiddleware(this IApplicationBuilder builder) =>
-            builder.UseMiddleware<AdUserMiddleware>();
-    }
+    public static IApplicationBuilder UseAdMiddleware(this IApplicationBuilder builder) =>
+        builder.UseMiddleware<AdUserMiddleware>();
 }

@@ -1,11 +1,10 @@
-namespace <%= classify(name) %>.Core.ApiQuery
+namespace <%= classify(name) %>.Core.ApiQuery;
+
+public class QueryOptions
 {
-    public class QueryOptions
-    {
-        public int Page { get; set; } = 1;
-        public int PageSize { get; set; }
-        public string Search { get; set; }
-        public string SortProperty { get; set; }
-        public bool SortDescending { get; set; }
-    }
+    public int Page { get; set; } = 1;
+    public int PageSize { get; set; }
+    public string Search { get; set; }
+    public string SortProperty { get; set; }
+    public bool SortDescending { get; set; }
 }

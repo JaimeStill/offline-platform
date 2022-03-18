@@ -1,25 +1,24 @@
+namespace <%= classify(name) %>.Identity;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
-namespace <%= classify(name) %>.Identity
+public class AdUserMiddleware
 {
-    public class AdUserMiddleware
+    private readonly RequestDelegate next;
+
+    public AdUserMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate next;
+        this.next = next;
+    }
 
-        public AdUserMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context, IUserProvider userProvider, IConfiguration config)
+    {
+        if (!(userProvider.Initialized))
         {
-            this.next = next;
+            await userProvider.Create(context, config);
         }
 
-        public async Task Invoke(HttpContext context, IUserProvider userProvider, IConfiguration config)
-        {
-            if (!(userProvider.Initialized))
-            {
-                await userProvider.Create(context, config);
-            }
-
-            await next(context);
-        }
+        await next(context);
     }
 }

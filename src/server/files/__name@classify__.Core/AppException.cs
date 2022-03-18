@@ -1,18 +1,17 @@
-namespace <%= classify(name) %>.Core
+namespace <%= classify(name) %>.Core;
+
+public enum ExceptionType
 {
-    public enum ExceptionType
-    {
-        Validation,
-        Authorization
-    }
+    Validation,
+    Authorization
+}
 
-    public class AppException : Exception
-    {
-        public ExceptionType ExceptionType { get; set; }
+public class AppException : Exception
+{
+    public ExceptionType ExceptionType { get; set; }
 
-        public AppException(string message, ExceptionType exceptionType) : base(message)
-        {
-            ExceptionType = exceptionType;
-        }
+    public AppException(string message, ExceptionType exceptionType) : base(message)
+    {
+        ExceptionType = exceptionType;
     }
 }

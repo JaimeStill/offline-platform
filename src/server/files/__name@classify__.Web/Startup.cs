@@ -1,10 +1,6 @@
-using System.Runtime.Versioning;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.OData;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+[assembly:System.Runtime.Versioning.SupportedOSPlatform("windows")]
+namespace <%= classify(name) %>.Web;
+
 using <%= classify(name) %>.Core.Banner;
 using <%= classify(name) %>.Core.Extensions;
 using <%= classify(name) %>.Core.Logging;
@@ -14,157 +10,160 @@ using <%= classify(name) %>.Identity;
 using <%= classify(name) %>.Identity.Mock;
 using <%= classify(name) %>.Office;
 
-[assembly:SupportedOSPlatform("windows")]
-namespace <%= classify(name) %>.Web
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+public class Startup
 {
-    public class Startup
+    public IConfiguration Configuration { get; }
+    public IWebHostEnvironment Environment { get; }
+    public LogProvider Logger { get; }
+    public OfficeConfig OfficeConfig { get; }
+
+    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
     {
-        public IConfiguration Configuration { get; }
-        public IWebHostEnvironment Environment { get; }
-        public LogProvider Logger { get; }
-        public OfficeConfig OfficeConfig { get; }
+        Configuration = configuration;
+        Environment = environment;
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        Logger = new LogProvider
         {
-            Configuration = configuration;
-            Environment = environment;
+            LogDirectory = Configuration.GetValue<string>("LogDirectory")
+                ?? $@"{Environment.WebRootPath}\logs"
+        };
 
-            Logger = new LogProvider
-            {
-                LogDirectory = Configuration.GetValue<string>("LogDirectory")
-                    ?? $@"{Environment.WebRootPath}\logs"
-            };
-
-            OfficeConfig = new OfficeConfig
-            {
-                Directory = Configuration.GetValue<string>("OfficeDirectory")
-                    ?? $@"{Environment.WebRootPath}\office"
-            };
-        }
-
-        public void ConfigureServices(IServiceCollection services)
+        OfficeConfig = new OfficeConfig
         {
-            services.AddCors();
+            Directory = Configuration.GetValue<string>("OfficeDirectory")
+                ?? $@"{Environment.WebRootPath}\office"
+        };
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddCors();
+
+        services
+            .AddDbContext<AppDbContext>(options =>
+            {
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                options.UseSqlServer(Configuration.GetConnectionString("Project"));
+            })
+            .AddControllers()
+            .AddOData(options =>
+                options
+                    .Count()
+                    .Filter()
+                    .OrderBy()
+                    .Select()
+                    .SetMaxTop(100)
+            )
+            .AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
+
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+
+        services.AddSignalR();
+
+        services.AddSingleton(new BannerConfig
+        {
+            Label = Configuration.GetValue<string>("AppBannerLabel"),
+            Background = Configuration.GetValue<string>("AppBannerBackground"),
+            Color = Configuration.GetValue<string>("AppBannerColor")
+        });
+
+        services.AddSingleton(OfficeConfig);
+
+        if (Environment.IsDevelopment())
+        {
+            services.AddSingleton(new UploadConfig
+            {
+                DirectoryBasePath = $@"{Environment.ContentRootPath}/wwwroot/files/",
+                UrlBasePath = "/files/"
+            });
 
             services
-                .AddDbContext<AppDbContext>(options =>
-                {
-                    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                    options.UseSqlServer(Configuration.GetConnectionString("Project"));
-                })
-                .AddControllers()
-                .AddOData(options =>
-                    options
-                        .Count()
-                        .Filter()
-                        .OrderBy()
-                        .Select()
-                        .SetMaxTop(100)
-                )
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                });
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
-
-            services.AddSignalR();
-
-            services.AddSingleton(new BannerConfig
-            {
-                Label = Configuration.GetValue<string>("AppBannerLabel"),
-                Background = Configuration.GetValue<string>("AppBannerBackground"),
-                Color = Configuration.GetValue<string>("AppBannerColor")
-            });
-
-            services.AddSingleton(OfficeConfig);
-
-            if (Environment.IsDevelopment())
-            {
-                services.AddSingleton(new UploadConfig
-                {
-                    DirectoryBasePath = $@"{Environment.ContentRootPath}/wwwroot/files/",
-                    UrlBasePath = "/files/"
-                });
-
-                services
-                    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
-
-                services.AddScoped<IUserProvider, MockProvider>();
-            }
-            else
-            {
-                services.AddSingleton(new UploadConfig
-                {
-                    DirectoryBasePath = Configuration.GetValue<string>("AppDirectoryBasePath"),
-                    UrlBasePath = Configuration.GetValue<string>("AppUrlBasePath")
-                });
-
-                services.AddScoped<IUserProvider, AdUserProvider>();
-            }
+            services.AddScoped<IUserProvider, MockProvider>();
         }
-
-        public void Configure(IApplicationBuilder app)
+        else
         {
-            app.UseStaticFiles();
-
-            if (Environment.IsDevelopment())
+            services.AddSingleton(new UploadConfig
             {
-                app.UseDeveloperExceptionPage();
-                app.UseAuthentication();
-                app.UseMockMiddleware();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "<%= classify(name) %> v1"));
-            }
-            else
-            {
-                app.UseAdMiddleware();
-            }
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Logger.LogDirectory),
-                RequestPath = "/logs"
+                DirectoryBasePath = Configuration.GetValue<string>("AppDirectoryBasePath"),
+                UrlBasePath = Configuration.GetValue<string>("AppUrlBasePath")
             });
 
-            app.UseDirectoryBrowser(new DirectoryBrowserOptions
-            {
-                FileProvider = new PhysicalFileProvider(Logger.LogDirectory),
-                RequestPath = "/logs"
-            });
+            services.AddScoped<IUserProvider, AdUserProvider>();
+        }
+    }
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(OfficeConfig.Directory),
-                RequestPath = "/office"
-            });
+    public void Configure(IApplicationBuilder app)
+    {
+        app.UseStaticFiles();
 
-            app.UseExceptionHandler(err => err.HandleError(Logger));
-
-            app.UseRouting();
-
-            app.UseCors(builder =>
-            {
-                builder.WithOrigins(GetConfigArray("CorsOrigins"))
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials()
-                    .WithExposedHeaders("Content-Disposition");
-            });
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+        if (Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseAuthentication();
+            app.UseMockMiddleware();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "<%= classify(name) %> v1"));
+        }
+        else
+        {
+            app.UseAdMiddleware();
         }
 
-        string[] GetConfigArray(string section) => Configuration.GetSection(section)
-            .GetChildren()
-            .Select(x => x.Value)
-            .ToArray();
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(Logger.LogDirectory),
+            RequestPath = "/logs"
+        });
+
+        app.UseDirectoryBrowser(new DirectoryBrowserOptions
+        {
+            FileProvider = new PhysicalFileProvider(Logger.LogDirectory),
+            RequestPath = "/logs"
+        });
+
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(OfficeConfig.Directory),
+            RequestPath = "/office"
+        });
+
+        app.UseExceptionHandler(err => err.HandleError(Logger));
+
+        app.UseRouting();
+
+        app.UseCors(builder =>
+        {
+            builder.WithOrigins(GetConfigArray("CorsOrigins"))
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .WithExposedHeaders("Content-Disposition");
+        });
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
     }
+
+    string[] GetConfigArray(string section) => Configuration.GetSection(section)
+        .GetChildren()
+        .Select(x => x.Value)
+        .ToArray();
 }

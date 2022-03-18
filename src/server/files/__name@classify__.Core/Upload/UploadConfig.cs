@@ -1,8 +1,7 @@
-namespace <%= classify(name) %>.Core.Upload
+namespace <%= classify(name) %>.Core.Upload;
+
+public class UploadConfig
 {
-    public class UploadConfig
-    {
-        public string DirectoryBasePath { get; set; }
-        public string UrlBasePath { get; set; }
-    }
+    public string DirectoryBasePath { get; set; }
+    public string UrlBasePath { get; set; }
 }

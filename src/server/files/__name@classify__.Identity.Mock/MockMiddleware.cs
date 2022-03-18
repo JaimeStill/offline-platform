@@ -1,30 +1,29 @@
+namespace <%= classify(name) %>.Identity.Mock;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
-namespace <%= classify(name) %>.Identity.Mock
+public class MockMiddleware
 {
-    public class MockMiddleware
+    private readonly RequestDelegate next;
+
+    public MockMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate next;
+        this.next = next;
+    }
 
-        public MockMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context, IUserProvider provider, IConfiguration config)
+    {
+        if (!(provider.Initialized))
         {
-            this.next = next;
-        }
+            await provider.Create(config.GetValue<string>("CurrentUser"));
 
-        public async Task Invoke(HttpContext context, IUserProvider provider, IConfiguration config)
-        {
-            if (!(provider.Initialized))
+            if (!(context.User.Identity.IsAuthenticated))
             {
-                await provider.Create(config.GetValue<string>("CurrentUser"));
-
-                if (!(context.User.Identity.IsAuthenticated))
-                {
-                    await provider.AddIdentity(context);
-                }
+                await provider.AddIdentity(context);
             }
-
-            await next(context);
         }
+
+        await next(context);
     }
 }
