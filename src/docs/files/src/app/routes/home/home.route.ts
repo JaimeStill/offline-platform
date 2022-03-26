@@ -1,9 +1,11 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnInit,
   OnDestroy,
-  Renderer2
+  Renderer2,
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -20,9 +22,10 @@ import {
 import { Subscription } from 'rxjs';
 
 import {
+  CoreService,
   MarkedService,
   ThemeService
-} from '<%= dasherize(library) %>';
+} from 'core';
 
 import {
   Document,
@@ -34,20 +37,23 @@ import { RoutingService } from '../../services';
 
 @Component({
   selector: 'home-route',
-  templateUrl: 'home.component.html',
+  templateUrl: 'home.route.html',
   providers: [
     MarkedService,
     RoutingService
   ]
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeRoute implements AfterViewInit, OnInit, OnDestroy {
   private subs = new Array<Subscription>();
+
+  @ViewChild('sidemenu') sidemenu!: ElementRef;
 
   preview = false;
   expanded = true;
-  outlet: HTMLElement;
+  outlet!: HTMLElement;
 
   constructor(
+    private core: CoreService,
     private self: ElementRef,
     private marked: MarkedService,
     private renderer: Renderer2,
@@ -108,6 +114,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       url: val[0],
       fragment: val[1]
     } as FragmentRoute;
+  }
+
+  ngAfterViewInit(): void {
+    this.subs.push(
+      this.core.generateHoverObservable(this.sidemenu)
+        .subscribe(
+          (event: boolean) => this.preview = event
+        )
+    )
   }
 
   ngOnInit() {

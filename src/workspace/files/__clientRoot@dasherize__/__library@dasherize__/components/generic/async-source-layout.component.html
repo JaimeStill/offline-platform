@@ -1,0 +1,30 @@
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"></mat-progress-bar>
+</ng-template>
+<ng-container *ngIf="src.queryResult$ | async as query else loading">
+  <section class="p8"
+           [fxLayout]="inlineControls ? 'row | wrap' : 'column'"
+           [fxLayoutAlign]="inlineControls ? 'start center' : 'start stretch'">
+    <searchbar fxFlex
+               [label]="searchLabel"
+               [minimum]="searchMin"
+               (search)="src.onSearch($event)"
+               (clear)="src.clearSearch()"></searchbar>
+    <ng-content select=".toggles"></ng-content>
+    <mat-paginator [class]="pageStyle"
+                   [length]="query?.totalCount"
+                   [pageSize]="query?.pageSize"
+                   [pageSizeOptions]="src.pageSizeOptions"
+                   [pageIndex]="query?.page - 1"
+                   (page)="src.onPage($event)"></mat-paginator>
+  </section>
+  <section *ngIf="query.data?.length > 0"
+           [fxLayout]="layout"
+           [fxLayoutAlign]="alignment"
+           class="p8">
+    <ng-content></ng-content>
+  </section>
+  <p *ngIf="!(query?.data?.length > 0)"
+     class="mat-subheading-2 mx12 my4">{{emptyLabel}}</p>
+</ng-container>

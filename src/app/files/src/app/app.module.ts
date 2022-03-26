@@ -3,11 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
-import {
-  <%= classify(library) %>Module,
-  MaterialModule
-} from '<%= dasherize(library) %>';
-
+import { <%= classify(library) %>Module } from '<%= dasherize(library) %>';
 import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
@@ -25,7 +21,11 @@ import {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    <%= classify(library) %>Module.forRoot({ server: environment.server, api: environment.api }),
+    <%= classify(library) %>Module.forRoot({
+      production: environment.production,
+      server: environment.server,
+      api: environment.api
+    }),
     RouterModule.forRoot(Routes)
   ],
   providers: [],

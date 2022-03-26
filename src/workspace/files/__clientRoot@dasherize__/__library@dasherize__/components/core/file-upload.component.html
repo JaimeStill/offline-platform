@@ -1,0 +1,33 @@
+<input #fileInput
+       type="file"
+       class="no-display"
+       multiple
+       (change)="fileChange($event)">
+<button *ngIf="!(useDrop)"
+        mat-icon-button
+        [class]="buttonClass"
+        (click)="fileInput.click()">
+  <mat-icon [class]="iconClass">{{icon}}</mat-icon>
+</button>
+<section fxLayout="column"
+         fxLayoutAlign="start stretch"
+         *ngIf="useDrop">
+  <section class="drop-container cursor-pointer"
+           [ngClass]="dropStyle"
+           [style.width.px]="dropWidth"
+           [style.height.px]="dropHeight"
+           (click)="fileInput.click()"
+           (drop)="drop($event)"
+           (dragover)="dragOver($event)"
+           (dragleave)="dragLeave($event)">
+    <section fxLayout="column"
+             fxLayoutAlign="center center"
+             class="drop-overlay"
+             [style.opacity]="hovered ? .7 : 0">
+      <mat-icon [ngClass]="dropIconClass"
+                [style.transform]="'scale(' + dropIconScale + ')'">{{dropIcon}}</mat-icon>
+    </section>
+  </section>
+  <p class="m2 mat-caption"
+     fxFlexAlign="center">Click or drop files into the container above</p>
+</section>

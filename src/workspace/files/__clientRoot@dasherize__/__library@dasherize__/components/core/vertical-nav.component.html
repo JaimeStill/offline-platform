@@ -1,0 +1,37 @@
+<section fxLayout="row"
+         fxLayoutAlign="start start"
+         fxFlex>
+  <section class="full-height"
+           fxLayout="column"
+           [fxLayoutAlign]="tabAlignment"
+           [style.width.px]="calculateWidth()">
+    <section fxLayout="row"
+             fxLayoutAlign="start center">
+      <button mat-icon-button
+              class="m4"
+              (click)="toggleExpanded()">
+        <mat-icon *ngIf="expanded">close_fullscreen</mat-icon>
+        <mat-icon *ngIf="!expanded">open_in_full</mat-icon>
+      </button>
+      <p *ngIf="heading && expanded"
+         [ngClass]="headingStyle">{{heading}}</p>
+    </section>
+    <p *ngFor="let tab of getTabs()"
+       class="tab cursor-pointer no-outline"
+       [ngClass]="tabStyle"
+       [routerLink]="tab.link"
+       [routerLinkActive]="activeStyle"
+       [routerLinkActiveOptions]="tab.exact || {exact: false}"
+       [matTooltip]="tab.label"
+       [matTooltipDisabled]="expanded">
+      <span *ngIf="expanded">{{tab.label}}</span>
+      <span *ngIf="!(expanded)">{{tab?.label[0]}}</span>
+    </p>
+  </section>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           class="el-4 full-height"
+           fxFlex>
+    <ng-content></ng-content>
+  </section>
+</section>

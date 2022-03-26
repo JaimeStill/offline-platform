@@ -1,0 +1,42 @@
+section.image-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+img.image-upload {
+  display: block;
+  object-fit: contain;
+  object-position: 50% 0;
+  transition: 0.3s ease;
+  height: 100%;
+  width: 100%;
+}
+
+section.image-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.3s ease;
+  background-color: black;
+}
+
+mat-icon.material-icons,
+mat-icon.material-icons-outlined {
+  color: white;
+}
+
+section.image-container:hover {
+  section.image-overlay {
+    opacity: 0.5;
+  }
+
+  img.image-upload {
+    filter: grayscale(100%);
+  }
+}

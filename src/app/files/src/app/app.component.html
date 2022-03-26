@@ -4,18 +4,7 @@
     <banner [label]="config.label"
             [background]="config.background"
             [color]="config.color"></banner>
-    <mat-toolbar class="app-toolbar"
-                 color="primary">
-      <span class="header-font cursor-pointer"
-            routerLink="home"><%= classify(name) %></span>
-      <span fxFlex></span>
-      <button mat-icon-button
-              [ngClass]="themer.isLight ? 'color-amber' : 'color-text'"
-              (click)="themer.toggleTheme()">
-        <mat-icon *ngIf="themer.isLight">brightness_5</mat-icon>
-        <mat-icon *ngIf="!(themer.isLight)">brightness_3</mat-icon>
-      </button>
-    </mat-toolbar>
+    <app-bar module="<%= spacify(name) %>"></app-bar>
     <section class="app-container">
       <router-outlet></router-outlet>
     </section>

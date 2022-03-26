@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'sass:math';
 @use '@angular/material' as mat;
 @use './palette.scss';
 
@@ -56,6 +57,10 @@
     color: $text!important;
   }
 
+  .color-disabled {
+    color: $disabled-text !important;
+  }
+
   a.mat-list-item,
   a.mat-list-item:visited,
   a.mat-tab-link,
@@ -99,9 +104,16 @@
   }
 
   button.mat-stroked-button:disabled,
+  button.mat-icon-button:disabled,
   a.mat-stroked-button:disabled {
     border-color: $disabled-button;
     color: $disabled-text!important;
+  }
+
+  a.container-link,
+  a.container-link:visited {
+    color: $text;
+    text-decoration: none;
   }
 
   mat-toolbar.mat-toolbar.app-toolbar {
@@ -139,6 +151,14 @@
       a.mat-icon-button:visited {
         color: map.get($value, "contrast");
       }
+    }
+  }
+
+  // the key is whole number representing a decimal/percentile
+  // if $key = 75 then scale(.75)
+  @for $size from 1 through 200 {
+    .scale-#{$size} {
+      transform: scale(#{math.div($size, 100)});
     }
   }
 

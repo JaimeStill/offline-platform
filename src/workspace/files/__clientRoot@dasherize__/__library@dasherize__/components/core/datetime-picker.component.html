@@ -1,0 +1,7 @@
+<mat-form-field fxFlex>
+  <mat-label>{{label}}</mat-label>
+  <input type="datetime-local"
+         matInput
+         [value]="date | date:'yyyy-MM-ddTHH:mm'"
+         (change)="saveDatetime($event)">
+</mat-form-field>

@@ -4,14 +4,18 @@ namespace <%= classify(name) %>.Web;
 using <%= classify(name) %>.Core.Banner;
 using <%= classify(name) %>.Core.Extensions;
 using <%= classify(name) %>.Core.Logging;
+using <%= classify(name) %>.Core.Sockets;
 using <%= classify(name) %>.Core.Upload;
 using <%= classify(name) %>.Data;
 using <%= classify(name) %>.Identity;
 using <%= classify(name) %>.Identity.Mock;
 using <%= classify(name) %>.Office;
+using <%= classify(name) %>.Web.Hubs;
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
@@ -63,6 +67,7 @@ public class Startup
             )
             .AddNewtonsoftJson(options =>
             {
+                options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -70,8 +75,6 @@ public class Startup
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
-        services.AddSignalR();
 
         services.AddSingleton(new BannerConfig
         {
@@ -104,26 +107,35 @@ public class Startup
                 UrlBasePath = Configuration.GetValue<string>("AppUrlBasePath")
             });
 
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
+            services.Configure<IISOptions>(options =>
+            {
+                options.AutomaticAuthentication = true;
+            });
+
             services.AddScoped<IUserProvider, AdUserProvider>();
         }
+
+        services.AddSignalR();
+        services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
+        services.AddSingleton<SocketGroupProvider>();
+        services.AddLogging();
     }
 
     public void Configure(IApplicationBuilder app)
     {
         app.UseStaticFiles();
+        app.UseDeveloperExceptionPage();
+        app.UseAuthentication();
 
         if (Environment.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-            app.UseAuthentication();
             app.UseMockMiddleware();
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "<%= classify(name) %> v1"));
-        }
         else
-        {
             app.UseAdMiddleware();
-        }
+
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reactive v1"));
 
         app.UseStaticFiles(new StaticFileOptions
         {
@@ -147,18 +159,24 @@ public class Startup
 
         app.UseRouting();
 
+        app.UseAuthorization();
+
         app.UseCors(builder =>
         {
             builder.WithOrigins(GetConfigArray("CorsOrigins"))
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithExposedHeaders("Content-Disposition");
+                .WithExposedHeaders(
+                  "Content-Disposition",
+                  "Access-Control-Allow-Origin"
+                );
         });
 
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapHubs();
         });
     }
 

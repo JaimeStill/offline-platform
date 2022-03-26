@@ -15,7 +15,7 @@ import {
 
 import { HttpClient } from '@angular/common/http';
 import { PageEvent } from '@angular/material/paginator';
-import { QueryResult } from '../../models';
+import { QueryResult } from './query-result';
 import { SnackerService } from '../../services';
 
 export abstract class CoreQuery<T> {
@@ -23,11 +23,10 @@ export abstract class CoreQuery<T> {
   private forceRefreshUrl = new Subject<string>();
 
   protected queryResult = new ReplaySubject<QueryResult<T>>(1);
-  protected lastQueryResult?: QueryResult<T>;
+  protected lastQueryResult!: QueryResult<T>;
   protected subs = new Array<Subscription>();
 
   queryResult$ = this.queryResult.asObservable();
-  pageSizeOptions = [5, 10, 20, 50, 100];
 
   private initUrlStream = (): Subscription =>
     merge(this.requestUrl, this.forceRefreshUrl)
@@ -41,7 +40,7 @@ export abstract class CoreQuery<T> {
         filter(r => r != null)
       )
       .subscribe({
-        next: (result: QueryResult<T>) => {
+        next: result => {
           this.lastQueryResult = result;
           this.queryResult.next(result);
         },
@@ -50,18 +49,22 @@ export abstract class CoreQuery<T> {
 
   constructor(
     protected http: HttpClient,
-    protected snacker: SnackerService
+    protected snacker: SnackerService,
+    protected initialPageSize: number = 20,
+    public pageSizeOptions: number[] = [5, 10, 20, 50, 100]
   ) {
     this.subs.push(
       this.initUrlStream()
     )
+
+    this.pageSize = initialPageSize;
   }
 
   unsubscribe = () => this.subs.forEach(sub => sub.unsubscribe());
 
-  private _baseUrl: string | null = null;
-  get baseUrl(): string | null { return this._baseUrl; }
-  protected set baseUrl(value: string | null) {
+  private _baseUrl: string = null;
+  get baseUrl(): string { return this._baseUrl; }
+  protected set baseUrl(value: string) {
     if (value !== this._baseUrl) {
       this._baseUrl = value;
       this.refresh();
@@ -77,12 +80,16 @@ export abstract class CoreQuery<T> {
     }
   }
 
-  private _pageSize = 20;
+  private _pageSize: number;
   get pageSize(): number { return this._pageSize; }
   set pageSize(value: number) {
-    if (value !== this._pageSize) {
+    if (this._pageSize) {
+      if (value !== this._pageSize) {
+        this._pageSize = value;
+        this.refresh();
+      }
+    } else {
       this._pageSize = value;
-      this.refresh();
     }
   }
 
@@ -90,16 +97,16 @@ export abstract class CoreQuery<T> {
   get sort(): { propertyName: string, isDescending: boolean } | null {
     return this._sort;
   }
-  set sort(value: { propertyName: string, isDescending: boolean } | null) {
+  set sort(value: { propertyName: string, isDescending: boolean }) {
     this._sort = value;
     this.refresh();
   }
 
-  private _search: string | null  = null;
+  private _search: string | null = null;
   get search(): string | null {
     return this._search;
   }
-  set search(value: string | null) {
+  set search(value: string) {
     this._search = value;
     this.refresh();
   }
@@ -151,6 +158,8 @@ export abstract class CoreQuery<T> {
     this.forceRefreshUrl.next(url);
   }
 
+  clearStream = () => this.baseUrl = null && this.queryResult.next(null);
+
   clearSearch = () => this.search = null;
 
   onPage = (pageEvent: PageEvent) => {
@@ -162,5 +171,5 @@ export abstract class CoreQuery<T> {
 
   onSort = (event: { active: string, direction: string }) => this.sort = event.direction
     ? { propertyName: event.active, isDescending: event.direction === 'desc' }
-    : null
+    : null;
 }

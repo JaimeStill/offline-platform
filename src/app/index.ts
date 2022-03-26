@@ -33,6 +33,7 @@ import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { relativePathToWorkspaceRoot } from '@schematics/angular/utility/paths';
 import { addPackageJsonScript } from '../dependencies';
 import { Schema } from './schema';
+import { spacify } from '../spacify';
 
 function updatePackageJson(options: Schema) {
   return (host: Tree, context: SchematicContext) => {
@@ -189,6 +190,7 @@ export default function (options: Schema): Rule {
           template({
             ...strings,
             ...options,
+            spacify,
             relativePathToWorkspaceRoot: relativePathToWorkspaceRoot(appDir),
             appName: options.name
           }),

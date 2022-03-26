@@ -1,0 +1,13 @@
+<mat-toolbar class="app-toolbar"
+             [color]="color">
+  <span class="header-font cursor-pointer"
+        [routerLink]="homeLink">{{module}}</span>
+  <ng-content></ng-content>
+  <span fxFlex></span>
+  <button mat-icon-button
+          (click)="themer.toggleTheme()">
+    <mat-icon [ngClass]="themer.isLight ? lightColor : darkColor">
+      {{themer.isLight ? lightIcon : darkIcon}}
+    </mat-icon>
+  </button>
+</mat-toolbar>

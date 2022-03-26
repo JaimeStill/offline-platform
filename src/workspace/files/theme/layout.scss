@@ -48,9 +48,14 @@ section.scroll-container {
 table.docs-table {
   margin: 4px 4px 12px;
 
-  th, td {
+  th,
+  td {
     padding: 4px;
   }
+}
+
+mat-divider.mat-divider-vertical {
+  align-self: stretch;
 }
 
 mat-toolbar.mat-toolbar mat-form-field.mat-form-field {

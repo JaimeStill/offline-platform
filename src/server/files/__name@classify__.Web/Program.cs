@@ -11,5 +11,16 @@ public class Program
 
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>();
+            .UseStartup<Startup>()
+            .UseIISIntegration()
+            .ConfigureLogging(logging =>
+            {
+                logging
+                    .ClearProviders()
+                    .AddConsole()
+                    .AddEventLog(settings =>
+                    {
+                        settings.SourceName = "<%= classify(name) %>";
+                    });
+            });
 }

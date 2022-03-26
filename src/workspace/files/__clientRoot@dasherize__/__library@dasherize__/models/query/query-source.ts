@@ -10,9 +10,11 @@ export class QuerySource<T> extends CoreQuery<T> {
     private config: ServerConfig,
     private propertyName: string,
     private url: string | null = null,
-    private isDescending: boolean = false
+    private isDescending: boolean = false,
+    protected initialPageSize: number = 20,
+    public pageSizeOptions: number[] = [5, 10, 20, 50, 100]
   ) {
-    super(http, snacker);
+    super(http, snacker, initialPageSize, pageSizeOptions);
 
     this.sort = { propertyName, isDescending };
 
@@ -21,5 +23,5 @@ export class QuerySource<T> extends CoreQuery<T> {
       : null;
   }
 
-  setUrl = (url: string) => this.baseUrl = `${this.config.api}/${url}`;
+  setUrl = (url: string) => this.baseUrl = `${this.config.api}${url}`;
 }

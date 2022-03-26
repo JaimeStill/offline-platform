@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   server: 'http://localhost:<%= serverPort %>/',
   api: 'http://localhost:<%= serverPort %>/<%= api %>/',
-  root: null
+  root: 'docs'
 };
 
 /*

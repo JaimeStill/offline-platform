@@ -1,0 +1,32 @@
+<ng-container *ngIf="editable">
+  <input #fileInput
+         type="file"
+         accept="image/*"
+         class="no-display"
+         [multiple]="false"
+         (change)="fileChange($event)">
+  <section class="image-container cursor-pointer rounded"
+           [ngClass]="imgClasses"
+           [style.max-width.px]="imageSize"
+           [style.max-height.px]="imageSize"
+           (click)="fileInput.click()">
+    <img class="image-upload rounded"
+         [src]="src"
+         [style.max-width.px]="imageSize"
+         [style.max-height.px]="imageSize">
+    <section class="image-overlay rounded"
+             fxLayout="column"
+             fxLayoutAlign="center center">
+      <mat-icon [ngClass]="iconClass"
+                [style.font-size.px]="iconSize"
+                [style.width.px]="iconSize"
+                [style.height.px]="iconSize">{{icon}}</mat-icon>
+    </section>
+  </section>
+</ng-container>
+<ng-container *ngIf="!(editable)">
+  <img class="image-upload rounded"
+       [src]="src"
+       [style.width.px]="imageSize"
+       [style.height.px]="imageSize">
+</ng-container>

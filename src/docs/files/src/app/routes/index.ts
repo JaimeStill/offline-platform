@@ -1,11 +1,11 @@
 import { Route } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { HomeRoute } from './home/home.route';
 
 export const RouteComponents = [
-  HomeComponent
+  HomeRoute
 ];
 
 export const Routes: Route[] = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: '**', component: HomeComponent },
+  { path: '', component: HomeRoute, pathMatch: 'full' },
+  { path: '**', component: HomeRoute },
 ];
