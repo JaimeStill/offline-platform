@@ -1,4 +1,4 @@
-# Platform Schematics
+# Offline Platform Schematics
 
 * [Setup](#setup)
     * [Required App Installations](#required-app-installations)
@@ -6,6 +6,8 @@
 * [Getting Started](#getting-started)
     * [Initialize a Project](#initialize-a-project)
     * [Add an App to the Workspace](#add-an-app-to-the-workspace)
+
+> Documentation for configuring a deployment environment can be found in the [environment](./environment/readme.md) sub-directory.
 
 ## Setup
 [Back to Top](#platform-schematics)
@@ -23,7 +25,7 @@
     * When installing features, you can uncheck the box that installs Machine Learning features.
     * During setup, name your instance `DevSql`.
 * [VS Code](https://code.visualstudio.com/docs/?dv=win64user)
-* [Azure Data Studio](https://go.microsoft.com/fwlink/?linkid=2142210)
+* [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
 
 ### Globally Install Tools
 [Back to Top](#platform-schematics)
@@ -84,7 +86,7 @@ Script | Executes | Description
 `yarn start:{app}` | `ng serve {app}` | Starts the specified Angular application
 `yarn watch` | `ng build core --watch` | Builds the `core` library and watches for changes. This enables hot reloading for the library when modifications are made during development.
 
-> To add content to the `docs` project, add **Markdown** files to the `/server/{Project}.Web/wwwroot` directory in any folder structure you prefer.
+> To add content to the `docs` project, add **Markdown** files to the `/server/{Project}.Web/wwwroot/docs` directory in any folder structure you prefer.
 
 ### Add an App to the Workspace
 [Back to Top](#platform-schematics)

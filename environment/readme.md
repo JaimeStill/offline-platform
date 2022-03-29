@@ -1,6 +1,17 @@
 # Offline Environment Configuration
 
-This documentation is intended to be followed sequentially. Steps that are performed in a document could potentially rely on steps that were taken in a previous document. If you run into any problems, be sure you performed any related tasks defined in earlier sections.
+This documentation captures the necessary configuration for hosting and automating CI / CD deployments of apps generated using the schematics represented by this repository.
+
+Things that are **not** covered:
+
+* Setting up VM infrastructure
+* Setting up a Windows domain
+* Installing Azure DevOps Server
+    * [Microsoft Docs](https://docs.microsoft.com/en-us/azure/devops/server/install/get-started?view=azure-devops-2020) already do a great job of walking through this.
+
+If you already have the above, then this guide should cover everything else you need.
+
+It is intended to be followed sequentially. Steps that are performed in a document could potentially rely on steps that were taken in a previous document. If you run into any problems, be sure you performed any related tasks defined in earlier sections.
 
 The names of servers, applications, URLs, etc. have been made generic to simplify the writing of this documentation. Be sure to adjust these names to match your target environment.
 
