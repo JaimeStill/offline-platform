@@ -1,5 +1,7 @@
 # Dev Machine Configuration
 
+[Previous](./07-devops-configuration.md) | [Home](./readme.md) | [Next](./09-azure-pipelines-configuration.md)
+
 Installation process is in order. If steps are left out, they are assumed to be default.
 
 ## Apps and Configuration
@@ -274,3 +276,5 @@ Type | URL
 Server | http://localhost:5000/swagger
 Docs | http://localhost:4000
 App | http://localhost:3000
+
+[Previous](./07-devops-configuration.md) | [Home](./readme.md) | [Next](./09-azure-pipelines-configuration.md)

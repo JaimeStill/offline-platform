@@ -1,5 +1,7 @@
 # DevOps Configuration
 
+[Previous](./06-iis-server-configuration.md) | [Home](./readme.md) | [Next](./08-dev-machine-configuration.md)
+
 ## IIS Web App Deployment Extension
 
 1. Navigate to the [IIS Web App Deployment Extension Page](https://marketplace.visualstudio.com/items?itemName=ms-vscs-rm.iiswebapp) and click **Get It Free**.
@@ -11,6 +13,10 @@
 4. Navigate to your Azure DevOps Server Gallery Management URL, http://devazure.domain.net/_gallery/manage for this documentation.
 
 5. Click **Upload Extension** and select the downloaded `.vsix`.
+
+6. Once uploaded, click it then click **Get it free**.
+
+7. Select your collection from the **Select team project collection** dropdown and click **Install**.
 
 ## Service Account Permissions
 
@@ -182,3 +188,5 @@ param(
 >
 > **User**: svc-app-tfs  
 > **Password**: {password}
+
+[Previous](./06-iis-server-configuration.md) | [Home](./readme.md) | [Next](./08-dev-machine-configuration.md)

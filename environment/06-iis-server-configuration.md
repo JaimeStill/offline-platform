@@ -1,5 +1,7 @@
 # IIS Server Configuration
 
+[Previous](./05-build-server-configuration.md) | [Home](./readme.md) | [Next](./07-devops-configuration.md)
+
 > When all of the following configuration is complete, make sure to stop and start IIS from an administrative PowerShell session as follows:
 
 ```PowerShell
@@ -210,3 +212,5 @@ useKernelMode | True
 2. From the **Section** drop-down, navigate to `system.webServer/security/authentication/windowsAuthentication`.
 
 3. Set `useAppPoolCredentials` to `True`.
+
+[Previous](./05-build-server-configuration.md) | [Home](./readme.md) | [Next](./07-devops-configuration.md)

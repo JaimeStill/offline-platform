@@ -1,5 +1,7 @@
 # Service Account Configuration
 
+[Previous](./01-requirements.md) | [Home](./readme.md) | [Next](./03-dns-and-group-policy-configuration.md)
+
 > Account and Domain names provided here are examples and should be replaced with whatever is relevant to your domain infrastructure. For instance, `domain.net` should be replaced with whatever is configured for your domain. The same applies to all specified account names and URL endpoints.
 
 ## Azure DevOps Service Account
@@ -66,3 +68,5 @@ This document outlines how to setup and register the IIS + SQL GMSA accounts fro
     # replace {gmsa} with the account to be installed
     Install-ADServiceAccount -Identity {gmsa}
     ```
+
+[Previous](./01-requirements.md) | [Home](./readme.md) | [Next](./03-dns-and-group-policy-configuration.md)

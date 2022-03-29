@@ -1,5 +1,7 @@
 # DNS and Group Policy Configuration
 
+[Previous](./02-service-account-configuration.md) | [Home](./readme.md) | [Next](./04-sql-server-configuration.md)
+
 > Both of the following tasks are performed on the Domain Controller, named DEVDC in this example. Replace all instances with the name of the DC you are performing the actions on. Also, replace all instances of `domain.net` with whatever is relevant to your environment.
 
 ## DNS
@@ -57,3 +59,5 @@
 7. From within the `Security Page` folder, double-click the `Trusted Sites Zone` folder (full path is: `Computer Configuration/Policies/Administrative Templates/Windows Components/Internet Explorer/Internet Control Page/Security Page/Trusted Sites Zone`), right-click *Logon options* and click **Edit**.
 
 8. Set to **Enabled** and in the *Options: Logon options* section, select `Automatic logon with current username and password` from the drop-down list tehn click **OK**.
+
+[Previous](./02-service-account-configuration.md) | [Home](./readme.md) | [Next](./04-sql-server-configuration.md)

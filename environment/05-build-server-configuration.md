@@ -1,5 +1,7 @@
 # Build Server Configuration
 
+[Previous](./04-sql-server-configuration.md) | [Home](./readme.md) | [Next](./06-iis-server-configuration.md)
+
 ## App Installation
 
 If the installation for an app is non-default, its header will link to installation instructions. Additional information for the app installation relative to the build server will be provided beneath the header link if necessary.
@@ -69,3 +71,5 @@ Copy the following artifacts that are generated above to the `svc-app-tfs` user 
 * `$env:USERPROFILE\\.dotnet\tools`
 * `$env:LOCALAPPDATA\\Yarn\bin`
 * `$env:LOCALAPPDATA\\Yarn\\Data`
+
+[Previous](./04-sql-server-configuration.md) | [Home](./readme.md) | [Next](./06-iis-server-configuration.md)

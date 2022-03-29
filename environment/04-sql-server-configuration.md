@@ -1,5 +1,7 @@
 # SQL Server Configuration
 
+[Previous](./03-dns-and-group-policy-configuration.md) | [Home](./readme.md) | [Next](./05-build-server-configuration.md)
+
 ## GMSA Installation
 
 1. Open **Server Manager** and open **Add Roles and Features**.
@@ -93,3 +95,5 @@
 3. Press the <kbd>Win</kbd> key and type `Management Studio`, then open `Microsoft SQL Server Management Studio 18`.
 
 4. You can connect to the instance using **Server name**: `DEVSQL\AppSql` using **Windows Authentication**.
+
+[Previous](./03-dns-and-group-policy-configuration.md) | [Home](./readme.md) | [Next](./05-build-server-configuration.md)
