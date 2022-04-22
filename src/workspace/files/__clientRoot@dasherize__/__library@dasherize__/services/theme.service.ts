@@ -25,6 +25,13 @@ export class ThemeService {
   constructor(
     private overlay: OverlayContainer
   ) {
+    this.isLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    window.matchMedia('(prefers-color-scheme: light)')
+      .addEventListener('change', (e: MediaQueryListEvent) =>
+        this.isLight = e.matches
+      );
+
     this.setOverlayContainerTheme();
   }
 }
