@@ -37,7 +37,7 @@
       "description": "The package manager used to install dependencies.",
       "type": "string",
       "enum": ["npm", "yarn", "pnpm", "cnpm"],
-      "default": "yarn"
+      "default": "npm"
     },
     "server": {
       "description": "The name of the platform server solution.",

@@ -75,7 +75,7 @@
       "description": "The package manager used to install dependencies.",
       "type": "string",
       "enum": ["npm", "yarn", "pnpm", "cnpm"],
-      "default": "yarn"
+      "default": "npm"
     },
     "prefix": {
       "description": "A prefix to appply to generated selectors.",

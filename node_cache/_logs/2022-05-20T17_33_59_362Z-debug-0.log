@@ -1,0 +1,127 @@
+0 verbose cli [
+0 verbose cli   'C:\\Program Files\\nodejs\\node.exe',
+0 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+0 verbose cli   'i',
+0 verbose cli   '-D',
+0 verbose cli   '@types/node',
+0 verbose cli   'jsonc-parser'
+0 verbose cli ]
+1 info using npm@8.5.5
+2 info using node@v16.15.0
+3 timing npm:load:whichnode Completed in 1ms
+4 timing config:load:defaults Completed in 2ms
+5 timing config:load:file:C:\Program Files\nodejs\node_modules\npm\npmrc Completed in 4ms
+6 timing config:load:builtin Completed in 4ms
+7 timing config:load:cli Completed in 4ms
+8 timing config:load:env Completed in 1ms
+9 timing config:load:file:C:\Users\jpsti\Desktop\Work\Projects\offline-platform\.npmrc Completed in 1ms
+10 timing config:load:project Completed in 6ms
+11 timing config:load:file:C:\Users\jpsti\.npmrc Completed in 0ms
+12 timing config:load:user Completed in 1ms
+13 timing config:load:file:C:\Users\jpsti\AppData\Roaming\npm\etc\npmrc Completed in 0ms
+14 timing config:load:global Completed in 0ms
+15 timing config:load:validate Completed in 0ms
+16 timing config:load:credentials Completed in 1ms
+17 timing config:load:setEnvs Completed in 1ms
+18 timing config:load Completed in 21ms
+19 timing npm:load:configload Completed in 21ms
+20 timing npm:load:setTitle Completed in 0ms
+21 timing config:load:flatten Completed in 4ms
+22 timing npm:load:display Completed in 7ms
+23 verbose logfile C:\Users\jpsti\Desktop\Work\Projects\offline-platform\node_cache\_logs\2022-05-20T17_33_59_362Z-debug-0.log
+24 timing npm:load:logFile Completed in 12ms
+25 timing npm:load:timers Completed in 0ms
+26 timing npm:load:configScope Completed in 0ms
+27 timing npm:load Completed in 42ms
+28 timing arborist:ctor Completed in 0ms
+29 timing idealTree:init Completed in 68ms
+30 timing idealTree:userRequests Completed in 2ms
+31 silly idealTree buildDeps
+32 silly fetch manifest @types/node@^17.0.21
+33 timing arborist:ctor Completed in 0ms
+34 http fetch GET 200 https://registry.npmjs.org/@types%2fnode 57ms (cache hit)
+35 silly fetch manifest jsonc-parser@^3.0.0
+36 http fetch GET 200 https://registry.npmjs.org/jsonc-parser 9ms (cache hit)
+37 silly placeDep ROOT @types/node@17.0.35 REPLACE for: platform@0.0.0 want: ^17.0.21
+38 silly placeDep ROOT jsonc-parser@3.0.0 REPLACE for: platform@0.0.0 want: ^3.0.0
+39 timing idealTree:#root Completed in 87ms
+40 timing idealTree:node_modules/@types/node Completed in 0ms
+41 timing idealTree:node_modules/jsonc-parser Completed in 0ms
+42 timing idealTree:buildDeps Completed in 88ms
+43 timing idealTree:fixDepFlags Completed in 1ms
+44 timing idealTree Completed in 162ms
+45 timing reify:loadTrees Completed in 162ms
+46 timing reify:diffTrees Completed in 2ms
+47 silly reify moves {}
+48 timing reify:retireShallow Completed in 0ms
+49 timing reify:createSparse Completed in 0ms
+50 timing reify:loadBundles Completed in 0ms
+51 silly audit bulk request {
+51 silly audit   '@angular-devkit/core': [ '13.3.6' ],
+51 silly audit   '@angular-devkit/schematics': [ '13.3.6' ],
+51 silly audit   '@schematics/angular': [ '13.3.6' ],
+51 silly audit   ajv: [ '8.9.0' ],
+51 silly audit   'ajv-formats': [ '2.1.1' ],
+51 silly audit   'ansi-regex': [ '5.0.1' ],
+51 silly audit   'ansi-styles': [ '4.3.0' ],
+51 silly audit   'base64-js': [ '1.5.1' ],
+51 silly audit   bl: [ '4.1.0' ],
+51 silly audit   buffer: [ '5.7.1' ],
+51 silly audit   chalk: [ '4.1.2' ],
+51 silly audit   'cli-cursor': [ '3.1.0' ],
+51 silly audit   'cli-spinners': [ '2.6.1' ],
+51 silly audit   clone: [ '1.0.4' ],
+51 silly audit   'color-convert': [ '2.0.1' ],
+51 silly audit   'color-name': [ '1.1.4' ],
+51 silly audit   defaults: [ '1.0.3' ],
+51 silly audit   'fast-deep-equal': [ '3.1.3' ],
+51 silly audit   'fast-json-stable-stringify': [ '2.1.0' ],
+51 silly audit   'has-flag': [ '4.0.0' ],
+51 silly audit   ieee754: [ '1.2.1' ],
+51 silly audit   inherits: [ '2.0.4' ],
+51 silly audit   'is-interactive': [ '1.0.0' ],
+51 silly audit   'is-unicode-supported': [ '0.1.0' ],
+51 silly audit   'json-schema-traverse': [ '1.0.0' ],
+51 silly audit   'log-symbols': [ '4.1.0' ],
+51 silly audit   'magic-string': [ '0.25.7' ],
+51 silly audit   'mimic-fn': [ '2.1.0' ],
+51 silly audit   onetime: [ '5.1.2' ],
+51 silly audit   ora: [ '5.4.1' ],
+51 silly audit   punycode: [ '2.1.1' ],
+51 silly audit   'readable-stream': [ '3.6.0' ],
+51 silly audit   'require-from-string': [ '2.0.2' ],
+51 silly audit   'restore-cursor': [ '3.1.0' ],
+51 silly audit   rxjs: [ '6.6.7' ],
+51 silly audit   'safe-buffer': [ '5.2.1' ],
+51 silly audit   'signal-exit': [ '3.0.7' ],
+51 silly audit   'source-map': [ '0.7.3' ],
+51 silly audit   'sourcemap-codec': [ '1.4.8' ],
+51 silly audit   string_decoder: [ '1.3.0' ],
+51 silly audit   'strip-ansi': [ '6.0.1' ],
+51 silly audit   'supports-color': [ '7.2.0' ],
+51 silly audit   tslib: [ '1.14.1' ],
+51 silly audit   typescript: [ '4.6.4' ],
+51 silly audit   'uri-js': [ '4.4.1' ],
+51 silly audit   'util-deprecate': [ '1.0.2' ],
+51 silly audit   wcwidth: [ '1.0.1' ],
+51 silly audit   '@types/node': [ '17.0.35' ],
+51 silly audit   'jsonc-parser': [ '3.0.0' ]
+51 silly audit }
+52 timing reify:unpack Completed in 2ms
+53 timing reify:unretire Completed in 0ms
+54 timing build:queue Completed in 0ms
+55 timing build:deps Completed in 1ms
+56 timing build Completed in 1ms
+57 timing reify:build Completed in 1ms
+58 timing reify:trash Completed in 0ms
+59 timing reify:save Completed in 16ms
+60 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 306ms
+61 timing auditReport:getReport Completed in 309ms
+62 silly audit report {}
+63 timing auditReport:init Completed in 0ms
+64 timing reify:audit Completed in 310ms
+65 timing reify Completed in 490ms
+66 timing command:i Completed in 498ms
+67 verbose exit 0
+68 timing npm Completed in 889ms
+69 info ok

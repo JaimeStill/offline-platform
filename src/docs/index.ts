@@ -40,7 +40,7 @@ function updatePackageJson(options: Schema) {
     addPackageJsonScript(host, `start:${options.name}`, `ng serve ${options.name} --configuration development`);
 
     if (!options.skipInstall) {
-      context.addTask(new NodePackageInstallTask({ packageManager: 'yarn' }));
+      context.addTask(new NodePackageInstallTask({ packageManager: 'npm' }));
     }
 
     return host;
