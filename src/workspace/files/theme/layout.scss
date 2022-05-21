@@ -94,6 +94,21 @@ mat-toolbar.mat-toolbar.app-toolbar {
   }
 }
 
+nav.mat-tab-nav-bar a.mat-button {
+  height: 48px;
+  padding: 0 24x;
+  opacity: .6;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  vertical-align: top;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
 nav.mat-tab-nav-bar.wrapped div.mat-tab-links {
   flex-wrap: wrap;
 }

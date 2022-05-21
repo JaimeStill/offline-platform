@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNetCore.OData</id>
+    <version>8.0.10</version>
+    <title>Microsoft ASP.NET Core 3.x, 5.x and 6.x for OData v4.0</title>
+    <authors>OData (.NET Foundation)</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>images\odata.png</icon>
+    <projectUrl>http://github.com/OData/AspNetCoreOData</projectUrl>
+    <description>This package contains everything you need to create OData v4.0 endpoints using ASP.NET Core MVC Core 3.x and 5.x to support OData query syntax for your Web APIs.</description>
+    <summary>This package contains everything you need to create OData v4.0 endpoints using ASP.NET Core MVC.</summary>
+    <copyright>© .NET Foundation and Contributors. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>Microsoft AspNetCore WebApi OData</tags>
+    <repository type="git" url="https://github.com/OData/AspNetCoreOData.git" branch="master" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Microsoft.OData.ModelBuilder" version="[1.0.8, 2.0.0)" />
+        <dependency id="Microsoft.OData.Core" version="[7.9.4, 8.0.0)" />
+        <dependency id="Microsoft.OData.Edm" version="[7.9.4, 8.0.0)" />
+        <dependency id="Microsoft.Spatial" version="[7.9.4, 8.0.0)" />
+      </group>
+      <group targetFramework="net5.0">
+        <dependency id="Microsoft.OData.ModelBuilder" version="[1.0.8, 2.0.0)" />
+        <dependency id="Microsoft.OData.Core" version="[7.9.4, 8.0.0)" />
+        <dependency id="Microsoft.OData.Edm" version="[7.9.4, 8.0.0)" />
+        <dependency id="Microsoft.Spatial" version="[7.9.4, 8.0.0)" />
+      </group>
+      <group targetFramework="net6.0">
+        <dependency id="Microsoft.OData.ModelBuilder" version="[1.0.8, 2.0.0)" />
+        <dependency id="Microsoft.OData.Core" version="[7.9.4, 8.0.0)" />
+        <dependency id="Microsoft.OData.Edm" version="[7.9.4, 8.0.0)" />
+        <dependency id="Microsoft.Spatial" version="[7.9.4, 8.0.0)" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

@@ -14,6 +14,8 @@ Dependency updates are packaged into the following directory structure:
 
 All links below route to the relevant resource.
 
+Be sure to maintain the list of resources, as well as the **Last Version** of any resource updated, during each update cycle so that this document remains relevant.
+
 ## apps
 
 App | Last Version

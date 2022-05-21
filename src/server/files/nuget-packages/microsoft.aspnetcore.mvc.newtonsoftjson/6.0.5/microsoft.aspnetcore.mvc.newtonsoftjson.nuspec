@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNetCore.Mvc.NewtonsoftJson</id>
+    <version>6.0.5</version>
+    <authors>Microsoft</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>Icon.png</icon>
+    <projectUrl>https://asp.net/</projectUrl>
+    <description>ASP.NET Core MVC features that use Newtonsoft.Json. Includes input and output formatters for JSON and JSON PATCH.
+
+This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/e5f183b656a0e8bc087108130a5a9b54ae94494e</description>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>aspnetcore aspnetcoremvc json</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/dotnet/aspnetcore" commit="e5f183b656a0e8bc087108130a5a9b54ae94494e" />
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Microsoft.AspNetCore.JsonPatch" version="6.0.5" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json.Bson" version="1.0.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  <frameworkReferences><group targetFramework="net6.0"><frameworkReference name="Microsoft.AspNetCore.App" /></group></frameworkReferences></metadata>
+</package>

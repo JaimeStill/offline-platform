@@ -30,38 +30,26 @@ While going through the update process, whenever changes are made, they should b
   rem .yarnrc
   rem yarn.lock
 
+/docs/
+  mod notes.md
+
 /src/app/
   mod index.ts
 
-/src/docs/
-  mod index.ts
-
-/src/platform/
-  mod schema.json
-
-/src/server/files/
-  mod nuget-packages/
-  mod update-deps.cmd
-
-/src/workspace/
-  mod index.ts
-  mod schema.json
-
 /src/workspace/files/
-  add node_cache/
-  add .npmrc
-  add package-lock.json
+  update add node_cache/
+  update add .npmrc
+  update add package-lock.json
 
-  mod .editorconfig
-  mod package-lock.json
-  mod package.json
-  mod readme.md
-  mod update-deps.cmd
+  update mod .editorconfig
+  update mod package.json
+  update mod readme.md
+  update mod update-deps.cmd
 
-  rem .yarnrc
-  rem clean-cache.cmd
-  rem offline-cache
-  rem yarn.lock
+  update rem .yarnrc
+  update rem clean-cache.cmd
+  update rem offline-cache
+  update rem yarn.lock
 ```
 
 From top to bottom (starting with the directory root), changes should be captured based on the directory the changes occurred in. The directories are organized hierarchically as they appear in the VS Code Explorer (or any other IDE directory tree). Indented below each directory are the sub-directories and files that have been affected All directories are post-fixed with a trailing `/` to differentiate them from files.
@@ -73,6 +61,8 @@ Each of the actions are listed in order of the action taken, with each action gr
 * mov - contents were moved.
   * in the format of *source content* -> *destination directory*
 * rem - contents were removed.
+
+If an action is prefixed with `update`, it means that it was applied within the monorepo project generated during the [**Update Setup**](#update-setup) phase below. Any of these updates should be applied to the schematics project during the [**Integrate Changes**](#integrate-changes) phase.
 
 If an entire directory was removed, it is assumed that all of its contents were also removed so you do not need to specify the changes within the affected directory as well.
 
@@ -94,7 +84,7 @@ If an existing directory or file was moved to another directory and then modifie
   mov environment -> docs
   mov notes.md -> docs
 
-/docs
+/docs/
   mod notes.md
 ```
 
@@ -223,11 +213,9 @@ During this step, it is important to research any breaking changes between versi
 
 If at any point during the build phases any errors are encountered, perform any necessary migration steps until the build is successful. Annotate changes in the changelog.
 
-### Server
+### Preparation
 
-#### Preparation
-
-To ensure that there aren't any cached artifacts whenever the `nuget-packages` directory is built, there are a few steps that I like to take to ensure a clean cache.
+To ensure that there aren't any cached artifacts whenever the `nuget-packages` directory is built or whenever you're trying to test out installing dependencies offline from the cache, there is a PowerShell function I've written to clean up build artifacts.
 
 At `$env:userprofile\Documents\PowerShell\Modules\Remove-BuildArtifacts`, create a file called `Remove-BuildArtifacts.psm1` and give it the following contents:
 
@@ -249,7 +237,7 @@ function Remove-BuildArtifacts {
 
 This will allow you to globally call the `Remove-BuildArtifacts` function in PowerShell.
 
-#### Build Server Dependency Cache
+### Server
 
 1. Delete the `nuget-packages  directory.
 2. If any additional NuGet packages are required, add them to `/server/update-deps.cmd`.
@@ -273,24 +261,90 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 2. If any additional npm libraries are required, add them to `update-dep.cmd`.
     * Annotate in changelog if modified.
 3. Execute the `update-deps.cmd` script.
-4. Delete the `node_modules` directory and disable the internet connection on your computer.
-5. Execute the `Remove-BuildArtifacts` PowerShell function.
-6. Execute `npm i --offline`.
-7. Execute `npm run build` to ensure the `core` Angular library still builds properly.
-8. Execute `npm run start:server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
+4. Update the `package.json` dependencies in `/client/core/` to reflect the versions updated in the root `package.json`.
+5. Delete the `node_modules` directory and disable the internet connection on your computer.
+6. Execute the `Remove-BuildArtifacts` PowerShell function.
+7. Execute `npm i --offline`.
+8. Execute `npm run build` to ensure the `core` Angular library still builds properly.
+9. Execute `npm run start:server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
     1. Execute `npm run start:update` and navigate to http://localhost:3000 to ensure the `update` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
     2. Execute `npm run start:docs` and navigate to http://localhost:4000 to ensure the `docs` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
-9. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
-10. Annotate the following changes in the changelog:
-    * node_cache/
-    * package-lock.json
-    * package.json
+10. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
+11. Annotate the following changes in the changelog:
+    * /src/workspace/files/
+        * node_cache/
+        * package-lock.json
+        * package.json
+    * /src/workspace/files/client/library/package.json/
+        * package.json    
 
 ## Issues
 
+As development of a project progresses in the disconnected environment, the structure of the architecture may change, new features may be developed, or bugs that needed to be fixed may be encountered. All of these things should be captured in the [Issues](https://github.com/JaimeStill/offline-platform/issues) section of this repository so that they can be applied during the update phase.
 
+These updates should be applied within the generated `update` monorepo project so they can be tested. Any adjustments should be annotated on the changelog and applied to the schematic project during the below [Integrate Changes](#integrate-changes) step.
 
 ## Integrate Changes
+
+In this step, essentially, any actions in the changelog prefixed with the term `update` were applied to the generated project and now need to be applied to the schematics files. You can annotate a `*` on each action as you integrate the change to keep track of your progress, i.e.:
+
+```txt
+/src/server/files/
+  * update mod nuget-packages/
+```
+
+This step is not as straightforward as you might believe. The schematics files use a special [Templating](https://github.com/angular/angular-cli/blob/main/packages/angular_devkit/schematics/README.md#templating) syntax to insert dynamic value names in both the contents of the file, as well as the file name within the file system.
+
+> Also see [Schematics for Libraries - Add Template Files](https://angular.io/guide/schematics-for-libraries#add-template-files)
+
+Some general guidelines:
+* If a file has been removed, it is safe to remove the file in the schematics workspace as well.
+* If a file or directory has been added, but is not inherently a project file (i.e. - `.gitignore`, `.editorconfig`, `node_cache`, `npm-packages`, etc.), it can be directly copied over.
+* If a file has been added and is inherently a project file that would make use of any of the schema parameters (see [Workspace Schema](/src/workspace/schema.d.ts) as an example), translate those parameters using the appropriate template syntax.
+* If a file has been modified, be sure that any modifications that make use of any of the schema parameters are translated to the appropriate template syntax.
+
+When updates to `package.json` or `.csproj` files are made, more often than not, only the dependencies are being updated, so you really only need to be concerned with updating those particular sections.
+
+The following is an exmaple of the resulting changelog entries from the updates being captured at the time of this writing:
+
+```txt
+/src/server/files/
+  update mod nuget-packages/
+  update mod update-deps.cmd
+
+/src/server/files/.Auth/
+  update mod .Auth.csproj
+
+/src/server/files/.Core/
+  update mod .Core.csproj
+
+/src/server/files/.Data/
+  update mod .Data.csproj
+
+/src/server/files/.Web/
+  update mod .Web.csproj
+
+/src/server/files/dbseeder/
+  update mod dbseeder.csproj
+
+/src/workspace/files/
+  update add node_cache/
+  update add .npmrc
+  update add package-lock.json
+
+  update mod .editorconfig
+  update mod package.json
+  update mod readme.md
+  update mod update-deps.cmd
+
+  update rem .yarnrc
+  update rem clean-cache.cmd
+  update rem offline-cache
+  update rem yarn.lock
+
+/src/workspace/files/theme/
+  update mod layout.scss
+```
 
 ## Test
 
