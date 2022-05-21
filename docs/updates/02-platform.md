@@ -127,7 +127,66 @@ When the update process has completed, this changelog will be the blueprint for 
 
 ### Server Dependency Graph
 
+To easily capture .NET projects with updated NuGet package dependencies, it's helpful to keep track of the dependencies and the dependent projects in a standardized way. At the bottom of the changelog, NuGet package dependencies should be laid out in the following format, along with the .NET projects that depend on them. This way, we can identify the project files that need to be annotated on the changelog.
 
+```text
+# Existing Package with Updated Version
+NuGetPackage - CurrentVersion -> UpdatedVersion :
+* Dependent .csproj
+
+# Existing Package with No Update
+NuGetPacakge - CurrentVersion :
+* Dependent .csproj
+
+# Newly Installed Package
+NuGetPackage - new -> Version :
+* Dependent .csproj
+```
+
+**Example**  
+
+```txt
+.NET - 6.0.0 :
+Microsoft.Extensions...
+System.DirectoryServices...
+* Update.Identity.csproj
+
+Automapper - new -> 11.0.1 :
+* Update.Web.csproj
+
+DocumentFormat.OpenXml - 2.16.0 :
+* Update.Office.csproj
+
+EF Core - 6.0.3 -> 6.0.5 :
+* dbseeder.csproj
+* Update.Auth.csproj
+* Update.Core.csproj
+* Update.Data.csproj
+
+Microsoft.AspNetCore.Mvc.NetwonsoftJson - 6.0.3 -> 6.0.5 :
+* Update.Web.csproj
+
+Microsoft.AspNetCore.OData - 8.0.8 -> 8.0.10 :
+* Update.Web.csproj
+
+Microsoft.Data.SqlClient - 4.1.0 :
+* Update.Sql.csproj
+
+Newtonsoft.Json - 13.0.1 :
+* Update.Core.csproj
+* Update.Data.csproj
+* Update.Sql.csproj
+
+Swashbuckle.AspNetCore - 6.1.0 :
+* Update.Web.csproj
+
+System.Linq.Dynamic.Core - new -> 1.2.18 :
+* Update.Web.csproj
+```
+
+The **.NET** dependency in the example above captures several libraries that stay in sync with the version of .NET.
+
+The **EF Core** dependency in the example above represents all NuGet packages that fall under the `Microsoft.EntityFrameworkCore` library.
 
 ## Schematics Updates
 
@@ -166,27 +225,70 @@ If at any point during the build phases any errors are encountered, perform any 
 
 ### Server
 
-1. In the `/server` directory, open all of the `.csproj` files.
+#### Preparation
+
+To ensure that there aren't any cached artifacts whenever the `nuget-packages` directory is built, there are a few steps that I like to take to ensure a clean cache.
+
+At `$env:userprofile\Documents\PowerShell\Modules\Remove-BuildArtifacts`, create a file called `Remove-BuildArtifacts.psm1` and give it the following contents:
+
+```PowerShell
+function Remove-BuildArtifacts {
+    param(
+        [string[]]
+        [Parameter()]
+        $Artifacts = @('bin','obj','.angular','dist'),
+        [string[]]
+        [Parameter()]
+        $Exclusions = @('node_cache', 'node_modules', 'nuget-packages')
+    )
+
+    Get-ChildItem -Include $Artifacts -Exclude $Exclusions -Recurse -Force `
+        | Remove-Item -Force -Recurse
+}
+```
+
+This will allow you to globally call the `Remove-BuildArtifacts` function in PowerShell.
+
+#### Build Server Dependency Cache
+
+1. Delete the `nuget-packages  directory.
 2. If any additional NuGet packages are required, add them to `/server/update-deps.cmd`.
     * Annotate in changelog if modified.
-3. Build out the [Server Dependency Graph](#server-dependency-graph) a the bottom of the changelog.
-3. Change directory to `/server` in a terminal and execute the `update-deps.cmd` script.
-4. 
+3. Build out the [Server Dependency Graph](#server-dependency-graph) at the bottom of the changelog.
+4. Change directory to `/server` in a terminal.
+5. Execute the `clean-nuget.cmd` script.
+6. Execute the `Remove-BuildArtifacts` PowerShell function.
+7. Execute the `update-deps.cmd` script.
+8. Capture the results of the update in the changelog either by checking the contents of the script output, or checking the updated versions in the .NET project `.csproj` files.
+9. Disable the internet connection on your computer.
+10. Execute the `Remove-BuildArtifacts` PowerShell function.
+11. Change directory back to the project root (`cd ../`).
+12. Execute `npm run restore` to ensure that the cache built correctly.
+13. Execute `npm run start:server` and navigate to http://localhost:5000/swagger to ensure the server is working properly.
+14. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
 
 ### Client
 
-1. Delete the `node_cache` and `node_modules` directories.
+1. Delete the `node_cache` and `node_modules` directories, if they exist.
 2. If any additional npm libraries are required, add them to `update-dep.cmd`.
     * Annotate in changelog if modified.
 3. Execute the `update-deps.cmd` script.
-4. Execute `npm run build` to ensure the `core` Angular library still builds properly.
-5. Execute `npm run start:docs` to ensure the `docs` Angular app is working properly.
-6. Execute `npm run start:update` and navigate to http://localhost:3000 to ensure the `update` Angular app is working properly.
-5. Annotate the following changes in the changelog:
+4. Delete the `node_modules` directory and disable the internet connection on your computer.
+5. Execute the `Remove-BuildArtifacts` PowerShell function.
+6. Execute `npm i --offline`.
+7. Execute `npm run build` to ensure the `core` Angular library still builds properly.
+8. Execute `npm run start:server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
+    1. Execute `npm run start:update` and navigate to http://localhost:3000 to ensure the `update` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
+    2. Execute `npm run start:docs` and navigate to http://localhost:4000 to ensure the `docs` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
+9. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
+10. Annotate the following changes in the changelog:
+    * node_cache/
     * package-lock.json
     * package.json
 
 ## Issues
+
+
 
 ## Integrate Changes
 
