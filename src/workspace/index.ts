@@ -12,10 +12,9 @@ import {
 } from '@angular-devkit/schematics';
 
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-
 import { strings } from '@angular-devkit/core';
-
 import { Schema } from './schema';
+import { spacify } from '../spacify';
 
 function updatePackageJson(options: Schema) {
   return (host: Tree, context: SchematicContext) => {
@@ -30,7 +29,8 @@ export default function (options: Schema): Rule {
   const templateSource = apply(url('./files'), [
     template({
       ...strings,
-      ...options
+      ...options,
+      spacify
     }),
     options.skipDirectory
       ? noop

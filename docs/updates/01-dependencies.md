@@ -1,5 +1,7 @@
 # Dependencies
 
+This document deals with capturing any changes to the tools and extensions needed to support development within this platform in an offline environment.
+
 Dependency updates are packaged into the following directory structure:
 
 * `{yyyy}-{mm}-{dd}`
@@ -7,13 +9,12 @@ Dependency updates are packaged into the following directory structure:
   * [code-extensions](#code-extensions)
     * [editor](#editor)
   * [icons](#icons)
+  * [platform](./02-platform.md)
   * [user](#user)
 
 All links below route to the relevant resource.
 
 ## apps
-
-**Platform**  
 
 App | Last Version
 ----|-------------
@@ -29,7 +30,7 @@ App | Last Version
 [PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.2.4
 [Visual Studio Code](https://code.visualstudio.com/) | 1.67.2
 
-**Peripherals** 
+**Peripherals**
 
 App | Last Version
 ----|-------------
