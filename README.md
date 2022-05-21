@@ -61,10 +61,10 @@ dotnet tool update --global dotnet-ef
 
     ```bash
     # install dependencies
-    yarn install
+    npm i
 
     # build the schematics
-    yarn build
+    npm run build
 
     # initialize a project
     schematics .:platform {name} --serverName={serverName} --debug=false
@@ -120,4 +120,4 @@ This will create a new folder with the name provided in the `./client` directory
 
 After the app is added to the workspace, you need to add the debug URL to the `CorsOrigins` array specified in the `./server/{Project}.Web/appsettings.Development.json` file. See [appsettings.Development.json](./src/server/files/__name@classify__.Web/appsettings.Development.json).
 
-You can run the newly added app by executing `yarn start:{name}`. For example, `yarn start:items`.
+You can run the newly added app by executing `npm run start:{name}`. For example, `npm run start:items`.
