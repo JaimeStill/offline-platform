@@ -305,7 +305,7 @@ Some general guidelines:
 
 When updates to `package.json` or `.csproj` files are made, more often than not, only the dependencies are being updated, so you really only need to be concerned with updating those particular sections.
 
-The following is an exmaple of the resulting changelog entries from the updates being captured at the time of this writing:
+The following is an example of the resulting changelog entries from the updates being captured at the time of this writing:
 
 ```txt
 /src/server/files/
@@ -341,6 +341,9 @@ The following is an exmaple of the resulting changelog entries from the updates 
   update rem clean-cache.cmd
   update rem offline-cache
   update rem yarn.lock
+
+/src/workspace/files/client/library/
+  * update mod package.json
 
 /src/workspace/files/theme/
   update mod layout.scss
