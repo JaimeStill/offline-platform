@@ -239,7 +239,7 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 
 ### Server
 
-1. Delete the `nuget-packages  directory.
+1. Delete the `nuget-packages` directory.
 2. If any additional NuGet packages are required, add them to `/server/update-deps.cmd`.
     * Annotate in changelog if modified.
 3. Build out the [Server Dependency Graph](#server-dependency-graph) at the bottom of the changelog.
@@ -346,6 +346,35 @@ The following is an exmaple of the resulting changelog entries from the updates 
   update mod layout.scss
 ```
 
+At this point, the `update` monorepo project can be deleted.
+
 ## Test
 
+The following steps are necessary for validating that the updated schematics project can generate the monorepo, install its dependencies, and build each project successfully in an environment without an internet connection.
+
+1. Turn off your internet connection.
+2. Delete the `node_modules` directory from the root of the schematics project.
+3. Open a terminal and change directory to a location outside of the `offline-platform` project (in this case, `$env:home`).
+    * This is important to prevent the following command from clearing the contents of the `node_cache` directories.
+4. Run `npm cache clear --force`.
+5. Navigate back to the root of `offline-platform` and run `npm i --offline`.
+6. Run `npm run build`.
+7. Execute the following to generate a test project:
+
+    ```bash
+    schematics .:platform test --serverName=Test --debug=false --skipGit
+    ```
+8. Change directory into `test/server` and run `clean-nuget.cmd`.
+9. Change directory back to the root of `test` and run `npm run restore`.
+10. Run `npm run watch:server`. Navigate to http://localhost:5000/swagger to test.
+11. In a new terminal (<kbd>Ctrl + Shift + 5</kbd> in VS Code), change directory to `test` and run `npm run watch` to test the `core` Angular library.
+12. In a new terminal, change directory to `test` and run `npm run start:docs`. Navigate to http://localhost:4000 to test the `docs` Angular app.
+13. In a new terminal, change directory to `test` and run `npm run start:test`. Navigate to http://localhost:3000 to test the `test` Angular app.
+
+If there are issues during testing, be sure to fix them not just in the `test` project, but in the `offline-platform` schematics project. Also ensure that any additional changes are captured in the changelog.
+
+If everything generates, installs, builds, and starts successfully, the update is successful. The `test` project can be deleted and you can move on to the next and final step. the `platform` update directory can be configured with the diff specified by the changelog. This process is detailed in the next section.
+
 ## Build Update Directory
+
+In the `platform` directory specified in the [**Dependencies**](./01-dependencies.md), add the changelog and capture all of the files it specifies were added, modified, or moved. Be sure to preserve the directory structure, adding the full depth of files (even if it only contains the one file being moved). This way, you can easily update the `offline-platform` project on the disconnected network, as well as any projects that were built from this schematic.
