@@ -180,19 +180,22 @@ The **EF Core** dependency in the example above represents all NuGet packages th
 
 ## Schematics Updates
 
-1. Delete the `node_cache` and `node_modules` directories.
-2. Execute the `update-deps.cmd` script.
-3. Run `npm run build`.
-4. Fix any schematics source files affected by the update.
-5. Annotate changelog entries for any files that were affected.
+1. Delete the `node_cache` and `node_modules` directories, as well as the `package-lock.json` file.
+2. Run `ncu -u`.
+3. Run `npm i`
+4. Run `npm run build`.
+5. Fix any schematics source files affected by the update.
+6. Annotate changelog entries for any files that were affected.
     * This can be determined my checking for source control markings.
 
 ## Update Setup
 
 1. Generate the following project using the updated schematic:
 
+  > The Schematics CLI was updated to automatically convert schema arguments to kebab-case. For instance, the `serverName` argument is now provided as `--server-name` when executing schematics.
+
     ```bash
-    schematics .:platform update --serverName=Update --debug=false --skipGit
+    schematics .:platform update --server-name=Update --debug=false --skip-git
     ```
 
 2. Once all of the files have been generated and the npm dependencies have been installed, move the directory out of the **offline-platform** directory and open in VS Code.
@@ -257,10 +260,11 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 
 ### Client
 
-1. Delete the `node_cache` and `node_modules` directories, if they exist.
-2. If any additional npm libraries are required, add them to `update-dep.cmd`.
+1. Delete the `node_cache` and `node_modules` directories, as well as the `package-lock.json` file, if they exist.
+2. If any additional npm libraries are required, add them to `install-deps.cmd` and manually install them.
     * Annotate in changelog if modified.
-3. Execute the `update-deps.cmd` script.
+3. Run `ncu -u` then `npm i`.
+    * Run `npm i --force` if there are any peer dependency conflicts.
 4. Update the `package.json` dependencies in `/client/core/` to reflect the versions updated in the root `package.json`.
 5. Delete the `node_modules` directory and disable the internet connection on your computer.
 6. Execute the `Remove-BuildArtifacts` PowerShell function.
@@ -272,11 +276,11 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 10. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
 11. Annotate the following changes in the changelog:
     * /src/workspace/files/
-        * node_cache/
-        * package-lock.json
-        * package.json
+        * update add node_cache/
+        * update add package-lock.json
+        * update mod package.json
     * /src/workspace/files/client/library/package.json/
-        * package.json    
+        * update mod package.json    
 
 ## Issues
 
@@ -365,14 +369,16 @@ The following steps are necessary for validating that the updated schematics pro
 7. Execute the following to generate a test project:
 
     ```bash
-    schematics .:platform test --serverName=Test --debug=false --skipGit
+    schematics .:platform test --server-name=Test --debug=false --skip-git --skip-install
     ```
-8. Change directory into `test/server` and run `clean-nuget.cmd`.
-9. Change directory back to the root of `test` and run `npm run restore`.
-10. Run `npm run watch:server`. Navigate to http://localhost:5000/swagger to test.
-11. In a new terminal (<kbd>Ctrl + Shift + 5</kbd> in VS Code), change directory to `test` and run `npm run watch` to test the `core` Angular library.
-12. In a new terminal, change directory to `test` and run `npm run start:docs`. Navigate to http://localhost:4000 to test the `docs` Angular app.
-13. In a new terminal, change directory to `test` and run `npm run start:test`. Navigate to http://localhost:3000 to test the `test` Angular app.
+
+8. Change directory into `test` and run `npm i --offline --force`.
+9. Change directory into `test/server` and run `clean-nuget.cmd`.
+10. Change directory back to the root of `test` and run `npm run restore`.
+11. Run `npm run watch:server`. Navigate to http://localhost:5000/swagger to test.
+12. In a new terminal (<kbd>Ctrl + Shift + 5</kbd> in VS Code), change directory to `test` and run `npm run watch` to test the `core` Angular library.
+13. In a new terminal, change directory to `test` and run `npm run start:docs`. Navigate to http://localhost:4000 to test the `docs` Angular app.
+14. In a new terminal, change directory to `test` and run `npm run start:test`. Navigate to http://localhost:3000 to test the `test` Angular app.
 
 If there are issues during testing, be sure to fix them not just in the `test` project, but in the `offline-platform` schematics project. Also ensure that any additional changes are captured in the changelog.
 
