@@ -1,7 +1,6 @@
-namespace <%= classify(name) %>.Data;
-
 using Microsoft.EntityFrameworkCore;
 
+namespace <%= classify(name) %>.Data;
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }

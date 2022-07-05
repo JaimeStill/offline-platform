@@ -2,8 +2,8 @@
   "name": "<%= dasherize(library) %>",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^14.0.1",
-    "@angular/core": "^14.0.1"
+    "@angular/common": "^14.0.4",
+    "@angular/core": "^14.0.4"
   },
   "dependencies": {
     "tslib": "^2.4.0"

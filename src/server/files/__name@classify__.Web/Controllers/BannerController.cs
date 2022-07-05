@@ -1,13 +1,12 @@
-namespace <%= classify(name) %>.Web.Controllers;
-
 using <%= classify(name) %>.Core.Banner;
-
 using Microsoft.AspNetCore.Mvc;
+
+namespace <%= classify(name) %>.Web.Controllers;
 
 [Route("api/[controller]")]
 public class BannerController : Controller
 {
-    private BannerConfig config;
+    readonly BannerConfig config;
 
     public BannerController(BannerConfig config) => this.config = config;
 

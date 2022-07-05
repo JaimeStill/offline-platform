@@ -1,7 +1,5 @@
-namespace <%= classify(name) %>.Core.Extensions;
-
+using <%= classify(name) %>.Core.Exceptions;
 using <%= classify(name) %>.Core.Logging;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 
+namespace <%= classify(name) %>.Core.Extensions;
 public static class CoreExtensions
 {
     private static readonly string jsTimeFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
@@ -124,9 +123,9 @@ public static class CoreExtensions
             {
                 var ex = error.Error;
 
-                if (ex is AppException)
+                if (ex is AppException exception)
                 {
-                    switch (((AppException)ex).ExceptionType)
+                    switch (exception.ExceptionType)
                     {
                         case ExceptionType.Authorization:
                             await logger.CreateLog(context, ex, "auth");

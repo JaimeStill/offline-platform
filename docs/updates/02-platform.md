@@ -255,7 +255,7 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 10. Execute the `Remove-BuildArtifacts` PowerShell function.
 11. Change directory back to the project root (`cd ../`).
 12. Execute `npm run restore` to ensure that the cache built correctly.
-13. Execute `npm run start:server` and navigate to http://localhost:5000/swagger to ensure the server is working properly.
+13. Execute `npm run start-server` and navigate to http://localhost:5000/swagger to ensure the server is working properly.
 14. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
 
 ### Client
@@ -266,21 +266,22 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 3. Run `ncu -u` then `npm i`.
     * Run `npm i --force` if there are any peer dependency conflicts.
 4. Update the `package.json` dependencies in `/client/core/` to reflect the versions updated in the root `package.json`.
-5. Delete the `node_modules` directory and disable the internet connection on your computer.
-6. Execute the `Remove-BuildArtifacts` PowerShell function.
-7. Execute `npm i --offline`.
-8. Execute `npm run build` to ensure the `core` Angular library still builds properly.
-9. Execute `npm run start:server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
-    1. Execute `npm run start:update` and navigate to http://localhost:3000 to ensure the `update` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
-    2. Execute `npm run start:docs` and navigate to http://localhost:4000 to ensure the `docs` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
-10. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
-11. Annotate the following changes in the changelog:
+5. Replace the Material Icons located at [/src/workspace/files/assets/fonts/](../../src/workspace/files/assets/fonts/) with the versions captured in [01-dependencies - icons](./01-dependencies.md#icons).
+6. Delete the `node_modules` directory and disable the internet connection on your computer.
+7. Execute the `Remove-BuildArtifacts` PowerShell function.
+8. Execute `npm i --offline`.
+9. Execute `npm run build` to ensure the `core` Angular library still builds properly.
+10. Execute `npm run start-server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
+    1. Execute `npm run start-update` and navigate to http://localhost:3000 to ensure the `update` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
+    2. Execute `npm run start-docs` and navigate to http://localhost:4000 to ensure the `docs` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
+11. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
+12. Annotate the following changes in the changelog:
     * /src/workspace/files/
         * update add node_cache/
         * update add package-lock.json
         * update mod package.json
     * /src/workspace/files/client/library/package.json/
-        * update mod package.json    
+        * update mod package.json
 
 ## Issues
 
@@ -372,13 +373,13 @@ The following steps are necessary for validating that the updated schematics pro
     schematics .:platform test --server-name=Test --debug=false --skip-git --skip-install
     ```
 
-8. Change directory into `test` and run `npm i --offline --force`.
+8. Change directory into `test` and run `npm i --offline`.
 9. Change directory into `test/server` and run `clean-nuget.cmd`.
 10. Change directory back to the root of `test` and run `npm run restore`.
-11. Run `npm run watch:server`. Navigate to http://localhost:5000/swagger to test.
+11. Run `npm run watch-server`. Navigate to http://localhost:5000/swagger to test.
 12. In a new terminal (<kbd>Ctrl + Shift + 5</kbd> in VS Code), change directory to `test` and run `npm run watch` to test the `core` Angular library.
-13. In a new terminal, change directory to `test` and run `npm run start:docs`. Navigate to http://localhost:4000 to test the `docs` Angular app.
-14. In a new terminal, change directory to `test` and run `npm run start:test`. Navigate to http://localhost:3000 to test the `test` Angular app.
+13. In a new terminal, change directory to `test` and run `npm run start-docs`. Navigate to http://localhost:4000 to test the `docs` Angular app.
+14. In a new terminal, change directory to `test` and run `npm run start-test`. Navigate to http://localhost:3000 to test the `test` Angular app.
 
 If there are issues during testing, be sure to fix them not just in the `test` project, but in the `offline-platform` schematics project. Also ensure that any additional changes are captured in the changelog.
 

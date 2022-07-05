@@ -20,17 +20,17 @@ Be sure to maintain the list of resources, as well as the **Last Version** of an
 
 App | Last Version
 ----|-------------
-[7-Zip](https://www.7-zip.org/) | 21.07
+[7-Zip](https://www.7-zip.org/) | 22.00
 [Azure DevOps IIS Deployment Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscs-rm.iiswebapp) | 1.5.9
 [Azure DevOps Pipelines Agent](https://github.com/microsoft/azure-pipelines-agent) | 2.204.0
-[dotnet hosting](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) | 6.0.5
-[dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 6.0.300
-[Git](https://git-scm.com) | 2.36.1
+[dotnet hosting](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) | 6.0.6
+[dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 6.0.301
+[Git](https://git-scm.com) | 2.37.0
 [IIS CORS Module](https://www.iis.net/downloads/microsoft/iis-cors-module) | 1.0
 [IIS URL Rewrite Module](https://www.iis.net/downloads/microsoft/url-rewrite) | 2.1
 [Node.js LTS](https://nodejs.org/en/) | 16.15.1
-[PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.2.4
-[Visual Studio Code](https://code.visualstudio.com/) | 1.67.2
+[PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.2.5
+[Visual Studio Code](https://code.visualstudio.com/) | 1.68.1
 
 **Peripherals**
 
@@ -46,16 +46,17 @@ Extension | Version
 [Color Info](https://marketplace.visualstudio.com/items?itemName=bierner.color-info) | 0.7.0
 [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) | 1.25.0
 [editorconfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) | 0.16.4
-[PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell) | 2022.5.1
-[SCSS Formatter](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter) | 2.4.2
+[PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell) | 2022.6.1
+[SCSS Formatter](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter) | 2.4.3
 [SVG](https://marketplace.visualstudio.com/items?itemName=jock.svg) | 1.4.18
-[Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) | 1.16.4
+[Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer) | 2.9.1
+[Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) | 1.16.5
 
 ### editor
 
 Extension | Category | Version
 ----------|----------|--------
-[Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) | Icons | 4.18.0
+[Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) | Icons | 4.18.1
 [Material Product Icons](https://marketplace.visualstudio.com/items?itemName=PKief.material-product-icons) | Product Icons | 1.3.0
 [Atom One Light](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onelight) | Theme | 2.2.3
 [Black Ocean](https://marketplace.visualstudio.com/items?itemName=zamerick.black-ocean) | Theme | 1.1.3
@@ -112,7 +113,7 @@ Navigate to the links below to access the latest hosted CSS files for the icon f
     **example**  
 
     ```PowerShell
-    Copy-Item $env:userprofile\.dotnet\tools $env:desktop\export\environment\2022-05-20\user\.dotnet\tools -Recurse
+    Copy-Item $env:userprofile\.dotnet\tools $env:userprofile\desktop\export\environment\2022-05-20\user\.dotnet\tools -Recurse
     ```
 
 6. Copy the contents of `$env:userprofile\.vscode\extensions\ms-dotnettools.csharp-{version}` to `user\.vscode\extensions\ms-dotnettools.csharp-{version}`.
@@ -120,7 +121,7 @@ Navigate to the links below to access the latest hosted CSS files for the icon f
     **example**  
   
     ```PowerShell
-    Copy-Item $env:userprofile\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 $env:desktop\export\environment\2022-05-20\user\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 -Recurse
+    Copy-Item $env:userprofile\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 $env:userprofile\desktop\export\environment\2022-05-20\user\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 -Recurse
     ```
 
 7. Copy the contents of `$env:appdata\npm` to `user\AppData\Roaming\npm`.

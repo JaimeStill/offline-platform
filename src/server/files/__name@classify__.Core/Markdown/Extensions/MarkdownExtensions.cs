@@ -1,5 +1,4 @@
 namespace <%= classify(name) %>.Core.Markdown.Extensions;
-
 public static class MarkdownExtensions
 {
     public static string GetDirectoryPath(this string path, bool isFile, char splitChar = '/', string pattern = "*.md")
@@ -8,8 +7,8 @@ public static class MarkdownExtensions
 
         if (split.Length > (isFile ? 1 : 0))
         {
-            var check = split[split.Length - 1].ToLower().EndsWith(pattern.Substring(1).ToLower())
-                ? path.Substring(0, (path.Length - 1) - split[split.Length - 1].Length)
+            var check = split[^1].ToLower().EndsWith(pattern[1..].ToLower())
+                ? path[..(path.Length - 1 - split[^1].Length)]
                 : path;
 
             return check;
@@ -21,8 +20,8 @@ public static class MarkdownExtensions
     }
 
     static IEnumerable<string> Validate(this IEnumerable<string> breadcrumbs) =>
-        breadcrumbs == null || breadcrumbs.Count() < 1
-            ? new List<string>()
+        breadcrumbs == null || !breadcrumbs.Any()
+			? new List<string>()
             : breadcrumbs;
 
     static bool CheckReadme(this DirectoryInfo directory) => directory.GetFiles("readme.md", new EnumerationOptions
@@ -66,7 +65,7 @@ public static class MarkdownExtensions
             {
                 var sub = dir.FullName.GetFolder(folder.Breadcrumbs, false);
 
-                if ((sub.Documents != null && sub.Documents.Count() > 0) || (sub.Folders != null && sub.Folders.Count() > 0))
+                if ((sub.Documents != null && sub.Documents.Any()) || (sub.Folders != null && sub.Folders.Any()))
                 {
                     folders.Add(sub);
                 }
@@ -89,7 +88,7 @@ public static class MarkdownExtensions
 
             return new Document
             {
-                Breadcrumbs = crumbs == null ? null : crumbs.Split('\\'),
+                Breadcrumbs = crumbs?.Split('\\'),
                 Extension = file.Extension,
                 Name = file.Name,
                 Path = file.FullName,

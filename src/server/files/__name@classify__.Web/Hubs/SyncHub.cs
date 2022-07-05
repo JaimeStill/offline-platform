@@ -1,9 +1,7 @@
-namespace <%= classify(name) %>.Web.Hubs;
-
-using <%= classify(name) %>.Data.Models;
-
+using <%= classify(name) %>.Models.Sync;
 using Microsoft.AspNetCore.SignalR;
 
+namespace <%= classify(name) %>.Web.Hubs;
 public class SyncHub : Hub
 {
     public async Task triggerSync(Sync sync) =>

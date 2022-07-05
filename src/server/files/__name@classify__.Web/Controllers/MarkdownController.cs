@@ -1,22 +1,21 @@
-namespace <%= classify(name) %>.Web.Controllers;
-
 using <%= classify(name) %>.Core.Markdown;
 using <%= classify(name) %>.Core.Markdown.Extensions;
-
 using Microsoft.AspNetCore.Mvc;
+
+namespace <%= classify(name) %>.Web.Controllers;
 
 [Route("api/[controller]")]
 public class MarkdownController : Controller
 {
-    private IWebHostEnvironment environment;
-    private bool isWindows;
-    private readonly string slash;
+    readonly IWebHostEnvironment environment;
+    readonly bool isWindows;
+    readonly string slash;
 
     public MarkdownController(IWebHostEnvironment environment, IConfiguration config)
     {
         this.environment = environment;
-        this.isWindows = config.GetValue<bool>("App.IsWindows");
-        this.slash = isWindows
+        isWindows = config.GetValue<bool>("App.IsWindows");
+        slash = isWindows
             ? @"\"
             : "/";
     }

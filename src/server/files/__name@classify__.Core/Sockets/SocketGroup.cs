@@ -1,5 +1,4 @@
 namespace <%= classify(name) %>.Core.Sockets;
-
 public class SocketGroup
 {
     public string Name { get; set; }

@@ -1,50 +1,61 @@
 @echo off
 
-echo Updating dbseeder dependencies...
-cd .\dbseeder
-call dotnet add package Microsoft.EntityFrameworkCore.Relational
-call dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+echo Updating <%= classify(name) %>Auth dependencies...
+cd .\<%= classify(name) %>Auth
+call dotnet add package Microsoft.EntityFrameworkCore
 
-echo Updating Update.Core dependencies...
-cd ..\Update.Core
+echo Updating <%= classify(name) %>Core dependencies...
+cd ..\<%= classify(name) %>Core
 call dotnet add package Microsoft.EntityFrameworkCore
 call dotnet add package Newtonsoft.Json
 
-echo Updating Update.Auth dependencies...
-cd ..\Update.Auth
-call dotnet add package Microsoft.EntityFrameworkCore
-
-echo Updating Update.Data dependencies...
-cd ..\Update.Data
+echo Updating <%= classify(name) %>Data dependencies...
+cd ..\<%= classify(name) %>Data
 call dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 call dotnet add package Microsoft.EntityFrameworkCore.Tools
 call dotnet add package Newtonsoft.Json
 
-echo Updating Update.Identity dependencies...
-cd ..\Update.Identity
+echo Updating <%= classify(name) %>DbCli dependencies...
+cd ..\<%= classify(name) %>DbCli
+call dotnet add package Microsoft.EntityFrameworkCore.Relational
+call dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+echo Updating <%= classify(name) %>Identity dependencies...
+cd ..\<%= classify(name) %>Identity
 call dotnet add package Microsoft.Extensions.Configuration.Abstractions
 call dotnet add package Microsoft.Extensions.Configuration.Binder
 call dotnet add package System.DirectoryServices
 call dotnet add package System.DirectoryServices.AccountManagement
 
-echo Updating Update.Identity.Mock dependencies...
-cd ..\Update.Identity.Mock
-
-echo Updating Update.Office dependencies...
-cd ..\Update.Office
+echo Updating <%= classify(name) %>Office dependencies...
+cd ..\<%= classify(name) %>Office
 call dotnet add package DocumentFormat.OpenXml
 
-echo Updating Update.Sql dependencies...
-cd ..\Update.Sql
+echo Updating <%= classify(name) %>Services dependencies...
+cd ..\<%= classify(name) %>Services
+call dotnet add package Microsoft.EntityFrameworkCore
+
+echo Updating <%= classify(name) %>Sql dependencies...
+cd ..\<%= classify(name) %>Sql
 call dotnet add package Microsoft.Data.SqlClient
 call dotnet add package Newtonsoft.Json
 
-echo Updating Update.Web dependencies...
-cd ..\Update.Web
+echo Updating <%= classify(name) %>Tests dependencies...
+cd ..\<%= classify(name) %>Tests
+call dotnet add package Microsoft.EntityFrameworkCore
+call dotnet add package Microsoft.NET.Test.Sdk
+call dotnet add package xunit
+call dotnet add package xunit.runner.visualstudio
+call dotnet add package coverlet.collector
+
+echo Updating <%= classify(name) %>Web dependencies...
+cd ..\<%= classify(name) %>Web
 call dotnet add package Automapper
 call dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
 call dotnet add package Microsoft.AspNetCore.OData
 call dotnet add package Microsoft.EntityFrameworkCore.Design
+call dotnet add package Swashbuckle.AspNetCore
+call dotnet add package Swashbuckle.AspNetCore.Newtonsoft
 call dotnet add package System.Linq.Dynamic.Core
 
 echo Caching NuGet dependencies...
