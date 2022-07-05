@@ -58,15 +58,7 @@ Extension | Category | Version
 ----------|----------|--------
 [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) | Icons | 4.18.1
 [Material Product Icons](https://marketplace.visualstudio.com/items?itemName=PKief.material-product-icons) | Product Icons | 1.3.0
-[Atom One Light](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onelight) | Theme | 2.2.3
-[Black Ocean](https://marketplace.visualstudio.com/items?itemName=zamerick.black-ocean) | Theme | 1.1.3
-[Everforest](https://marketplace.visualstudio.com/items?itemName=sainnhe.everforest) | Theme | 0.2.0
 [GitHub Theme](https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme) | Theme | 6.0.0
-[Gruvbox Material](https://marketplace.visualstudio.com/items?itemName=sainnhe.gruvbox-material) | Theme | 6.5.0
-[MacOS Modern Theme](https://marketplace.visualstudio.com/items?itemName=davidbwaters.macos-modern-theme) | Theme | 2.1.9
-[Nostromo Theme](https://marketplace.visualstudio.com/items?itemName=martintheimer.nostromo-theme) | Theme | 1.0.1
-[Search Lights](https://marketplace.visualstudio.com/items?itemName=radiolevity.search-lights) | Theme | 1.10.3
-[Sonokai](https://marketplace.visualstudio.com/items?itemName=sainnhe.sonokai) | Theme | 0.2.9
 
 ## icons
 
