@@ -1,10 +1,8 @@
-namespace <%= classify(name) %>.Core.Logging;
-
 using <%= classify(name) %>.Core.Extensions;
-
 using Microsoft.AspNetCore.Http;
 using System.Text;
 
+namespace <%= classify(name) %>.Core.Logging;
 public class LogProvider
 {
     public string logDirectory;
@@ -18,7 +16,7 @@ public class LogProvider
         }
     }
 
-    public string GetLogName() => $"log-{DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss")}.txt";
+    public static string GetLogName() => $"log-{DateTime.Now:yyyy-MM-dd-hh-mm-ss}.txt";
 
     public async Task CreateLog(HttpContext context, Exception exception, string subPath = "")
     {

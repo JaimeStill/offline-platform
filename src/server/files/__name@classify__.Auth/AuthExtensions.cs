@@ -1,7 +1,7 @@
 [assembly:System.Runtime.Versioning.SupportedOSPlatform("windows")]
 namespace <%= classify(name) %>.Auth;
 
-using <%= classify(name) %>.Core;
+using <%= classify(name) %>.Core.Exceptions;
 using <%= classify(name) %>.Data;
 using <%= classify(name) %>.Identity;
 

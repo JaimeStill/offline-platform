@@ -1,5 +1,4 @@
 namespace <%= classify(name) %>.Core.Markdown;
-
 public class Folder
 {
     public string Name { get; set; }

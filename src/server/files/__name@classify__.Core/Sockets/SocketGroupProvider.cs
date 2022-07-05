@@ -1,7 +1,6 @@
-namespace <%= classify(name) %>.Core.Sockets;
-
 using Microsoft.AspNetCore.SignalR;
 
+namespace <%= classify(name) %>.Core.Sockets;
 public class SocketGroupProvider
 {
     public List<SocketGroup> SocketGroups { get; set; }

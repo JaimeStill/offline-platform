@@ -37,7 +37,7 @@ import { Schema } from './schema';
 
 function updatePackageJson(options: Schema) {
   return (host: Tree, context: SchematicContext) => {
-    addPackageJsonScript(host, `start:${options.name}`, `ng serve ${options.name} --configuration development`);
+    addPackageJsonScript(host, `start-${options.name}`, `ng serve ${options.name} --configuration development`);
 
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask({ packageManager: 'npm' }));

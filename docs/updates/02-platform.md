@@ -266,21 +266,22 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 3. Run `ncu -u` then `npm i`.
     * Run `npm i --force` if there are any peer dependency conflicts.
 4. Update the `package.json` dependencies in `/client/core/` to reflect the versions updated in the root `package.json`.
-5. Delete the `node_modules` directory and disable the internet connection on your computer.
-6. Execute the `Remove-BuildArtifacts` PowerShell function.
-7. Execute `npm i --offline`.
-8. Execute `npm run build` to ensure the `core` Angular library still builds properly.
-9. Execute `npm run start:server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
-    1. Execute `npm run start:update` and navigate to http://localhost:3000 to ensure the `update` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
-    2. Execute `npm run start:docs` and navigate to http://localhost:4000 to ensure the `docs` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
-10. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
-11. Annotate the following changes in the changelog:
+5. Replace the Material Icons located at [/src/workspace/files/assets/fonts/](../../src/workspace/files/assets/fonts/) with the versions captured in [01-dependencies - icons](./01-dependencies.md#icons).
+6. Delete the `node_modules` directory and disable the internet connection on your computer.
+7. Execute the `Remove-BuildArtifacts` PowerShell function.
+8. Execute `npm i --offline`.
+9. Execute `npm run build` to ensure the `core` Angular library still builds properly.
+10. Execute `npm run start-server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
+    1. Execute `npm run start-update` and navigate to http://localhost:3000 to ensure the `update` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
+    2. Execute `npm run start-docs` and navigate to http://localhost:4000 to ensure the `docs` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
+11. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
+12. Annotate the following changes in the changelog:
     * /src/workspace/files/
         * update add node_cache/
         * update add package-lock.json
         * update mod package.json
     * /src/workspace/files/client/library/package.json/
-        * update mod package.json    
+        * update mod package.json
 
 ## Issues
 
