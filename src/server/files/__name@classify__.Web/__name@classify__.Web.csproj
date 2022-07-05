@@ -8,14 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="Automapper" Version="11.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.6">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.0" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+	<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.1" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.19" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +25,9 @@
     <ProjectReference Include="..\<%= classify(name) %>.Data\<%= classify(name) %>.Data.csproj" />
     <ProjectReference Include="..\<%= classify(name) %>.Identity\<%= classify(name) %>.Identity.csproj" />
     <ProjectReference Include="..\<%= classify(name) %>.Identity.Mock\<%= classify(name) %>.Identity.Mock.csproj" />
+	<ProjectReference Include="..\<%= classify(name) %>.Models\<%= classify(name) %>.Models.csproj" />
     <ProjectReference Include="..\<%= classify(name) %>.Office\<%= classify(name) %>.Office.csproj" />
+	<ProjectReference Include="..\<%= classify(name) %>.Services\<%= classify(name) %>.Services.csproj" />
     <ProjectReference Include="..\<%= classify(name) %>.Sql\<%= classify(name) %>.Sql.csproj" />
   </ItemGroup>
 

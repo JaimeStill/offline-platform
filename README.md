@@ -91,12 +91,12 @@ Script | Executes | Description
 `npm run build` | `ng build core` | Build the `core` library used by the Angular apps
 `npm run restore` | `dotnet restore ./server -s nuget-packages` | Restores NuGet packages from the cached `nuget-packages` folder in each server project.
 `npm run seed` | `dotnet run --project ./server/dbseeder "Server=.\DevSql;Database={project-name}-dev;Trusted_Connection=True;"` | Seed the dev database using the `dbseeder` server project. The seeding logic is defined in `server/{Project}.Data/Extensions/DbInitializer.cs`.
-`npm run start:server` | `dotnet run --project ./server/{Project}.Web` | Starts the .NET server for the workspace
+`npm run start-server` | `dotnet run --project ./server/{Project}.Web` | Starts the .NET server for the workspace
 `npm run update-db` | `dotnet ef database update -s ./server/{Project}.Web` | Apply the latest EF migrations to the database
-`npm run start:docs` | `ng serve docs` | Starts the Angular documentation project built into the workspace
-`npm run start:{app}` | `ng serve {app}` | Starts the specified Angular application
+`npm run start-docs` | `ng serve docs` | Starts the Angular documentation project built into the workspace
+`npm run start-{app}` | `ng serve {app}` | Starts the specified Angular application
 `npm run watch` | `ng build core --watch` | Builds the `core` library and watches for changes. This enables hot reloading for the library when modifications are made during development.
-`npm run watch:server` | `dotnet watch run --project ./server/{Project}.Web` | Starts the .NET server for the workspace in watch mode. Any modifications to the server files will trigger a rebuild and reload automatically.
+`npm run watch-server` | `dotnet watch run --project ./server/{Project}.Web` | Starts the .NET server for the workspace in watch mode. Any modifications to the server files will trigger a rebuild and reload automatically.
 
 > To add content to the `docs` project, add **Markdown** files to the `/server/{Project}.Web/wwwroot/docs` directory in any folder structure you prefer.
 
@@ -120,4 +120,4 @@ This will create a new folder with the name provided in the `./client` directory
 
 After the app is added to the workspace, you need to add the debug URL to the `CorsOrigins` array specified in the `./server/{Project}.Web/appsettings.Development.json` file. See [appsettings.Development.json](./src/server/files/__name@classify__.Web/appsettings.Development.json).
 
-You can run the newly added app by executing `npm run start:{name}`. For example, `npm run start:items`.
+You can run the newly added app by executing `npm run start-{name}`. For example, `npm run start-items`.

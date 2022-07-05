@@ -1,4 +1,3 @@
-using <%= classify(name) %>.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace <%= classify(name) %>.Data;

@@ -5,7 +5,7 @@
     "ng": "ng",
     "build": "ng build <%= dasherize(library) %> --configuration development",
     "restore": "dotnet restore ./<%= dasherize(serverRoot) %> -s ./<%= dasherize(serverRoot) %>/nuget-packages",
-    "seed": "dotnet run --project ./<%= dasherize(serverRoot) %>/dbseeder -- \"Server=.\\DevSql;Database=<%= dasherize(server) %>-dev;Trusted_Connection=True;\"",
+    "seed": "dotnet run --project ./<%= dasherize(serverRoot) %>/<%= classify(server) %>.DbCli -- \"Dev\"",
     "start-server": "dotnet run --project ./<%= dasherize(serverRoot) %>/<%= classify(server) %>.Web",
     "update-db": "dotnet ef database update -s ./<%= dasherize(serverRoot) %>/<%= classify(server)%>.Web",
     "watch": "ng build <%= dasherize(library) %> --watch --configuration development",

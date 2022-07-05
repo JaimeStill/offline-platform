@@ -1,6 +1,3 @@
-[assembly:System.Runtime.Versioning.SupportedOSPlatform("windows")]
-namespace <%= classify(name) %>.Web;
-
 using <%= classify(name) %>.Core.Banner;
 using <%= classify(name) %>.Core.Extensions;
 using <%= classify(name) %>.Core.Logging;
@@ -10,8 +7,8 @@ using <%= classify(name) %>.Data;
 using <%= classify(name) %>.Identity;
 using <%= classify(name) %>.Identity.Mock;
 using <%= classify(name) %>.Office;
+using <%= classify(name) %>.Services;
 using <%= classify(name) %>.Web.Hubs;
-
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.Server.IISIntegration;
@@ -21,6 +18,8 @@ using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
+[assembly:System.Runtime.Versioning.SupportedOSPlatform("windows")]
+namespace <%= classify(name) %>.Web;
 public class Startup
 {
     public IConfiguration Configuration { get; }
@@ -54,7 +53,7 @@ public class Startup
             .AddDbContext<AppDbContext>(options =>
             {
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                options.UseSqlServer(Configuration.GetConnectionString("Project"));
+                options.UseSqlServer(Configuration.GetConnectionString("App"));
             })
             .AddControllers()
             .AddOData(options =>
@@ -75,6 +74,7 @@ public class Startup
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+		services.AddSwaggerGenNewtonsoftSupport();
 
         services.AddSingleton(new BannerConfig
         {
@@ -121,6 +121,7 @@ public class Startup
         services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
         services.AddSingleton<SocketGroupProvider>();
         services.AddLogging();
+		services.AddAppServices();
     }
 
     public void Configure(IApplicationBuilder app)
