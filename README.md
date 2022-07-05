@@ -90,7 +90,7 @@ Script | Executes | Description
 -------|----------|------------
 `npm run build` | `ng build core` | Build the `core` library used by the Angular apps
 `npm run restore` | `dotnet restore ./server -s nuget-packages` | Restores NuGet packages from the cached `nuget-packages` folder in each server project.
-`npm run seed` | `dotnet run --project ./server/dbseeder "Server=.\DevSql;Database={project-name}-dev;Trusted_Connection=True;"` | Seed the dev database using the `dbseeder` server project. The seeding logic is defined in `server/{Project}.Data/Extensions/DbInitializer.cs`.
+`npm run seed` | `dotnet run --project ./server/{Project}.DbCli -- "Dev" | Seed the dev database using the `DbCli` server project. The seeding logic is executed in `server/{Project}.DbCli/Program.cs`, which initializes services and calls their `Seed` method.
 `npm run start-server` | `dotnet run --project ./server/{Project}.Web` | Starts the .NET server for the workspace
 `npm run update-db` | `dotnet ef database update -s ./server/{Project}.Web` | Apply the latest EF migrations to the database
 `npm run start-docs` | `ng serve docs` | Starts the Angular documentation project built into the workspace
