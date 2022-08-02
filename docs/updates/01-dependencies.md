@@ -10,6 +10,7 @@ Dependency updates are packaged into the following directory structure:
     * [editor](#editor)
   * [icons](#icons)
   * [platform](./02-platform.md)
+  * [server](#server)
   * [user](#user)
 
 All links below route to the relevant resource.
@@ -20,17 +21,22 @@ Be sure to maintain the list of resources, as well as the **Last Version** of an
 
 App | Last Version
 ----|-------------
-[7-Zip](https://www.7-zip.org/) | 22.00
+[7-Zip](https://www.7-zip.org/) | 22.01
+[dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 6.0.302
+[Git](https://git-scm.com) | 2.37.1
+[Node.js LTS](https://nodejs.org/en/) | 16.16.0
+[PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.2.5
+[Visual Studio Code](https://code.visualstudio.com/) | 1.69.2
+
+## server
+
+App | Last Version
+----|-------------
 [Azure DevOps IIS Deployment Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscs-rm.iiswebapp) | 1.5.9
-[Azure DevOps Pipelines Agent](https://github.com/microsoft/azure-pipelines-agent) | 2.204.0
-[dotnet hosting](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) | 6.0.6
-[dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 6.0.301
-[Git](https://git-scm.com) | 2.37.0
+[Azure DevOps Pipelines Agent](https://github.com/microsoft/azure-pipelines-agent) | 2.206.1
+[dotnet hosting](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) | 6.0.7
 [IIS CORS Module](https://www.iis.net/downloads/microsoft/iis-cors-module) | 1.0
 [IIS URL Rewrite Module](https://www.iis.net/downloads/microsoft/url-rewrite) | 2.1
-[Node.js LTS](https://nodejs.org/en/) | 16.15.1
-[PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.2.5
-[Visual Studio Code](https://code.visualstudio.com/) | 1.68.1
 
 **Peripherals**
 
@@ -51,75 +57,6 @@ Extension | Version
 [SVG](https://marketplace.visualstudio.com/items?itemName=jock.svg) | 1.4.18
 [Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer) | 2.9.1
 [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) | 1.16.5
-
-### editor
-
-Extension | Category | Version
-----------|----------|--------
 [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) | Icons | 4.18.1
 [Material Product Icons](https://marketplace.visualstudio.com/items?itemName=PKief.material-product-icons) | Product Icons | 1.3.0
 [GitHub Theme](https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme) | Theme | 6.0.0
-
-## icons
-
-Navigate to the links below to access the latest hosted CSS files for the icon font. Navigate to the `.woff2` URL in the `@font-face src` rule to download the latest icon font file.
-
-* [Material Icons](https://fonts.googleapis.com/icon?family=Material+Icons)
-* [Material Icons Outlined](https://fonts.googleapis.com/icon?family=Material+Icons+Outlined)
-
-## user
-
-1. Clean the global npm cache:
-
-    ```bash
-    npm cache clean --force
-    ```
-
-2. Cache global npm libraries
-
-    ```bash
-    # Check currently installed versions
-    npm list -g --depth 0
-
-    # Install the latest versions
-    npm i -g @angular-devkit/schematics-cli @angular/cli npm-check-updates npm
-
-    # Check where the dependencies are installed
-    npm root -g
-    ```
-
-3. Cache global dotnet-ef tool
-
-    ```bash
-    # Check currently installed version
-    dotnet tool list --global
-
-    # Install the latest version
-    dotnet tool update --global dotnet-ef
-    ```
-
-4. Ensure the latest **C#** Visual Studio Code extension has been installed and you have opened a C# project. This will ensure the local extensions folder is updated with all of the necessary downloaded resources.
-
-5. Copy the contents of `$env:userprofile\.dotnet\tools` to `user\.dotnet\tools`.
-
-    **example**  
-
-    ```PowerShell
-    Copy-Item $env:userprofile\.dotnet\tools $env:userprofile\desktop\export\environment\2022-05-20\user\.dotnet\tools -Recurse
-    ```
-
-6. Copy the contents of `$env:userprofile\.vscode\extensions\ms-dotnettools.csharp-{version}` to `user\.vscode\extensions\ms-dotnettools.csharp-{version}`.
-
-    **example**  
-  
-    ```PowerShell
-    Copy-Item $env:userprofile\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 $env:userprofile\desktop\export\environment\2022-05-20\user\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 -Recurse
-    ```
-
-7. Copy the contents of `$env:appdata\npm` to `user\AppData\Roaming\npm`.
-
-    **example**  
-
-    ```PowerShell
-    Copy-Item $env:appdata\npm $env:userprofile\desktop\export\environment\2022-05-20\user\AppData\Roaming\npm -Recurse
-    ```
