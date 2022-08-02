@@ -48,15 +48,15 @@ App | Last Version
 
 Extension | Version
 ----------|---------
-[Angular Language Service](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template) | 14.0.1
+[Angular Language Service](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template) | 14.1.0
 [Color Info](https://marketplace.visualstudio.com/items?itemName=bierner.color-info) | 0.7.0
 [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) | 1.25.0
 [editorconfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) | 0.16.4
-[PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell) | 2022.6.1
+[PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell) | 2022.7.2
 [SCSS Formatter](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter) | 2.4.3
-[SVG](https://marketplace.visualstudio.com/items?itemName=jock.svg) | 1.4.18
+[SVG](https://marketplace.visualstudio.com/items?itemName=jock.svg) | 1.4.19
 [Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer) | 2.9.1
-[Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) | 1.16.5
-[Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) | Icons | 4.18.1
-[Material Product Icons](https://marketplace.visualstudio.com/items?itemName=PKief.material-product-icons) | Product Icons | 1.3.0
-[GitHub Theme](https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme) | Theme | 6.0.0
+[Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) | 1.17.1
+[Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) | 4.19.0
+[Material Product Icons](https://marketplace.visualstudio.com/items?itemName=PKief.material-product-icons) | 1.3.0
+[GitHub Theme](https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme) | Theme | 6.3.2
