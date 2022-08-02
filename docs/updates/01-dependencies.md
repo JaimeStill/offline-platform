@@ -8,10 +8,10 @@ Dependency updates are packaged into the following directory structure:
   * [apps](#apps)
   * [code-extensions](#code-extensions)
     * [editor](#editor)
-  * [icons](#icons)
+  * [icons](./02-platform.md#icons)
   * [platform](./02-platform.md)
   * [server](#server)
-  * [user](#user)
+  * [user](./02-platform.md#user)
 
 All links below route to the relevant resource.
 
