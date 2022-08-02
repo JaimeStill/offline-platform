@@ -4,6 +4,74 @@ This document outlines the process of updating the dependencies and source files
 
 While this repository is maintained on GitHub, transferring all of the source files to an environment with no internet connection each time there are updates can be a little bit wasteful. This process aims to minimize that waste and only provide a diff of the files that were changed between updates.
 
+## Preliminary Tasks
+
+The following tasks are required to update cached dev environment dependencies. They are stored in the *icons* and *user* folders of the update directory.
+
+### icons
+
+Navigate to the links below to access the latest hosted CSS files for the icon font. Navigate to the `.woff2` URL in the `@font-face src` rule to download the latest icon font file.
+
+* [Material Icons](https://fonts.googleapis.com/icon?family=Material+Icons)
+* [Material Icons Outlined](https://fonts.googleapis.com/icon?family=Material+Icons+Outlined)
+
+### user
+
+1. Clean the global npm cache:
+
+    ```bash
+    npm cache clean --force
+    ```
+
+2. Cache global npm libraries
+
+    ```bash
+    # Check currently installed versions
+    npm list -g --depth 0
+
+    # Install the latest versions
+    npm i -g @angular-devkit/schematics-cli @angular/cli npm-check-updates npm
+
+    # Check where the dependencies are installed
+    npm root -g
+    ```
+
+3. Cache global dotnet-ef tool
+
+    ```bash
+    # Check currently installed version
+    dotnet tool list --global
+
+    # Install the latest version
+    dotnet tool update --global dotnet-ef
+    ```
+
+4. Ensure the latest **C#** Visual Studio Code extension has been installed and you have opened a C# project. This will ensure the local extensions folder is updated with all of the necessary downloaded resources.
+
+5. Copy the contents of `$env:userprofile\.dotnet\tools` to `user\.dotnet\tools`.
+
+    **example**  
+
+    ```PowerShell
+    Copy-Item $env:userprofile\.dotnet\tools $env:userprofile\desktop\export\environment\2022-05-20\user\.dotnet\tools -Recurse
+    ```
+
+6. Copy the contents of `$env:userprofile\.vscode\extensions\ms-dotnettools.csharp-{version}` to `user\.vscode\extensions\ms-dotnettools.csharp-{version}`.
+
+    **example**  
+  
+    ```PowerShell
+    Copy-Item $env:userprofile\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 $env:userprofile\desktop\export\environment\2022-05-20\user\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 -Recurse
+    ```
+
+7. Copy the contents of `$env:appdata\npm` to `user\AppData\Roaming\npm`.
+
+    **example**  
+
+    ```PowerShell
+    Copy-Item $env:appdata\npm $env:userprofile\desktop\export\environment\2022-05-20\user\AppData\Roaming\npm -Recurse
+    ```
+
 ## Changelog
 
 While going through the update process, whenever changes are made, they should be captured in a changelog that is stored at the root of the platform folder. The following is a sample changelog to illustrate the proper format:
