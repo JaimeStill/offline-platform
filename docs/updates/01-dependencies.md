@@ -59,4 +59,4 @@ Extension | Version
 [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) | 1.17.1
 [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) | 4.19.0
 [Material Product Icons](https://marketplace.visualstudio.com/items?itemName=PKief.material-product-icons) | 1.3.0
-[GitHub Theme](https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme) | Theme | 6.3.2
+[GitHub Theme](https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme) | 6.3.2
