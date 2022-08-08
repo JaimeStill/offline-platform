@@ -35,9 +35,10 @@ import { addPackageJsonScript } from '../dependencies';
 import { Schema } from './schema';
 import { spacify } from '../spacify';
 
-function updatePackageJson(options: Schema) {
+function updatePackageJson(options: Schema, appDir: string) {
   return (host: Tree, context: SchematicContext) => {
-    addPackageJsonScript(host, `start-${options.name}`, `ng serve ${options.name} --configuration development`);
+    addPackageJsonScript(host, `e2e-run-${strings.dasherize(options.name)}`, `cypress run --project ${appDir}`);
+    addPackageJsonScript(host, `start-${strings.dasherize(options.name)}`, `ng serve ${options.name} --configuration development`);
 
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask({ packageManager: 'npm' }));
@@ -197,7 +198,7 @@ export default function (options: Schema): Rule {
           move(appDir)
         ]), MergeStrategy.Overwrite
       ),
-      updatePackageJson(options)
+      updatePackageJson(options, appDir)
     ]);
   };
 }

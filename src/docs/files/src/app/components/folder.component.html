@@ -5,7 +5,8 @@
               fontSet="far"
               fontIcon="fa-folder"
               [style.height.px]="12"
-              [style.width.px]="20"></mat-icon>
+              [style.width.px]="20"
+			  [style.line-height.em]="1"></mat-icon>
     <span *ngIf="showSelf"
           class="cursor-pointer mat-body-strong color primary"
           (click)="folderSelected.emit(folder)">{{root ? root : folder.name}}</span>

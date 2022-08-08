@@ -1,0 +1,7 @@
+{
+    "name": "Core",
+    "template": "classlib",
+    "dependencies": [
+        "Microsoft.Data.SqlClient@2.1.4"
+    ]
+}

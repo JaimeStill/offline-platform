@@ -4,18 +4,9 @@ This document outlines the process of updating the dependencies and source files
 
 While this repository is maintained on GitHub, transferring all of the source files to an environment with no internet connection each time there are updates can be a little bit wasteful. This process aims to minimize that waste and only provide a diff of the files that were changed between updates.
 
-## Preliminary Tasks
+## user
 
-The following tasks are required to update cached dev environment dependencies. They are stored in the *icons* and *user* folders of the update directory.
-
-### icons
-
-Navigate to the links below to access the latest hosted CSS files for the icon font. Navigate to the `.woff2` URL in the `@font-face src` rule to download the latest icon font file.
-
-* [Material Icons](https://fonts.googleapis.com/icon?family=Material+Icons)
-* [Material Icons Outlined](https://fonts.googleapis.com/icon?family=Material+Icons+Outlined)
-
-### user
+The following tasks are intended to build out the `user` update directory with cached dependency resources.
 
 1. Clean the global npm cache:
 
@@ -30,13 +21,26 @@ Navigate to the links below to access the latest hosted CSS files for the icon f
     npm list -g --depth 0
 
     # Install the latest versions
-    npm i -g @angular-devkit/schematics-cli @angular/cli npm-check-updates npm
+    npm i -g @angular-devkit/schematics-cli @angular/cli npm-check-updates npm cypress
 
     # Check where the dependencies are installed
     npm root -g
     ```
 
-3. Cache global dotnet-ef tool
+3. Cache global cypress binaries
+
+	```bash
+	# Check currently installed version
+	cypress version
+
+	# Install binaries
+	cypress install
+
+	# Prune binary cache
+	cypress cache prune
+	```
+
+4. Cache global dotnet-ef tool
 
     ```bash
     # Check currently installed version
@@ -46,205 +50,54 @@ Navigate to the links below to access the latest hosted CSS files for the icon f
     dotnet tool update --global dotnet-ef
     ```
 
-4. Ensure the latest **C#** Visual Studio Code extension has been installed and you have opened a C# project. This will ensure the local extensions folder is updated with all of the necessary downloaded resources.
-
-5. Copy the contents of `$env:userprofile\.dotnet\tools` to `user\.dotnet\tools`.
-
-    **example**  
-
-    ```PowerShell
-    Copy-Item $env:userprofile\.dotnet\tools $env:userprofile\desktop\export\environment\2022-05-20\user\.dotnet\tools -Recurse
-    ```
+5. Ensure the latest **C#** Visual Studio Code extension has been installed and you have opened a C# project. This will ensure the local extensions folder is updated with all of the necessary downloaded resources.
 
 6. Copy the contents of `$env:userprofile\.vscode\extensions\ms-dotnettools.csharp-{version}` to `user\.vscode\extensions\ms-dotnettools.csharp-{version}`.
 
     **example**  
   
     ```PowerShell
-    Copy-Item $env:userprofile\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 $env:userprofile\desktop\export\environment\2022-05-20\user\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 -Recurse
+    Copy-Item $env:userprofile\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 .\user\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64 -Recurse
     ```
 
-7. Copy the contents of `$env:appdata\npm` to `user\AppData\Roaming\npm`.
+7. Copy the contents of `$env:userprofile\.dotnet\tools` to `user\.dotnet\tools`.
 
     **example**  
 
     ```PowerShell
-    Copy-Item $env:appdata\npm $env:userprofile\desktop\export\environment\2022-05-20\user\AppData\Roaming\npm -Recurse
+    Copy-Item $env:userprofile\.dotnet\tools .\user\.dotnet\tools -Recurse
     ```
 
-## Changelog
+8. Copy the contents of `$env:appdata\npm` to `user\AppData\Roaming\npm`.
 
-While going through the update process, whenever changes are made, they should be captured in a changelog that is stored at the root of the platform folder. The following is a sample changelog to illustrate the proper format:
+    **example**  
 
-*platform/changelog.txt*  
+    ```PowerShell
+    Copy-Item $env:appdata\npm .\user\AppData\Roaming\npm -Recurse
+    ```
 
-```txt
-/
-  add docs/
-  add node_cache/
-  add .npmrc
-  add package-lock.json
+9. Copy the contents of `$env:localappdata\Cypress\` to `user\AppData\Local\Cypress\`.
 
-  mod .editorconfig
-  mod .gitignore
-  mod package.json
-  mod readme.md
-  mod update-deps.cmd
+	**example**
 
-  mov environment/ -> docs/
-  mov notes.md -> docs/
+	```PowerShell
+	Copy-Item $env:localappdata\Cypress\  .\user\AppData\Local\Cypress\ -Recurse
+	```
 
-  rem offline-cache/
-  rem .yarnrc
-  rem yarn.lock
+## icons
 
-/docs/
-  mod notes.md
+Navigate to the links below to access the latest hosted CSS files for the icon font. Navigate to the `.woff2` URL in the `@font-face src` rule to download the latest icon font file to the [fonts](../../src/workspace/files/assets/fonts/) directory in the schematic repository.
 
-/src/app/
-  mod index.ts
+* [Material Icons](https://fonts.googleapis.com/icon?family=Material+Icons)
+* [Material Icons Outlined](https://fonts.googleapis.com/icon?family=Material+Icons+Outlined)
 
-/src/workspace/files/
-  update add node_cache/
-  update add .npmrc
-  update add package-lock.json
+Add the following to the changelog:
 
-  update mod .editorconfig
-  update mod package.json
-  update mod readme.md
-  update mod update-deps.cmd
-
-  update rem .yarnrc
-  update rem clean-cache.cmd
-  update rem offline-cache
-  update rem yarn.lock
 ```
-
-From top to bottom (starting with the directory root), changes should be captured based on the directory the changes occurred in. The directories are organized hierarchically as they appear in the VS Code Explorer (or any other IDE directory tree). Indented below each directory are the sub-directories and files that have been affected All directories are post-fixed with a trailing `/` to differentiate them from files.
-
-Each of the actions are listed in order of the action taken, with each action group organized with affected directories listed alphabetically, followed by files listed alphabetically. Actions, in organizational order, are:
-
-* add - contents were added.
-* mod - contents were modified.
-* mov - contents were moved.
-  * in the format of *source content* -> *destination directory*
-* rem - contents were removed.
-
-If an action is prefixed with `update`, it means that it was applied within the monorepo project generated during the [**Update Setup**](#update-setup) phase below. Any of these updates should be applied to the schematics project during the [**Integrate Changes**](#integrate-changes) phase.
-
-If an entire directory was removed, it is assumed that all of its contents were also removed so you do not need to specify the changes within the affected directory as well.
-
-**example**
-
-```txt
-/
-  rem offline-cache
+/src/workspace/files/assets/fonts/
+    mod material-icons-outline.woff2
+    mod material-icons.woff2
 ```
-
-If an existing directory or file was moved to another directory and then modified, capture any relevant changes under the directory that it now exists in.
-
-**example**  
-
-```txt
-/
-  add docs
-
-  mov environment -> docs
-  mov notes.md -> docs
-
-/docs/
-  mod notes.md
-```
-
-If a directory was added, only capture changes within that directory if it would affect a previously existing directory or file that was moved into the new directory. 
-
-In the above example, note that the `/docs` directory was added. Within the `/docs` directory, an `updates` directory was added (in which this document exists), as well as a `readme.md` file. The only change listed in the `/docs` section is the modification of the `notes.md` file that previously existed and was moved to `/docs`.
-
-Updates to the project files generated by the schematics as a result of dependency updates will only affect two schematics:
-
-* `/src/server/files`
-* `/src/workspace/files`
-
-When updating the dependencies for the project files in the [**Dependency Updates**](#dependency-updates) step below, be sure to capture the affected files in the changelog relative to the files they represent in the schematic. For instance:
-
-Changes to `/update/package.json` would trigger the following changelog entry:
-
-```text
-/src/workspace/files
-  mod package.json
-```
-
-Changes to `/update/server/Update.Web/Update.Web.csproj` would trigger the following changelog entry:
-
-```text
-/src/server/files/__name@classify__.Web
-  mod __name@classify__.Web.csproj
-```
-
-When the update process has completed, this changelog will be the blueprint for the file hierarchy needed within the `platform` updates directory. Additionally, it will inform you of the modifications that need to be made to the internal platform repository, as well as any projects built with this project.
-
-### Server Dependency Graph
-
-To easily capture .NET projects with updated NuGet package dependencies, it's helpful to keep track of the dependencies and the dependent projects in a standardized way. At the bottom of the changelog, NuGet package dependencies should be laid out in the following format, along with the .NET projects that depend on them. This way, we can identify the project files that need to be annotated on the changelog.
-
-```text
-# Existing Package with Updated Version
-NuGetPackage - CurrentVersion -> UpdatedVersion :
-* Dependent .csproj
-
-# Existing Package with No Update
-NuGetPacakge - CurrentVersion :
-* Dependent .csproj
-
-# Newly Installed Package
-NuGetPackage - new -> Version :
-* Dependent .csproj
-```
-
-**Example**  
-
-```txt
-.NET - 6.0.0 :
-Microsoft.Extensions...
-System.DirectoryServices...
-* Update.Identity.csproj
-
-Automapper - new -> 11.0.1 :
-* Update.Web.csproj
-
-DocumentFormat.OpenXml - 2.16.0 :
-* Update.Office.csproj
-
-EF Core - 6.0.3 -> 6.0.5 :
-* dbseeder.csproj
-* Update.Auth.csproj
-* Update.Core.csproj
-* Update.Data.csproj
-
-Microsoft.AspNetCore.Mvc.NetwonsoftJson - 6.0.3 -> 6.0.5 :
-* Update.Web.csproj
-
-Microsoft.AspNetCore.OData - 8.0.8 -> 8.0.10 :
-* Update.Web.csproj
-
-Microsoft.Data.SqlClient - 4.1.0 :
-* Update.Sql.csproj
-
-Newtonsoft.Json - 13.0.1 :
-* Update.Core.csproj
-* Update.Data.csproj
-* Update.Sql.csproj
-
-Swashbuckle.AspNetCore - 6.1.0 :
-* Update.Web.csproj
-
-System.Linq.Dynamic.Core - new -> 1.2.18 :
-* Update.Web.csproj
-```
-
-The **.NET** dependency in the example above captures several libraries that stay in sync with the version of .NET.
-
-The **EF Core** dependency in the example above represents all NuGet packages that fall under the `Microsoft.EntityFrameworkCore` library.
 
 ## Schematics Updates
 
@@ -286,7 +139,7 @@ If at any point during the build phases any errors are encountered, perform any 
 
 ### Preparation
 
-To ensure that there aren't any cached artifacts whenever the `nuget-packages` directory is built or whenever you're trying to test out installing dependencies offline from the cache, there is a PowerShell function I've written to clean up build artifacts.
+To ensure that there aren't any cached artifacts whenever you're trying to test out installing dependencies offline from the cache, there is a PowerShell function I've written to clean up build artifacts.
 
 At `$env:userprofile\Documents\PowerShell\Modules\Remove-BuildArtifacts`, create a file called `Remove-BuildArtifacts.psm1` and give it the following contents:
 
@@ -310,21 +163,36 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 
 ### Server
 
-1. Delete the `nuget-packages` directory.
-2. If any additional NuGet packages are required, add them to `/server/update-deps.cmd`.
+1. If any additional NuGet packages are required, add them to `/server/update-deps.cmd` as well as [.package-cache\solution.json](../../.package-cache\solution.json).
     * Annotate in changelog if modified.
-3. Build out the [Server Dependency Graph](#server-dependency-graph) at the bottom of the changelog.
-4. Change directory to `/server` in a terminal.
-5. Execute the `clean-nuget.cmd` script.
-6. Execute the `Remove-BuildArtifacts` PowerShell function.
-7. Execute the `update-deps.cmd` script.
-8. Capture the results of the update in the changelog either by checking the contents of the script output, or checking the updated versions in the .NET project `.csproj` files.
-9. Disable the internet connection on your computer.
-10. Execute the `Remove-BuildArtifacts` PowerShell function.
-11. Change directory back to the project root (`cd ../`).
-12. Execute `npm run restore` to ensure that the cache built correctly.
-13. Execute `npm run start-server` and navigate to http://localhost:5000/swagger to ensure the server is working properly.
-14. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
+2. Change directory to `/server` in a terminal.
+3. Execute the `clean-nuget.cmd` script.
+4. Execute the `Remove-BuildArtifacts` PowerShell function.
+5. Execute the `update-deps.cmd` script.
+6. Capture the results of the update in the changelog either by checking the contents of the script output, or checking the updated versions in the .NET project `.csproj` files.
+7. Create a local `nuget-packages` directory to be used as a local nuget package source.
+8. Add the directory as a package source:
+    ```PowerShell
+    # Example
+    dotnet nuget add source "G:\nuget-packages" -n "Local Source"
+    ```
+9. Disable the `nuget.org` package source:
+    ```PowerShell
+    dotnet nuget disable source nuget.org
+    ```
+10. Run the [Build-PackageCache.ps1](../../.package-cache/Build-PackageCache.ps1) script, pointed to your local NuGet source, to capture the latest dependencies locally:
+    ```PowerShell
+    Build-PackageCache -Cache "G:\nuget-packages"
+    ```
+11. Disable the internet connection on your computer.
+12. Execute the `Remove-BuildArtifacts` PowerShell function.
+13. Change directory back to the project root (`cd ../`).
+14. Execute `npm run restore` to ensure that the cache built correctly.
+15. Execute `npm run start-server` and navigate to http://localhost:5000/swagger to ensure the server is working properly.
+16. End the server process with <kbd>Ctrl + C</kbd>, turn your internet connection back on, and re-enable the `nuget.org` package source:
+    ```PowerShell
+    dotnet nuget enable source nuget.org
+    ```
 
 ### Client
 
@@ -334,21 +202,26 @@ This will allow you to globally call the `Remove-BuildArtifacts` function in Pow
 3. Run `ncu -u` then `npm i`.
     * Run `npm i --force` if there are any peer dependency conflicts.
 4. Update the `package.json` dependencies in `/client/core/` to reflect the versions updated in the root `package.json`.
-5. Replace the Material Icons located at [/src/workspace/files/assets/fonts/](../../src/workspace/files/assets/fonts/) with the versions captured in [01-dependencies - icons](./01-dependencies.md#icons).
-6. Delete the `node_modules` directory and disable the internet connection on your computer.
-7. Execute the `Remove-BuildArtifacts` PowerShell function.
-8. Execute `npm i --offline`.
-9. Execute `npm run build` to ensure the `core` Angular library still builds properly.
-10. Execute `npm run start-server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
+5. Delete the `node_modules` directory, disable the internet connection on your computer, and disable the `nuget.org` package source:
+    ```PowerShell
+    dotnet nuget disable source nuget.org
+    ```
+6. Execute the `Remove-BuildArtifacts` PowerShell function.
+7. Execute `npm i --offline`.
+8. Execute `npm run build` to ensure the `core` Angular library still builds properly.
+9. Execute `npm run start-server` in one terminal. Open a second terminal with <kbd>Ctrl + Shift + 5</kbd> and perform the following tasks:
     1. Execute `npm run start-update` and navigate to http://localhost:3000 to ensure the `update` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
     2. Execute `npm run start-docs` and navigate to http://localhost:4000 to ensure the `docs` Angular app is working properly. End the process with <kbd>Ctrl + C</kbd>.
-11. End the server process with <kbd>Ctrl + C</kbd> and turn your internet connection back on.
-12. Annotate the following changes in the changelog:
+10. End the server process with <kbd>Ctrl + C</kbd>, turn your internet connection back on, and re-enable the `nuget.org` package source:
+    ```PowerShell
+    dotnet nuget enable source nuget.org
+    ```
+11. Annotate the following changes in the changelog:
     * /src/workspace/files/
         * update add node_cache/
         * update add package-lock.json
         * update mod package.json
-    * /src/workspace/files/client/library/package.json/
+    * /src/workspace/files/client/library/
         * update mod package.json
 
 ## Issues
@@ -359,12 +232,7 @@ These updates should be applied within the generated `update` monorepo project s
 
 ## Integrate Changes
 
-In this step, essentially, any actions in the changelog prefixed with the term `update` were applied to the generated project and now need to be applied to the schematics files. You can annotate a `*` on each action as you integrate the change to keep track of your progress, i.e.:
-
-```txt
-/src/server/files/
-  * update mod nuget-packages/
-```
+In this step, essentially, any actions in the changelog prefixed with the term `update` were applied to the generated project and now need to be applied to the schematics files. You can remove the `update` prefix as the changes are applied.
 
 This step is not as straightforward as you might believe. The schematics files use a special [Templating](https://github.com/angular/angular-cli/blob/main/packages/angular_devkit/schematics/README.md#templating) syntax to insert dynamic value names in both the contents of the file, as well as the file name within the file system.
 
@@ -382,44 +250,44 @@ The following is an example of the resulting changelog entries from the updates 
 
 ```txt
 /src/server/files/
-  update mod nuget-packages/
-  update mod update-deps.cmd
+  mod nuget-packages/
+  mod update-deps.cmd
 
 /src/server/files/.Auth/
-  update mod .Auth.csproj
+  mod .Auth.csproj
 
 /src/server/files/.Core/
-  update mod .Core.csproj
+  mod .Core.csproj
 
 /src/server/files/.Data/
-  update mod .Data.csproj
+  mod .Data.csproj
 
 /src/server/files/.Web/
-  update mod .Web.csproj
+  mod .Web.csproj
 
 /src/server/files/dbseeder/
-  update mod dbseeder.csproj
+  mod dbseeder.csproj
 
 /src/workspace/files/
-  update add node_cache/
-  update add .npmrc
-  update add package-lock.json
+  add node_cache/
+  add .npmrc
+  add package-lock.json
 
-  update mod .editorconfig
-  update mod package.json
-  update mod readme.md
-  update mod update-deps.cmd
+  mod .editorconfig
+  mod package.json
+  mod readme.md
+  mod update-deps.cmd
 
-  update rem .yarnrc
-  update rem clean-cache.cmd
-  update rem offline-cache
-  update rem yarn.lock
+  rem .yarnrc
+  rem clean-cache.cmd
+  rem offline-cache
+  rem yarn.lock
 
 /src/workspace/files/client/library/
-  * update mod package.json
+  mod package.json
 
 /src/workspace/files/theme/
-  update mod layout.scss
+  mod layout.scss
 ```
 
 At this point, the `update` monorepo project can be deleted.
@@ -428,30 +296,43 @@ At this point, the `update` monorepo project can be deleted.
 
 The following steps are necessary for validating that the updated schematics project can generate the monorepo, install its dependencies, and build each project successfully in an environment without an internet connection.
 
-1. Turn off your internet connection.
-2. Delete the `node_modules` directory from the root of the schematics project.
-3. Open a terminal and change directory to a location outside of the `offline-platform` project (in this case, `$env:home`).
+1. Delete the `node_modules` directory from the root of the schematics project, disable the internet connection on your computer, and disable the `nuget.org` package source:
+    ```PowerShell
+    dotnet nuget disable source nuget.org
+    ```
+2. Open a terminal and change directory to a location outside of the `offline-platform` project (in this case, `$env:home`).
     * This is important to prevent the following command from clearing the contents of the `node_cache` directories.
-4. Run `npm cache clear --force`.
-5. Navigate back to the root of `offline-platform` and run `npm i --offline`.
-6. Run `npm run build`.
-7. Execute the following to generate a test project:
+3. Run `npm cache clear --force`.
+4. Navigate back to the root of `offline-platform` and run `npm i --offline`.
+5. Run `npm run build`.
+6. Execute the following to generate a test project:
 
     ```bash
     schematics .:platform test --server-name=Test --debug=false --skip-git --skip-install
     ```
 
-8. Change directory into `test` and run `npm i --offline`.
-9. Change directory into `test/server` and run `clean-nuget.cmd`.
-10. Change directory back to the root of `test` and run `npm run restore`.
-11. Run `npm run watch-server`. Navigate to http://localhost:5000/swagger to test.
-12. In a new terminal (<kbd>Ctrl + Shift + 5</kbd> in VS Code), change directory to `test` and run `npm run watch` to test the `core` Angular library.
-13. In a new terminal, change directory to `test` and run `npm run start-docs`. Navigate to http://localhost:4000 to test the `docs` Angular app.
-14. In a new terminal, change directory to `test` and run `npm run start-test`. Navigate to http://localhost:3000 to test the `test` Angular app.
+7. Change directory into `test` and run `npm i --offline`.
+8. Change directory into `test/server` and run `clean-nuget.cmd`.
+9. Change directory back to the root of `test` and run `npm run restore`.
+10. Run `npm run watch-server`. Navigate to http://localhost:5000/swagger to test.
+11. In a new terminal (<kbd>Ctrl + Shift + 5</kbd> in VS Code), change directory to `test` and run `npm run watch` to test the `core` Angular library.
+12. In a new terminal, change directory to `test` and run `npm run start-docs`. Navigate to http://localhost:4000 to test the `docs` Angular app.
+13. In a new terminal, change directory to `test` and run `npm run start-test`. Navigate to http://localhost:3000 to test the `test` Angular app.
+14. In a new terminal, change directory to `test` and run:
+    1. `npm run e2e-run-docs` and ensure the tests succeed.
+    2. `npm run e2e-run-test` and ensure the tests succeed.
+    3. `npm run e2e-merge` and ensure `report/report.json` was generated.
+    4. `npm run e2e-generate` and ensure `report/report.html` was generated.
 
 If there are issues during testing, be sure to fix them not just in the `test` project, but in the `offline-platform` schematics project. Also ensure that any additional changes are captured in the changelog.
 
-If everything generates, installs, builds, and starts successfully, the update is successful. The `test` project can be deleted and you can move on to the next and final step. the `platform` update directory can be configured with the diff specified by the changelog. This process is detailed in the next section.
+If everything generates, installs, builds, and starts successfully, the update is successful. End all running terminal processes with <kbd>Ctrl + C</kbd>, turn your internet connection back on, and re-enable the `nuget.org` package source:
+
+```PowerShell
+dotnet nuget enable source nuget.org
+```
+    
+The `test` project can be deleted and you can move on to building out the `platform` update directory in the final step that follows.
 
 ## Build Update Directory
 

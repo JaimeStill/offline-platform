@@ -34,9 +34,11 @@ import { relativePathToWorkspaceRoot } from '@schematics/angular/utility/paths';
 import { addPackageJsonScript } from '../dependencies';
 
 import { Schema } from './schema';
+import { spacify } from '../spacify';
 
-function updatePackageJson(options: Schema) {
+function updatePackageJson(options: Schema, appDir: string) {
   return (host: Tree, context: SchematicContext) => {
+    addPackageJsonScript(host, `e2e-run-${strings.dasherize(options.name)}`, `cypress run --project ${appDir}`);
     addPackageJsonScript(host, `start-${options.name}`, `ng serve ${options.name} --configuration development`);
 
     if (!options.skipInstall) {
@@ -96,6 +98,9 @@ function addAppToWorkspaceFile(options: Schema, appDir: string): Rule {
       build: {
         builder: Builders.Browser,
         options: {
+          "allowedCommonJsDependencies": [
+            "prismjs"
+          ],
           outputPath: `dist/${options.name}`,
           index: `${sourceRoot}/index.html`,
           main: `${sourceRoot}/main.ts`,
@@ -191,13 +196,14 @@ export default function (options: Schema): Rule {
           template({
             ...strings,
             ...options,
+            spacify,
             relativePathToWorkspaceRoot: relativePathToWorkspaceRoot(appDir),
             appName: options.name
           }),
           move(appDir)
         ]), MergeStrategy.Overwrite
       ),
-      updatePackageJson(options)
+      updatePackageJson(options, appDir)
     ]);
   };
 }
