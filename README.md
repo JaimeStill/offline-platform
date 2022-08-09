@@ -35,7 +35,10 @@
 npm list -g --depth 0
 
 # install the latest versions
-npm i -g @angular-devkit/schematics-cli @angular/cli
+npm i -g @angular-devkit/schematics-cli @angular/cli cypress
+
+# install cypress binaries
+cypress install
 
 # verify if dotnet-ef tool is installed
 dotnet tool list --global
