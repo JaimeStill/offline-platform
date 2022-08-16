@@ -23,7 +23,7 @@ App | Last Version
 ----|-------------
 [7-Zip](https://www.7-zip.org/) | 22.01
 [dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 6.0.400
-[Git](https://git-scm.com) | 2.37.2.2
+[Git](https://git-scm.com) | 2.37.2
 [iCUE](https://www.corsair.com/us/en/downloads) | 4.26.110
 [Node.js LTS](https://nodejs.org/en/) | 16.16.0
 [PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.2.6
