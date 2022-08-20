@@ -7,7 +7,6 @@ Dependency updates are packaged into the following directory structure:
 * `{yyyy}-{mm}-{dd}`
   * [apps](#apps)
   * [code-extensions](#code-extensions)
-    * [editor](#editor)
   * [icons](./02-platform.md#icons)
   * [platform](./02-platform.md)
   * [server](#server)
