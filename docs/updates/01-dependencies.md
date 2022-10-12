@@ -21,12 +21,12 @@ Be sure to maintain the list of resources, as well as the **Last Version** of an
 App | Last Version
 ----|-------------
 [7-Zip](https://www.7-zip.org/) | 22.01
-[dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 6.0.400
-[Git](https://git-scm.com) | 2.37.3
-[iCUE](https://www.corsair.com/us/en/downloads) | 4.27.168
-[Node.js LTS](https://nodejs.org/en/) | 16.17.0
+[dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 6.0.401
+[Git](https://git-scm.com) | 2.38.0
+[iCUE](https://www.corsair.com/us/en/downloads) | 4.28.177
+[Node.js LTS](https://nodejs.org/en/) | 16.17.1
 [PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.2.6
-[Visual Studio Code](https://code.visualstudio.com/) | 1.71.1
+[Visual Studio Code](https://code.visualstudio.com/) | 1.72.0
 
 ## server
 
