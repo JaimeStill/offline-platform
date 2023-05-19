@@ -22,11 +22,11 @@ App | Last Version
 ----|-------------
 [7-Zip](https://www.7-zip.org/) | 22.01
 [dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 7.0.3
-[Git](https://git-scm.com) | 2.39.0.2
+[Git](https://git-scm.com) | 2.40.0.1
 [iCUE](https://www.corsair.com/us/en/downloads) | 4.33.138
-[Node.js LTS](https://nodejs.org/en/) | 18.15.0
-[PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.3.1
-[Visual Studio Code](https://code.visualstudio.com/) | 1.76.0
+[Node.js LTS](https://nodejs.org/en/) | 18.16.0
+[PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.3.4
+[Visual Studio Code](https://code.visualstudio.com/) | 1.78.2
 
 ## server
 
