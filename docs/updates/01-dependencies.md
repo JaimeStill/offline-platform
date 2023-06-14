@@ -7,7 +7,6 @@ Dependency updates are packaged into the following directory structure:
 * `{yyyy}-{mm}-{dd}`
   * [apps](#apps)
   * [code-extensions](#code-extensions)
-    * [editor](#editor)
   * [icons](./02-platform.md#icons)
   * [platform](./02-platform.md)
   * [server](#server)
@@ -22,12 +21,12 @@ Be sure to maintain the list of resources, as well as the **Last Version** of an
 App | Last Version
 ----|-------------
 [7-Zip](https://www.7-zip.org/) | 22.01
-[dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 6.0.302
-[Git](https://git-scm.com) | 2.37.1
-[iCUE](https://www.corsair.com/us/en/downloads) | 4.26.110
-[Node.js LTS](https://nodejs.org/en/) | 16.16.0
-[PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.2.5
-[Visual Studio Code](https://code.visualstudio.com/) | 1.70.0
+[dotnet sdk](https://dotnet.microsoft.com/en-us/download) | 7.0.3
+[Git](https://git-scm.com) | 2.40.0.1
+[iCUE](https://www.corsair.com/us/en/downloads) | 4.33.138
+[Node.js LTS](https://nodejs.org/en/) | 18.16.0
+[PowerShell Core](https://github.com/PowerShell/PowerShell) | 7.3.4
+[Visual Studio Code](https://code.visualstudio.com/) | 1.78.2
 
 ## server
 
