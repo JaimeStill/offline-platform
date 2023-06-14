@@ -5,6 +5,8 @@ param(
     [string]
     [Parameter()]
     $Source = "solution.json",
+    [Parameter()]
+    $Framework = "net7.0",
     [switch]
     [Parameter()]
     $KeepSolution,
@@ -22,7 +24,7 @@ if (Test-Path $sln) {
     Remove-Item $sln -Recurse -Force
 }
 
-Build-Solution $data $sln
+Build-Solution $data $sln $Framework
 
 if (-not $SkipClean) {
     & dotnet nuget locals all --clear

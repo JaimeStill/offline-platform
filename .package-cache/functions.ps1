@@ -10,10 +10,10 @@ function Add-ProjectDependency([psobject] $dependency, [string] $output) {
     }
 }
 
-function Build-Project([psobject] $project, [string] $sln) {
+function Build-Project([psobject] $project, [string] $sln, [string] $framework) {
     $output = Join-Path $sln $project.name
 
-    & dotnet new $project.template -o $output
+    & dotnet new $project.template -o $output -f $framework
     & dotnet sln $sln add $output
 
     $project.dependencies | ForEach-Object {
@@ -21,11 +21,11 @@ function Build-Project([psobject] $project, [string] $sln) {
     }
 }
 
-function Build-Solution([psobject] $data, [string] $sln) {
+function Build-Solution([psobject] $data, [string] $sln, [string] $framework) {
     & dotnet new sln -o $sln
 
     $data | ForEach-Object {
-        Build-Project $_ $sln
+        Build-Project $_ $sln $framework
     }
 }
 

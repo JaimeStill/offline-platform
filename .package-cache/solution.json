@@ -18,24 +18,12 @@
         ]
     },
     {
-        "name": "Test",
-        "template": "xunit",
-        "dependencies": [
-            "Coverlet.Collector",
-            "Microsoft.NET.Test.Sdk",
-            "xUnit",
-            "xUnit.Runner.VisualStudio"
-        ]
-    },
-    {
         "name": "Web",
         "template": "webapi",
         "dependencies": [
-            "Automapper",
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson",
             "Microsoft.AspNetCore.OData",
-            "Microsoft.Data.SqlClient@2.1.4",
-            "Serilog.AspNetCore",
+            "Microsoft.Data.SqlClient",
             "Swashbuckle.AspNetCore",
             "Swashbuckle.AspNetCore.Newtonsoft",
             "System.Linq.Dynamic.Core"
